@@ -81,3 +81,33 @@
       (is (= (p/parse gp "hsla(240,100%,50%,0.05)")
              (p/parse gp "hsla( 240 , 100% ,50% ,0.05 )")
              [:type [:color [:hsla [:integer "240"] [:percentage [:integer "100"] "%"] [:percentage [:integer "50"] "%"] [:float "0" "." "05"]]]]))))
+
+(deftest gradient-test
+  (testing "gradient linear"
+    (is (= (p/parse gp "-moz-linear-gradient(left,yellow,blue)")
+           (p/parse gp "-moz-linear-gradient( left, yellow, blue )")
+[:type [:image [:gradient [:linear-gradient [:linear-gradient-name "-moz-linear-gradient"] [:side-or-corner "left"] [:color-stop [:color [:color-keyword "yellow"]]] [:color-stop [:color [:color-keyword "blue"]]]]]]]))
+    (is (= (p/parse gp "linear-gradient(to right,red,yellow)")
+           (p/parse gp "linear-gradient( to   right, red , yellow )")
+           [:type [:image [:gradient [:linear-gradient [:linear-gradient-name "linear-gradient"] [:side-or-corner "right"] [:color-stop [:color [:color-keyword "red"]]] [:color-stop [:color [:color-keyword "yellow"]]]]]]])))
+  (testing "radial gradient"
+    (is (= (p/parse gp "radial-gradient(ellipse farthest-corner at 45px 45px , #00FFFF 0%, rgba(0, 0, 255, 0) 50%, #0000FF 95%)")
+           (p/parse gp "radial-gradient( ellipse farthest-corner at  45px  45px, #00FFFF 0% , rgba(0, 0, 255 , 0) 50%, #0000FF  95%)")
+           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "00FFFF"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "255"]] [:integer "0"]]] [:percentage [:integer "50"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "95"] "%"]]]]]]))
+    (is (= (p/parse gp "radial-gradient(ellipse farthest-corner at 470px 47px , #FFFF80 20%, rgba(204, 153, 153, 0.4) 30%, #E6E6FF 60%)")
+           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "470"] "px"] [:length [:integer "47"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FFFF80"]]] [:percentage [:integer "20"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "204"] [:integer "153"] [:integer "153"]] [:float "0" "." "4"]]] [:percentage [:integer "30"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "E6E6FF"]]] [:percentage [:integer "60"] "%"]]]]]]))
+    (is (= (p/parse gp "radial-gradient(farthest-corner at 45px 45px , #FF0000 0%, #0000FF 100%)")
+           (p/parse gp "radial-gradient(  farthest-corner at 45px 45px , #FF0000   0%  , #0000FF   100%)")
+           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FF0000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "100"] "%"]]]]]]))
+    (is (= (p/parse gp "radial-gradient(16px at 60px 50% , #000000 0%, #000000 14px, rgba(0, 0, 0, 0.3) 18px, rgba(0, 0, 0, 0) 19px)")
+           (p/parse gp "radial-gradient(16px at 60px 50% , #000000 0%, #000000 14px, rgba(0, 0, 0, 0.3) 18px, rgba(0, 0, 0, 0) 19px)")
+           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:length [:integer "16"] "px"] [:position [:length [:integer "60"] "px"] [:percentage [:integer "50"] "%"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:length [:integer "14"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:float "0" "." "3"]]] [:length [:integer "18"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:integer "0"]]] [:length [:integer "19"] "px"]]]]]]))))
+
+(deftest image-test
+  (testing "image"
+    (is (= (p/parse gp "url(test.jpg)")
+           [:type [:image [:url "test.jpg"]]]))
+    (is (= (p/parse gp "linear-gradient(to bottom, blue, red)")
+           [:type [:image [:gradient [:linear-gradient [:linear-gradient-name "linear-gradient"] [:side-or-corner "bottom"] [:color-stop [:color [:color-keyword "blue"]]] [:color-stop [:color [:color-keyword "red"]]]]]]]))
+    (is (= (p/parse gp "element(#colonne3)")
+           [:type [:image [:element "colonne3"]]]))))
