@@ -5,13 +5,13 @@ http://dev.w3.org/csswg/css-values-3/
 https://developer.mozilla.org/en-US/docs/Web/CSS
 
 All the primitive types from the reference in order:
-angle // fine and tested
+angle		  	// fine and tested
 basic-shape
 blend-mode
-color // fine and tested
+color			// fine and tested
 custom-ident
-gradient
-image
+gradient		// fine and tested
+image	 		// fine and tested
 integer
 lenght
 mq-boolean
@@ -27,7 +27,7 @@ timing-function
 uri
 *)
 
-type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length
+type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length | integer
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
@@ -57,22 +57,24 @@ direction-timing = 'start' | 'end'
 (* gradients  *)
 (* definitely not sure about the repeting-linear-gradient *)
 gradient = linear-gradient | radial-gradient | repeating-linear-gradient
-linear-gradient = linear-gradient-name <'('> ( (angle | (<'to '?> side-or-corner <' '>)) separator )? color-stop (separator color-stop)?  <')'>
+linear-gradient = linear-gradient-name <'('> <' '*> ( (angle | ((<'to' ' '*>)? side-or-corner <' '*>)) separator )? color-stop (separator color-stop)*  <' '*> <')'>
 linear-gradient-name = '-moz-linear-gradient' | '-webkit-linear-gradient' | '-ms-linear-gradient' | '-o-linear-gradient' | 'linear-gradient'
-radial-gradient = radial-gradient-name <'('> separator?
+radial-gradient = radial-gradient-name <'('> <' '*>
 				       radial-gradient-center separator
 				       color-stop (separator color-stop)*
 		  		       separator? <')'>
-radial-gradient-center = (
-		       	   ('circle' | length) (<' '>* <'at'> <' '>* position)?
-			 | ('ellipse' | ((length | percentage) (length | percentage)+) ) (<' '>* <'at'> <' '>* position)?
-			 | (('circle' | 'ellipse') <' '>* extent-keyword) (<' '>* <'at'> <' '>* position)?
-			 | extent-keyword (<' '>* <'at'> <' '>* position)?
+radial-gradient-center =
+		       (
+		       	   ('circle' | length) (<' '*> <'at'> <' '*> position)?
+			 | ('ellipse' | ((length | percentage) (length | percentage)+) ) (<' '*> <'at'> <' '*> position)?
+			 | (('circle' | 'ellipse') <' '*> extent-keyword) (<' '*> <'at'> <' '*> position)?
+			 | extent-keyword (<' '*> <'at'> <' '*> position)?
 			 )
 position = ( ( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length | <' '+>)+ |
              ( 'left' | 'center' | 'right' | percentage | length ) ( 'top' | 'center' | 'bottom' | percentage | length )+ |
              ( 'center' | ( ('left' | 'top') | ('right' | 'bottom') ) ( percentage | length )? ) ( 'center' | ( ('left' | 'top') | ('right' | 'bottom') ) ( percentage | length )? )
            )
+	   
 radial-gradient-name = '-moz-radial-gradient' | 'radial-gradient'
 extent-keyword = 'closest-corner' | 'closest-side' | 'farthest-corner' | 'farthest-side'
 repeating-linear-gradient = repeating-linear-gradient-name
@@ -82,7 +84,7 @@ repeating-linear-gradient = repeating-linear-gradient-name
 repeating-linear-gradient-name = '-moz-repeating-linear-gradient' | 'repeating-linear-gradient'
 
 side-or-corner = ('top' | 'bottom' | 'left' | 'right') (<' '> ('top' | 'bottom' | 'left' | 'right'))?
-color-stop = color (' '* (percentage | length))?
+color-stop = color (<' '*> (percentage | length))?
 
 (* custom identifiers *)
 (*
