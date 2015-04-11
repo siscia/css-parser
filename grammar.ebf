@@ -1,0 +1,5 @@
+
+
+<angle>   = <number> ('deg' | 'grad' | 'rad' | 'turn')
+<number>  = <integer> | <integer> '.' <integer>
+<integer> = ('+'|'-')? #'[0-9]+'
