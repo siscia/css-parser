@@ -1,0 +1,114 @@
+
+(*
+Reference page:
+http://dev.w3.org/csswg/css-values-3/
+https://developer.mozilla.org/en-US/docs/Web/CSS
+
+All the primitive types from the reference in order:
+angle // fine and tested
+basic-shape
+blend-mode
+color // fine and tested
+custom-ident
+gradient
+image
+integer
+lenght
+mq-boolean
+number
+percentage
+position
+ratio
+resolution
+shape
+string
+time
+timing-function
+uri
+*)
+
+type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length
+
+css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
+
+image = url | gradient | element
+
+element = <'element('> <'#'> #'[0-9a-zA-Z]+' <')'>
+
+mq-boolean = '-0' | '+0' | '1' | '0'
+
+ratio = #'[0-9]+' <'/'> #'[0-9]+'
+
+resolution = #'[0-9]+' unit
+<unit> = 'dpi' | 'dpcm' | 'dppx'
+
+(* shape *)
+shape = shape-function <'('> length separator length separator length separator length <')'>
+<shape-function> = 'rect'
+
+time = number ('s' | 'ms' | 'S' | 'mS' | 'Ms' | 'MS')
+
+timing-function = cubic-bezier | steps | 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'step-start' | 'step-end'
+cubic-bezier = 'cubic-bezier' <'('> number separator number separator number separator number  <')'>
+steps = 'steps' <'('> #'[0-9]+' separator direction-timing <')'>
+direction-timing = 'start' | 'end'
+
+
+(* gradients  *)
+(* definitely not sure about the repeting-linear-gradient *)
+gradient = linear-gradient | radial-gradient | repeating-linear-gradient
+linear-gradient = linear-gradient-name <'('> ( (angle | (<'to '?> side-or-corner <' '>)) separator )? color-stop (separator color-stop)?  <')'>
+linear-gradient-name = '-moz-linear-gradient' | '-webkit-linear-gradient' | '-ms-linear-gradient' | '-o-linear-gradient' | 'linear-gradient'
+radial-gradient = radial-gradient-name <'('> separator?
+				       radial-gradient-center separator
+				       color-stop (separator color-stop)*
+		  		       separator? <')'>
+radial-gradient-center = (
+		       	   ('circle' | length) (<' '>* <'at'> <' '>* position)?
+			 | ('ellipse' | ((length | percentage) (length | percentage)+) ) (<' '>* <'at'> <' '>* position)?
+			 | (('circle' | 'ellipse') <' '>* extent-keyword) (<' '>* <'at'> <' '>* position)?
+			 | extent-keyword (<' '>* <'at'> <' '>* position)?
+			 )
+position = ( ( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length | <' '+>)+ |
+             ( 'left' | 'center' | 'right' | percentage | length ) ( 'top' | 'center' | 'bottom' | percentage | length )+ |
+             ( 'center' | ( ('left' | 'top') | ('right' | 'bottom') ) ( percentage | length )? ) ( 'center' | ( ('left' | 'top') | ('right' | 'bottom') ) ( percentage | length )? )
+           )
+radial-gradient-name = '-moz-radial-gradient' | 'radial-gradient'
+extent-keyword = 'closest-corner' | 'closest-side' | 'farthest-corner' | 'farthest-side'
+repeating-linear-gradient = repeating-linear-gradient-name
+			    <'('>
+			    ( (angle | (<'to '?> side-or-corner <' '>)) separator )? color-stop (separator color-stop)?
+			    <')'>
+repeating-linear-gradient-name = '-moz-repeating-linear-gradient' | 'repeating-linear-gradient'
+
+side-or-corner = ('top' | 'bottom' | 'left' | 'right') (<' '> ('top' | 'bottom' | 'left' | 'right'))?
+color-stop = color (' '* (percentage | length))?
+
+(* custom identifiers *)
+(*
+custom-ident = #'[a-zA-Z\_\-]' #'[a-zA-Z\_]+' #'[a-zA-Z0-9\_\-]*'
+*)
+
+(* color *)
+color = color-keyword | 'transparent' | 'currentColor' | rgb | hsl | rgba | hsla
+
+color-keyword = 'black' | 'silver' | 'gray' | 'white' | 'maroon' | 'red' |  'purple' | 'fuchsia' | 'green' | 'lime' | 'olive' | 'yellow' | 'navy' | 'blue' | 'teal' | 'aqua' | 'orange' | 'aliceblue' | 'antiquewhite' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'blanchedalmond' | 'blueviolet' | 'brown' | 'burlywood' | 'cadetblue' | 'chartreuse' | 'chocolate' | 'coral' | 'cornflowerblue' | 'cornsilk' | 'crimson' | 'darkblue' | 'darkcyan' | 'darkgoldenrod' | 'darkgray' | 'darkgreen' | 'darkgrey' | 'darkkhaki' | 'darkmagenta' | 'darkolivegreen' | 'darkorange' | 'darkorchid' | 'darkred' | 'darksalmon' | 'darkseagreen' | 'darkslateblue' | 'darkslategray' | 'darkslategrey' | 'darkturquoise' | 'darkviolet' | 'deeppink' | 'deepskyblue' | 'dimgray' | 'dimgrey' | 'dodgerblue' | 'firebrick' | 'floralwhite' | 'forestgreen' | 'gainsboro' | 'ghostwhite' | 'gold' | 'goldenrod' | 'greenyellow' | 'grey' | 'honeydew' | 'hotpink' | 'indianred' | 'indigo' | 'ivory' | 'khaki' | 'lavender' | 'lavenderblush' | 'lawngreen' | 'lemonchiffon' | 'lightblue' | 'lightcoral' | 'lightcyan' | 'lightgoldenrodyellow' | 'lightgray' | 'lightgreen' | 'lightgrey' | 'lightpink' | 'lightsalmon' | 'lightseagreen' | 'lightskyblue' | 'lightslategray' | 'lightslategrey' | 'lightsteelblue' | 'lightyellow' | 'limegreen' | 'linen' | 'mediumaquamarine' | 'mediumblue' | 'mediumorchid' | 'mediumpurple' | 'mediumseagreen' | 'mediumslateblue' | 'mediumspringgreen' | 'mediumturquoise' | 'mediumvioletred' | 'midnightblue' | 'mintcream' | 'mistyrose' | 'moccasin' | 'navajowhite' | 'oldlace' | 'olivedrab' | 'orangered' | 'orchid' | 'palegoldenrod' | 'palegreen' | 'paleturquoise' | 'palevioletred' | 'papayawhip' | 'peachpuff' | 'peru' | 'pink' | 'plum' | 'powderblue' | 'rosybrown' | 'royalblue' | 'saddlebrown' | 'salmon' | 'sandybrown' | 'seagreen' | 'seashell' | 'sienna' | 'skyblue' | 'slateblue' | 'slategray' | 'slategrey' | 'snow' | 'springgreen' | 'steelblue' | 'tan' | 'thistle' | 'tomato' | 'turquoise' | 'violet' | 'wheat' | 'whitesmoke' | 'yellowgreen' | 'rebeccapurple'
+
+rgb = hexadecimal | functional
+hsl = <'hsl('> <' '*> number separator percentage separator percentage <' '*> <')'>
+rgba = <'rgba('> <' '*> (integers-rgb | percentage-rgb) separator number <' '*> <')'>
+hsla = <'hsla('> <' '*> number separator percentage separator percentage separator number <' '*> <')'>
+functional = <'rgb('> <' '*> (integers-rgb | percentage-rgb) <' '*> <')'>
+integers-rgb = integer separator integer separator integer
+percentage-rgb = percentage separator percentage separator percentage
+hexadecimal = '#' (#'[0-9a-fA-F]{3}' | #'[0-9a-fA-F]{6}')
+
+(* primitive *)
+url = <'url('> #'[0-9a-zA-Z\-\.\"\:\'\/]*' <')'>
+length = number ('em' | 'ex' | 'ch' | 'rem' | 'vh' | 'vw' | 'vmin' | 'vmax' | 'px' | 'mm' | 'cm' | 'in' | 'pt' | 'pc')
+angle   = number ('deg' | 'grad' | 'rad' | 'turn')
+percentage = number '%'
+<number>  = integer | float
+float = ('+'|'-')? #'[0-9]+' '.' #'[0-9]+'
+integer = ('+'|'-')? #'[0-9]+'
+<separator> = <' '* ',' ' '*>
