@@ -111,3 +111,36 @@
            [:type [:image [:gradient [:linear-gradient [:linear-gradient-name "linear-gradient"] [:side-or-corner "bottom"] [:color-stop [:color [:color-keyword "blue"]]] [:color-stop [:color [:color-keyword "red"]]]]]]]))
     (is (= (p/parse gp "element(#colonne3)")
            [:type [:image [:element "colonne3"]]]))))
+
+(deftest integer-test
+  (testing "good integers"
+    (is (= (p/parse gp "12")
+           [:type [:integer "12"]]))
+    (is (= (p/parse gp "+123")
+           [:type [:integer "+" "123"]]))
+    (is (= (p/parse gp "-456")
+           [:type [:integer "-" "456"]]))
+    (is (= (p/parse gp "0")
+           [:type [:integer "0"]]))
+    (is (= (p/parse gp "+0")
+           [:type [:integer "+" "0"]]))
+    (is (= (p/parse gp "-0")
+           [:type [:integer "-" "0"]])))
+  (testing "wrong integers"
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "12.0")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "12.")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "+---12")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "ten")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "_5")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "\35")))
+    ;; (is (instance? instaparse.gll.Failure ;; not work in clojure 
+    ;;                (p/parse gp "\4E94")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "3e4")))))
+
