@@ -149,10 +149,9 @@
                     second first))))
     (is (= :scientific-number
              (-> (p/parse gp "3e4")
-                 second first)))
-    ))
+                 second first)))))
 
-(deftest lenght-test
+(deftest length-test
   (testing "Relative units"
     (is (= (p/parse gp "0.1em")
            [:type [:length [:float "0" "." "1"] "em"]]))
