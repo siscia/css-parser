@@ -14,20 +14,20 @@ gradient		// fine and tested
 image	 		// fine and tested
 integer			// fine
 lenght			// fine
-mq-boolean
-number
-percentage
+mq-boolean		
+number			// fine
+percentage		// fine 
 position
-ratio
-resolution
+ratio			// fine
+resolution		// fine
 shape
 string
-time
+time			// fine
 timing-function
 uri
 *)
 
-type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length | integer | number 
+type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length | integer | number | percentage
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
@@ -39,7 +39,7 @@ mq-boolean = '-0' | '+0' | '1' | '0'
 
 ratio = #'[0-9]+' <'/'> #'[0-9]+'
 
-resolution = #'[0-9]+' unit
+resolution = number unit
 <unit> = 'dpi' | 'dpcm' | 'dppx'
 
 (* shape *)
@@ -107,7 +107,7 @@ hexadecimal = '#' (#'[0-9a-fA-F]{3}' | #'[0-9a-fA-F]{6}')
 
 (* primitive *)
 url = <'url('> #'[0-9a-zA-Z\-\.\"\:\'\/]*' <')'>
-length = number ('em' | 'ex' | 'ch' | 'rem' | 'vh' | 'vw' | 'vmin' | 'vmax' | 'px' | 'mm' | 'cm' | 'in' | 'pt' | 'pc')
+length = (number ('em' | 'ex' | 'ch' | 'rem' | 'vh' | 'vw' | 'vmin' | 'vmax' | 'px' | 'mm' | 'cm' | 'in' | 'pt' | 'pc')) | '0'
 angle   = number ('deg' | 'grad' | 'rad' | 'turn')
 percentage = number '%'
 <number>  = integer | float | only-decimal | scientific-number
