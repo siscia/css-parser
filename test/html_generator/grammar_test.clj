@@ -127,8 +127,11 @@
     (is (= (p/parse gp "-0")
            [:type [:integer "-" "0"]])))
   (testing "wrong integers"
-    (is (instance? instaparse.gll.Failure
-                   (p/parse gp "12.0")))
+    (is (not (= :integer
+                (-> (p/parse gp "12.0")
+                    second first))))
+    (is (= :float (-> (p/parse gp "12.0")
+                    second first)))
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "12.")))
     (is (instance? instaparse.gll.Failure
@@ -141,6 +144,76 @@
                    (p/parse gp "\35")))
     ;; (is (instance? instaparse.gll.Failure ;; not work in clojure 
     ;;                (p/parse gp "\4E94")))
-    (is (instance? instaparse.gll.Failure
-                   (p/parse gp "3e4")))))
+    (is (not (= :integer
+                (-> (p/parse gp "3e4")
+                    second first))))
+    (is (= :scientific-number
+             (-> (p/parse gp "3e4")
+                 second first)))
+    ))
 
+(deftest lenght-test
+  (testing "Relative units"
+    (is (= (p/parse gp "0.1em")
+           [:type [:length [:float "0" "." "1"] "em"]]))
+    (is (= (p/parse gp "2em")
+           [:type [:length [:integer "2"] "em"]]))
+    (is (= (p/parse gp "2rem")
+           [:type [:length [:integer "2"] "rem"]]))
+    (is (= (p/parse gp "2ex")
+           [:type [:length [:integer "2"] "ex"]]))
+    (is (= (p/parse gp "2ch")
+           [:type [:length [:integer "2"] "ch"]])))
+  (testing "Viewport-percentage lenght"
+    (is (= (p/parse gp "2vh")
+           [:type [:length [:integer "2"] "vh"]]))
+    (is (= (p/parse gp "2vw")
+           [:type [:length [:integer "2"] "vw"]]))
+    (is (= (p/parse gp "2vmin")
+           [:type [:length [:integer "2"] "vmin"]]))
+    (is (= (p/parse gp "2vmax")
+           [:type [:length [:integer "2"] "vmax"]])))
+  (testing "Absolute lenght units"
+    (is (= (p/parse gp "2px")
+           [:type [:length [:integer "2"] "px"]]))
+    (is (= (p/parse gp "2mm")
+           [:type [:length [:integer "2"] "mm"]]))
+    (is (= (p/parse gp "2cm")
+           [:type [:length [:integer "2"] "cm"]]))
+    (is (= (p/parse gp "2in")
+           [:type [:length [:integer "2"] "in"]]))
+    (is (= (p/parse gp "2pt")
+           [:type [:length [:integer "2"] "pt"]]))
+    (is (= (p/parse gp "2pc")
+           [:type [:length [:integer "2"] "pc"]])))
+  (testing ""
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "2 pc")))))
+
+(deftest number-test
+  (testing "valid numbers"
+    (is (= (p/parse gp "12")
+           [:type [:integer "12"]]))
+    (is (= (p/parse gp "4.01")
+           [:type [:float "4" "." "01"]]))
+    (is (= (p/parse gp "-456.8")
+           [:type [:float "-" "456" "." "8"]]))
+    (is (= (p/parse gp "0.0")
+           [:type [:float "0" "." "0"]]))
+    (is (= (p/parse gp "+0.0")
+           [:type [:float "+" "0" "." "0"]]))
+    (is (= (p/parse gp "-0.0")
+           [:type [:float "-" "0" "." "0"]]))
+    (is (= (p/parse gp ".60")
+           [:type [:only-decimal "." "60"]]))
+    (is (= (p/parse gp "60e3")
+           [:type [:scientific-number [:integer "60"] "e" [:integer "3"]]]))
+    (is (= (p/parse gp "-3.4e-2")
+           [:type [:scientific-number [:float "-" "3" "." "4"] "e" [:integer "-" "2"]]])))
+  (testing "invalid numbers"
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "12.")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "+-12.2")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "12.2.1")))))
