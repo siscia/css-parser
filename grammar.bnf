@@ -23,11 +23,11 @@ resolution		// fine
 shape
 string
 time			// fine
-timing-function
-uri
+timing-function		// fine
+uri			// fine
 *)
 
-type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length | integer | number | percentage
+type = (color | angle | (* custom-ident |*) gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function) / image
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
@@ -49,8 +49,8 @@ shape = shape-function <'('> length separator length separator length separator 
 time = number ('s' | 'ms' | 'S' | 'mS' | 'Ms' | 'MS')
 
 timing-function = cubic-bezier | steps | 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'step-start' | 'step-end'
-cubic-bezier = 'cubic-bezier' <'('> number separator number separator number separator number  <')'>
-steps = 'steps' <'('> #'[0-9]+' separator direction-timing <')'>
+cubic-bezier = <'cubic-bezier'> <'('> number separator number separator number separator number  <')'>
+steps = <'steps'> <'('> #'[0-9]+' (separator direction-timing)? <')'>
 direction-timing = 'start' | 'end'
 
 
