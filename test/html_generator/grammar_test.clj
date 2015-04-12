@@ -86,29 +86,29 @@
   (testing "gradient linear"
     (is (= (p/parse gp "-moz-linear-gradient(left,yellow,blue)")
            (p/parse gp "-moz-linear-gradient( left, yellow, blue )")
-[:type [:image [:gradient [:linear-gradient [:linear-gradient-name "-moz-linear-gradient"] [:side-or-corner "left"] [:color-stop [:color [:color-keyword "yellow"]]] [:color-stop [:color [:color-keyword "blue"]]]]]]]))
+           [:type  [:gradient [:linear-gradient [:linear-gradient-name "-moz-linear-gradient"] [:side-or-corner "left"] [:color-stop [:color [:color-keyword "yellow"]]] [:color-stop [:color [:color-keyword "blue"]]]]]]))
     (is (= (p/parse gp "linear-gradient(to right,red,yellow)")
            (p/parse gp "linear-gradient( to   right, red , yellow )")
-           [:type [:image [:gradient [:linear-gradient [:linear-gradient-name "linear-gradient"] [:side-or-corner "right"] [:color-stop [:color [:color-keyword "red"]]] [:color-stop [:color [:color-keyword "yellow"]]]]]]])))
+           [:type [:gradient [:linear-gradient [:linear-gradient-name "linear-gradient"] [:side-or-corner "right"] [:color-stop [:color [:color-keyword "red"]]] [:color-stop [:color [:color-keyword "yellow"]]]]]])))
   (testing "radial gradient"
     (is (= (p/parse gp "radial-gradient(ellipse farthest-corner at 45px 45px , #00FFFF 0%, rgba(0, 0, 255, 0) 50%, #0000FF 95%)")
            (p/parse gp "radial-gradient( ellipse farthest-corner at  45px  45px, #00FFFF 0% , rgba(0, 0, 255 , 0) 50%, #0000FF  95%)")
-           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "00FFFF"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "255"]] [:integer "0"]]] [:percentage [:integer "50"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "95"] "%"]]]]]]))
+           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "00FFFF"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "255"]] [:integer "0"]]] [:percentage [:integer "50"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "95"] "%"]]]]]))
     (is (= (p/parse gp "radial-gradient(ellipse farthest-corner at 470px 47px , #FFFF80 20%, rgba(204, 153, 153, 0.4) 30%, #E6E6FF 60%)")
-           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "470"] "px"] [:length [:integer "47"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FFFF80"]]] [:percentage [:integer "20"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "204"] [:integer "153"] [:integer "153"]] [:float "0" "." "4"]]] [:percentage [:integer "30"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "E6E6FF"]]] [:percentage [:integer "60"] "%"]]]]]]))
+           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "470"] "px"] [:length [:integer "47"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FFFF80"]]] [:percentage [:integer "20"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "204"] [:integer "153"] [:integer "153"]] [:float "0" "." "4"]]] [:percentage [:integer "30"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "E6E6FF"]]] [:percentage [:integer "60"] "%"]]]]]))
     (is (= (p/parse gp "radial-gradient(farthest-corner at 45px 45px , #FF0000 0%, #0000FF 100%)")
            (p/parse gp "radial-gradient(  farthest-corner at 45px 45px , #FF0000   0%  , #0000FF   100%)")
-           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FF0000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "100"] "%"]]]]]]))
+           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FF0000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "100"] "%"]]]]]))
     (is (= (p/parse gp "radial-gradient(16px at 60px 50% , #000000 0%, #000000 14px, rgba(0, 0, 0, 0.3) 18px, rgba(0, 0, 0, 0) 19px)")
            (p/parse gp "radial-gradient(16px at 60px 50% , #000000 0%, #000000 14px, rgba(0, 0, 0, 0.3) 18px, rgba(0, 0, 0, 0) 19px)")
-           [:type [:image [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:length [:integer "16"] "px"] [:position [:length [:integer "60"] "px"] [:percentage [:integer "50"] "%"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:length [:integer "14"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:float "0" "." "3"]]] [:length [:integer "18"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:integer "0"]]] [:length [:integer "19"] "px"]]]]]]))))
+           [:type  [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:length [:integer "16"] "px"] [:position [:length [:integer "60"] "px"] [:percentage [:integer "50"] "%"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:length [:integer "14"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:float "0" "." "3"]]] [:length [:integer "18"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:integer "0"]]] [:length [:integer "19"] "px"]]]]]))))
 
 (deftest image-test
-  (testing "image"
+  (testing "image, not that an image is either an url, a gradient or an element, an element is not a css type"
     (is (= (p/parse gp "url(test.jpg)")
-           [:type [:image [:url "test.jpg"]]]))
+           [:type [:url "test.jpg"]]))
     (is (= (p/parse gp "linear-gradient(to bottom, blue, red)")
-           [:type [:image [:gradient [:linear-gradient [:linear-gradient-name "linear-gradient"] [:side-or-corner "bottom"] [:color-stop [:color [:color-keyword "blue"]]] [:color-stop [:color [:color-keyword "red"]]]]]]]))
+           [:type [:gradient [:linear-gradient [:linear-gradient-name "linear-gradient"] [:side-or-corner "bottom"] [:color-stop [:color [:color-keyword "blue"]]] [:color-stop [:color [:color-keyword "red"]]]]]]))
     (is (= (p/parse gp "element(#colonne3)")
            [:type [:image [:element "colonne3"]]]))))
 
@@ -289,3 +289,59 @@
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "7 ms")))))
 
+
+(deftest timing-function
+  (testing "cubic bezier"
+    (is (= (p/parse gp "cubic-bezier(0.1, 0.7, 1.0, 0.1)")
+           [:type [:timing-function [:cubic-bezier [:float "0" "." "1"] [:float "0" "." "7"] [:float "1" "." "0"] [:float "0" "." "1"]]]]))
+    (is (= (p/parse gp "cubic-bezier(0.1, -0.6, 0.2, 0)")
+           [:type [:timing-function [:cubic-bezier [:float "0" "." "1"] [:float "-" "0" "." "6"] [:float "0" "." "2"] [:integer "0"]]]]))
+    (is (= (p/parse gp "cubic-bezier(0, 1.1, 0.8, 4)")
+           [:type [:timing-function [:cubic-bezier [:integer "0"] [:float "1" "." "1"] [:float "0" "." "8"] [:integer "4"]]]])))
+  (testing "wrong bezier no logic"
+    ;; (is (error? (p/parse gp "cubic-bezier(10, 0, 20, 1)"))) ;; xs must be between 0 and 1
+    
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "cubic-bezier(0.1, red, 1.0, green)"))))
+  (testing "steps function"
+    (is (= (p/parse gp "steps(5, start)")
+           [:type [:timing-function [:steps "5" [:direction-timing "start"]]]]))
+    (is (= (p/parse gp "steps(5, end)")
+           [:type [:timing-function [:steps "5" [:direction-timing "end"]]]]))
+    (is (= (p/parse gp "steps(2)")
+           [:type [:timing-function [:steps "2"]]])))
+  (testing "wrong steps"
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "steps(2.0, end)")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "steps(-3, start)")))
+    ;; (is (instance? instaparse.gll.Failure
+    ;;                (p/parse gp "steps(0, end)"))) ;; no logic implemented
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "steps(start, 3)")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "step(1, end)")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "steps(3 end)"))))
+  (testing "keword for timing"
+    (is (= (p/parse gp "linear")
+           [:type [:timing-function "linear"]]))
+    (is (= (p/parse gp "ease")
+           [:type [:timing-function "ease"]]))
+    (is (= (p/parse gp "ease-in")
+           [:type [:timing-function "ease-in"]]))
+    (is (= (p/parse gp "ease-in-out")
+           [:type [:timing-function "ease-in-out"]]))
+    (is (= (p/parse gp "ease-out")
+           [:type [:timing-function "ease-out"]]))
+    (is (= (p/parse gp "step-start")
+           [:type [:timing-function "step-start"]]))
+    (is (= (p/parse gp "step-end")
+           [:type [:timing-function "step-end"]]))))
+
+(deftest url-test
+  (testing "simple url"
+    (is (= (p/parse gp "url(http://aaa.com)")
+           [:type [:url "http://aaa.com"]]))
+    (is (= (p/parse gp "url('http://aaa.com')")
+           [:type [:url "'http://aaa.com'"]]))))
