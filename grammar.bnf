@@ -12,8 +12,8 @@ color			// fine and tested
 custom-ident
 gradient		// fine and tested
 image	 		// fine and tested
-integer
-lenght
+integer			// fine
+lenght			// fine
 mq-boolean
 number
 percentage
@@ -27,7 +27,7 @@ timing-function
 uri
 *)
 
-type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length | integer
+type = color | angle | (* custom-ident |*) gradient | url | image | ratio | resolution | shape | time | length | integer | number 
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
@@ -110,7 +110,9 @@ url = <'url('> #'[0-9a-zA-Z\-\.\"\:\'\/]*' <')'>
 length = number ('em' | 'ex' | 'ch' | 'rem' | 'vh' | 'vw' | 'vmin' | 'vmax' | 'px' | 'mm' | 'cm' | 'in' | 'pt' | 'pc')
 angle   = number ('deg' | 'grad' | 'rad' | 'turn')
 percentage = number '%'
-<number>  = integer | float
+<number>  = integer | float | only-decimal | scientific-number
+scientific-number = (integer | float | only-decimal) 'e' (integer | float | only-decimal)
 float = ('+'|'-')? #'[0-9]+' '.' #'[0-9]+'
+only-decimal = ('+'|'-')? '.' #'[0-9]+'
 integer = ('+'|'-')? #'[0-9]+'
 <separator> = <' '* ',' ' '*>
