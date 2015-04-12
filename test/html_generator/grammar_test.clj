@@ -216,3 +216,76 @@
                    (p/parse gp "+-12.2")))
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "12.2.1")))))
+
+(deftest percentage-test
+  (testing "valid percentage"
+    (is (= (p/parse gp "30%")
+           [:type [:percentage [:integer "30"] "%"]]))
+    (is (= (p/parse gp "25.5%")
+           [:type [:percentage [:float "25" "." "5"] "%"]])))
+  (testing "wrong percentage"
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "25.5 %")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "25 %")))))
+
+(deftest position-test)
+
+(deftest ratio-test
+  (testing "right ratios"
+    (is (= (p/parse gp "4/3")
+           [:type [:ratio "4" "3"]]))
+    (is (= (p/parse gp "100/99")
+           [:type [:ratio "100" "99"]])))
+  (testing "wrong ratios"
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "4.3/5")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "4/3.0")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "4 / 3")))))
+
+(deftest resolution-test
+  (testing "correct resolution"
+    (is (= (p/parse gp "333dpi")
+           [:type [:resolution [:integer "333"] "dpi"]]))
+    (is (= (p/parse gp "333.45dpi")
+           [:type [:resolution [:float "333" "." "45"] "dpi"]]))
+    (is (= (p/parse gp "333dpcm")
+           [:type [:resolution [:integer "333"] "dpcm"]]))
+    (is (= (p/parse gp "333dppx")
+           [:type [:resolution [:integer "333"] "dppx"]])))
+  (testing "wrong resolution"
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "333 dpi")))))
+
+(deftest shape-test)
+
+(deftest string-test)
+
+(deftest time-test
+  (testing "right time"
+    (is (= (p/parse gp "12s")
+           [:type [:time [:integer "12"] "s"]]))
+    (is (= (p/parse gp "-456ms")
+           [:type [:time [:integer "-" "456"] "ms"]]))
+    (is (= (p/parse gp "4.3ms")
+           [:type [:time [:float "4" "." "3"] "ms"]]))
+    (is (= (p/parse gp "14mS")
+           [:type [:time [:integer "14"] "mS"]]))
+    (is (= (p/parse gp "+0s")
+           [:type [:time [:integer "+" "0"] "s"]]))
+    (is (= (p/parse gp "-0ms")
+           [:type [:time [:integer "-" "0"] "ms"]])))
+  (testing "wrong times"
+    (is (not (= :time
+                (-> (p/parse gp "0")
+                    second first))))
+    (is (not (= :time
+                (-> (p/parse gp "12")
+                    second first))))
+    (is (= :integer (-> (p/parse gp "12")
+                        second first)))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "7 ms")))))
+
