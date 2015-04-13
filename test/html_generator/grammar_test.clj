@@ -120,8 +120,7 @@
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "'bilibob'")))
     (is (instance? instaparse.gll.Failure
-                   (p/parse gp "\"bilibob\"")))
-    ))
+                   (p/parse gp "\"bilibob\"")))))
     
 
 (deftest gradient-test
@@ -135,15 +134,15 @@
   (testing "radial gradient"
     (is (= (p/parse gp "radial-gradient(ellipse farthest-corner at 45px 45px , #00FFFF 0%, rgba(0, 0, 255, 0) 50%, #0000FF 95%)")
            (p/parse gp "radial-gradient( ellipse farthest-corner at  45px  45px, #00FFFF 0% , rgba(0, 0, 255 , 0) 50%, #0000FF  95%)")
-           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "00FFFF"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "255"]] [:integer "0"]]] [:percentage [:integer "50"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "95"] "%"]]]]]))
+           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:pos-two-value [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]]] [:color-stop [:color [:rgb [:hexadecimal "#" "00FFFF"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "255"]] [:integer "0"]]] [:percentage [:integer "50"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "95"] "%"]]]]]))
     (is (= (p/parse gp "radial-gradient(ellipse farthest-corner at 470px 47px , #FFFF80 20%, rgba(204, 153, 153, 0.4) 30%, #E6E6FF 60%)")
-           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:length [:integer "470"] "px"] [:length [:integer "47"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FFFF80"]]] [:percentage [:integer "20"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "204"] [:integer "153"] [:integer "153"]] [:float "0" "." "4"]]] [:percentage [:integer "30"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "E6E6FF"]]] [:percentage [:integer "60"] "%"]]]]]))
+           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center "ellipse" [:extent-keyword "farthest-corner"] [:position [:pos-two-value [:length [:integer "470"] "px"] [:length [:integer "47"] "px"]]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FFFF80"]]] [:percentage [:integer "20"] "%"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "204"] [:integer "153"] [:integer "153"]] [:float "0" "." "4"]]] [:percentage [:integer "30"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "E6E6FF"]]] [:percentage [:integer "60"] "%"]]]]]))
     (is (= (p/parse gp "radial-gradient(farthest-corner at 45px 45px , #FF0000 0%, #0000FF 100%)")
            (p/parse gp "radial-gradient(  farthest-corner at 45px 45px , #FF0000   0%  , #0000FF   100%)")
-           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:extent-keyword "farthest-corner"] [:position [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FF0000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "100"] "%"]]]]]))
+           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:extent-keyword "farthest-corner"] [:position [:pos-two-value [:length [:integer "45"] "px"] [:length [:integer "45"] "px"]]]] [:color-stop [:color [:rgb [:hexadecimal "#" "FF0000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "0000FF"]]] [:percentage [:integer "100"] "%"]]]]]))
     (is (= (p/parse gp "radial-gradient(16px at 60px 50% , #000000 0%, #000000 14px, rgba(0, 0, 0, 0.3) 18px, rgba(0, 0, 0, 0) 19px)")
            (p/parse gp "radial-gradient(16px at 60px 50% , #000000 0%, #000000 14px, rgba(0, 0, 0, 0.3) 18px, rgba(0, 0, 0, 0) 19px)")
-           [:type  [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:length [:integer "16"] "px"] [:position [:length [:integer "60"] "px"] [:percentage [:integer "50"] "%"]]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:length [:integer "14"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:float "0" "." "3"]]] [:length [:integer "18"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:integer "0"]]] [:length [:integer "19"] "px"]]]]]))))
+           [:type [:gradient [:radial-gradient [:radial-gradient-name "radial-gradient"] [:radial-gradient-center [:length [:integer "16"] "px"] [:position [:pos-two-value [:length [:integer "60"] "px"] [:percentage [:integer "50"] "%"]]]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:percentage [:integer "0"] "%"]] [:color-stop [:color [:rgb [:hexadecimal "#" "000000"]]] [:length [:integer "14"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:float "0" "." "3"]]] [:length [:integer "18"] "px"]] [:color-stop [:color [:rgba [:integers-rgb [:integer "0"] [:integer "0"] [:integer "0"]] [:integer "0"]]] [:length [:integer "19"] "px"]]]]]))))
 
 (deftest image-test
   (testing "image, not that an image is either an url, a gradient or an element, an element is not a css type"
