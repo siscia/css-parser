@@ -30,6 +30,17 @@
     (is (= (p/parse gp "0rad")
            [:type [:angle [:integer "0"] "rad"]]))))
 
+(deftest basic-shape)
+
+(deftest blend-mode
+  (testing "just keyword"
+    (is (= (p/parse gp "normal")
+           [:type [:blend-mode "normal"]]))
+    (is (= (p/parse gp "difference")
+           [:type [:blend-mode "difference"]]))
+    (is (= (p/parse gp "hue")
+           [:type [:blend-mode "hue"]]))))
+
 (deftest color-test
   (testing "color keyword"
     (is (= (p/parse gp "rebeccapurple")
@@ -120,12 +131,12 @@
            [:type [:integer "+" "123"]]))
     (is (= (p/parse gp "-456")
            [:type [:integer "-" "456"]]))
-    (is (= (p/parse gp "0")
-           [:type [:integer "0"]]))
-    (is (= (p/parse gp "+0")
-           [:type [:integer "+" "0"]]))
-    (is (= (p/parse gp "-0")
-           [:type [:integer "-" "0"]])))
+    (some #(= % :integer)
+          (map (comp first second) (p/parses gp "0")))
+    (some #(= % :integer)
+          (map (comp first second) (p/parses gp "+0")))
+    (some #(= % :integer)
+          (map (comp first second) (p/parses gp "-0"))))
   (testing "wrong integers"
     (is (not (= :integer
                 (-> (p/parse gp "12.0")
@@ -188,6 +199,17 @@
   (testing ""
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "2 pc")))))
+
+(deftest mq-boolean-test
+  (testing "mq-boolean"
+    (is (some #(= % :mq-boolean)
+              (map (comp first second) (p/parses gp "1"))))
+    (is (some #(= % :mq-boolean)
+              (map (comp first second) (p/parses gp "0"))))
+    (is (some #(= % :mq-boolean)
+              (map (comp first second) (p/parses gp "+0"))))
+    (is (some #(= % :mq-boolean)
+              (map (comp first second) (p/parses gp "-0"))))))
 
 (deftest number-test
   (testing "valid numbers"
