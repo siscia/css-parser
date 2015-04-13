@@ -5,29 +5,29 @@ http://dev.w3.org/csswg/css-values-3/
 https://developer.mozilla.org/en-US/docs/Web/CSS
 
 All the primitive types from the reference in order:
-angle		  	// fine 
-basic-shape		// no test they are not supported by any browser
-blend-mode		// fine
-color			// fine 
-custom-ident		
-gradient		// fine 
-image	 		// fine 
-integer			// fine
-lenght			// fine
-mq-boolean		// fine
-number			// fine
-percentage		// fine 
+angle		// fine 
+basic-shape	// no test they are not supported by any browser
+blend-mode	// fine
+color		// fine 
+custom-ident	// fine
+gradient	// fine 
+image	 	// fine 
+integer		// fine
+lenght		// fine
+mq-boolean	// fine
+number		// fine
+percentage	// fine 
 position		
-ratio			// fine
-resolution		// fine
+ratio		// fine
+resolution	// fine
 shape			
 string			
-time			// fine
-timing-function		// fine
-uri			// fine
+time		// fine
+timing-function	// fine
+uri		// fine
 *)
 
-type = (color | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode) / image / custom-ident 
+type = (color | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode | position) / image / custom-ident 
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
@@ -91,11 +91,7 @@ radial-gradient-center =
 			 | (('circle' | 'ellipse') <' '*> extent-keyword) (<' '*> <'at'> <' '*> position)?
 			 | extent-keyword (<' '*> <'at'> <' '*> position)?
 			 )
-position = ( ( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length | <' '+>)+ |
-             ( 'left' | 'center' | 'right' | percentage | length ) ( 'top' | 'center' | 'bottom' | percentage | length )+ |
-             ( 'center' | ( ('left' | 'top') | ('right' | 'bottom') ) ( percentage | length )? ) ( 'center' | ( ('left' | 'top') | ('right' | 'bottom') ) ( percentage | length )? )
-           )
-	   
+
 radial-gradient-name = '-moz-radial-gradient' | 'radial-gradient'
 extent-keyword = 'closest-corner' | 'closest-side' | 'farthest-corner' | 'farthest-side'
 repeating-linear-gradient = repeating-linear-gradient-name
@@ -103,9 +99,16 @@ repeating-linear-gradient = repeating-linear-gradient-name
 			    ( (angle | (<'to '?> side-or-corner <' '>)) separator )? color-stop (separator color-stop)?
 			    <')'>
 repeating-linear-gradient-name = '-moz-repeating-linear-gradient' | 'repeating-linear-gradient'
-
 side-or-corner = ('top' | 'bottom' | 'left' | 'right') (<' '> ('top' | 'bottom' | 'left' | 'right'))?
 color-stop = color (<' '*> (percentage | length))?
+
+(* position *)
+position = ( pos-one-value | pos-two-value ) / pos-two-with-offset
+pos-one-value = ( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length | <' '+> )
+pos-two-value = ( 'left' | 'center' | 'right' | percentage | length ) <' '+> ( 'top' | 'center' | 'bottom' | percentage | length )
+pos-two-with-offset = pos-with-offset <' '+> pos-with-offset	    
+pos-with-offset = ( ('center' | ( ('left' | 'top') | ('right' | 'bottom') ) ) <' '*> ( percentage | length )? )
+
 
 (* custom identifiers *)
 custom-ident = #'[a-zA-Z\_\-]' #'[a-zA-Z\_]+' #'[a-zA-Z0-9\_\-\\]*'
