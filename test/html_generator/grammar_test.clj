@@ -46,9 +46,7 @@
     (is (= (p/parse gp "rebeccapurple")
            [:type [:color [:color-keyword "rebeccapurple"]]]))
     (is (= (p/parse gp "black")
-           [:type [:color [:color-keyword "black"]]]))
-    (is (instance? instaparse.gll.Failure
-                   (p/parse gp "foobar"))))
+           [:type [:color [:color-keyword "black"]]]))))
   (testing "rgb color with #"
     (is (= (p/parse gp "#234567")
            [:type [:color [:rgb [:hexadecimal "#" "234567"]]]]))
@@ -91,7 +89,40 @@
     (testing "hsla color"
       (is (= (p/parse gp "hsla(240,100%,50%,0.05)")
              (p/parse gp "hsla( 240 , 100% ,50% ,0.05 )")
-             [:type [:color [:hsla [:integer "240"] [:percentage [:integer "100"] "%"] [:percentage [:integer "50"] "%"] [:float "0" "." "05"]]]]))))
+             [:type [:color [:hsla [:integer "240"] [:percentage [:integer "100"] "%"] [:percentage [:integer "50"] "%"] [:float "0" "." "05"]]]])))
+
+(deftest custom-ident-test
+  (testing "valid identifiers"
+    (is (= (p/parse gp "nono79")
+           [:type [:custom-ident "n" "ono" "79"]]))
+    (is (= (p/parse gp "ground-level")
+           [:type [:custom-ident "g" "round" "-level"]]))
+    (is (= (p/parse gp "-test")
+           [:type [:custom-ident "-" "test" ""]]))
+    (is (= (p/parse gp "_internal")
+           [:type [:custom-ident "_" "internal" ""]]))
+    ;; (is (= (p/parse gp "\22 toto")
+    ;;        [:type [:custom-ident "\22" "toto" ""]]))
+    ;; (is (= (p/parse gp "bili\.bob")
+    ;;        [:type [:custom-ident "b" "ili\.bob" ""]]))
+    )
+  (testing "wrong identifier"
+    (is (not (= :custom-ident
+                (-> (p/parse gp "34rem")
+                    second first))))
+    (is (not (= :custom-ident
+                (-> (p/parse gp "-12rad")
+                    second first))))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "bili.bob")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "--toto")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "'bilibob'")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "\"bilibob\"")))
+    ))
+    
 
 (deftest gradient-test
   (testing "gradient linear"
@@ -147,8 +178,11 @@
                    (p/parse gp "12.")))
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "+---12")))
-    (is (instance? instaparse.gll.Failure
-                   (p/parse gp "ten")))
+    (is (not (= :integer
+                (-> (p/parse gp "ten")
+                    second first))))
+    (is (= :custom-ident (-> (p/parse gp "ten")
+                             second first)))
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "_5")))
     (is (instance? instaparse.gll.Failure

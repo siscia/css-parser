@@ -27,7 +27,7 @@ timing-function		// fine
 uri			// fine
 *)
 
-type = (color | angle | (* custom-ident |*) gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode) / image
+type = (color | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode) / image / custom-ident 
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
@@ -108,9 +108,8 @@ side-or-corner = ('top' | 'bottom' | 'left' | 'right') (<' '> ('top' | 'bottom' 
 color-stop = color (<' '*> (percentage | length))?
 
 (* custom identifiers *)
-(*
-custom-ident = #'[a-zA-Z\_\-]' #'[a-zA-Z\_]+' #'[a-zA-Z0-9\_\-]*'
-*)
+custom-ident = #'[a-zA-Z\_\-]' #'[a-zA-Z\_]+' #'[a-zA-Z0-9\_\-\\]*'
+
 
 (* color *)
 color = color-keyword | 'transparent' | 'currentColor' | rgb | hsl | rgba | hsla
