@@ -17,7 +17,7 @@ lenght		// fine
 mq-boolean	// fine
 number		// fine
 percentage	// fine 
-position		
+position	// fine	
 ratio		// fine
 resolution	// fine
 shape			
@@ -27,7 +27,7 @@ timing-function	// fine
 uri		// fine
 *)
 
-type = (color | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode | position) / image / custom-ident 
+type = <' '*> (color | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode | position) / image / custom-ident 
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
@@ -53,7 +53,7 @@ insect = <'insect'> <'('> (shape-arg |
 			   shape-arg shape-arg  shape-arg shape-arg)
 			   ('round' border-radius)? <')'>
 polygon = <'polygon'> <'('> (fill-rule separator)?  (shape-arg shape-arg)* <')'>
-circle = <'circle'> <'('> shape-radius? ('at' position)? <')'>
+circle  = <'circle'> <'('> shape-radius? ('at' s position)? <')'>
 ellipse = <'ellipse'> <'('> (shape-radius | shape-radius shape-radius)? ('at' position)? <')'>
 fill-rule = 'nonzero' | 'evenodd' | 'inherit'
 border-radius = (lp | lp lp | lp lp lp | lp lp lp lp)
@@ -104,8 +104,8 @@ color-stop = color (<' '*> (percentage | length))?
 
 (* position *)
 position = ( pos-one-value | pos-two-value ) / pos-two-with-offset
-pos-one-value = ( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length | <' '+> )
-pos-two-value = ( 'left' | 'center' | 'right' | percentage | length ) <' '+> ( 'top' | 'center' | 'bottom' | percentage | length )
+pos-one-value = ( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length | <' '+> ) <' '*>
+pos-two-value = ( 'left' | 'center' | 'right' | percentage | length ) <' '+> ( 'top' | 'center' | 'bottom' | percentage | length ) <' '*>
 pos-two-with-offset = pos-with-offset <' '+> pos-with-offset	    
 pos-with-offset = ( ('center' | ( ('left' | 'top') | ('right' | 'bottom') ) ) <' '*> ( percentage | length )? )
 
@@ -139,3 +139,4 @@ float = ('+'|'-')? #'[0-9]+' '.' #'[0-9]+'
 only-decimal = ('+'|'-')? '.' #'[0-9]+'
 integer = ('+'|'-')? #'[0-9]+'
 <separator> = <' '* ',' ' '*>
+<s> = <' '+>
