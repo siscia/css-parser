@@ -284,7 +284,28 @@
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "25 %")))))
 
-(deftest position-test)
+(deftest position-test
+  (testing "valid positions"
+    (is (= (p/parse gp "left 10px top 15px")
+           [:type [:position [:pos-two-with-offset [:pos-with-offset "left" [:length [:integer "10"] "px"]] [:pos-with-offset "top" [:length [:integer "15"] "px"]]]]]))
+    (is (= (p/parse gp "left      top     ")
+           [:type [:position [:pos-two-value "left" "top"]]]))
+    (is (= (p/parse gp "     10px     15px")
+           [:type [:position [:pos-two-value [:length [:integer "10"] "px"] [:length [:integer "15"] "px"]]]]))
+    (is (= (p/parse gp "left          15px")
+           [:type [:position [:pos-two-value "left" [:length [:integer "15"] "px"]]]]))
+    (is (= (p/parse gp "     10px top     ")
+           [:type [:position [:pos-two-value [:length [:integer "10"] "px"] "top"]]]))
+    (is (= (p/parse gp "left      top 15px")
+           [:type [:position [:pos-two-with-offset [:pos-with-offset "left"] [:pos-with-offset "top" [:length [:integer "15"] "px"]]]]]))
+    (is (= (p/parse gp "left 10px top     ")
+           [:type [:position [:pos-two-with-offset [:pos-with-offset "left" [:length [:integer "10"] "px"]] [:pos-with-offset "top"]]]]))
+    (is (= (p/parse gp "100% 100%")
+           [:type [:position [:pos-two-value [:percentage [:integer "100"] "%"] [:percentage [:integer "100"] "%"]]]]))
+    (is (= (p/parse gp "0% 0%")
+           [:type [:position [:pos-two-value [:percentage [:integer "0"] "%"] [:percentage [:integer "0"] "%"]]]]))
+    (is (= (p/parse gp "right 3em bottom 10px")
+           [:type [:position [:pos-two-with-offset [:pos-with-offset "right" [:length [:integer "3"] "em"]] [:pos-with-offset "bottom" [:length [:integer "10"] "px"]]]]]))))
 
 (deftest ratio-test
   (testing "right ratios"
