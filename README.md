@@ -10,9 +10,9 @@ The next obvious step is to parse not only the CSS type, but the CSS itself.
 
 ## Usage
 
-The use is extremelly intuitive, just load the grammar and parse any CSS type.
+The use is extremely intuitive, just load the grammar and parse any CSS type.
 
-It is not extremelly usefull, but it is a good start.
+It is not extremely useful, but it is a good start.
 
 ``` clojure
 user> (require '[instaparse.core :as g])
