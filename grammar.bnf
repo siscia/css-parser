@@ -21,13 +21,16 @@ position	// fine
 ratio		// fine
 resolution	// fine
 shape		// fine			
-string			
+string		// fine, they don't handle multiple lines
 time		// fine
 timing-function	// fine
 uri		// fine
 *)
 
-type = <' '*> (color | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode | position) / image / custom-ident 
+type = <' '*> (color | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode | position | string) / image / custom-ident 
+
+string = (<'"'> #'[^"\r\n]*' <'"'>) |
+       	 (<'\''> #'[^\'\r\n]*' <'\''>)
 
 css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 

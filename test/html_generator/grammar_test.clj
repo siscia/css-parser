@@ -117,10 +117,12 @@
                    (p/parse gp "bili.bob")))
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "--toto")))
-    (is (instance? instaparse.gll.Failure
-                   (p/parse gp "'bilibob'")))
-    (is (instance? instaparse.gll.Failure
-                   (p/parse gp "\"bilibob\"")))))
+    (is (not (= :custom-ident
+                (-> (p/parse gp "'bilibob'")
+                    second first))))
+    (is (not (= :custom-ident
+                (-> (p/parse gp "\"bilibob\"")
+                    second first))))))
     
 
 (deftest gradient-test
@@ -427,6 +429,13 @@
            [:type [:timing-function "step-start"]]))
     (is (= (p/parse gp "step-end")
            [:type [:timing-function "step-end"]]))))
+
+(deftest string-test
+  (testing "simple string catch"
+    (is (= (p/parse gp "\"foobar\"")
+           [:type [:string "foobar"]]))
+    (is (= (p/parse gp "'foobar'")
+           [:type [:string "foobar"]]))))
 
 (deftest url-test
   (testing "simple url"
