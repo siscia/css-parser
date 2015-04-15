@@ -20,7 +20,7 @@ percentage	// fine
 position	// fine	
 ratio		// fine
 resolution	// fine
-shape			
+shape		// fine			
 string			
 time		// fine
 timing-function	// fine
@@ -64,7 +64,12 @@ border-radius = (lp | lp lp | lp lp lp | lp lp lp lp)
 blend-mode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity'
 
 (* shape *)
-shape = shape-function <'('> length separator length separator length separator length <')'>
+shape = shape-function <'('>
+        (
+      length s length s length s length <' '*> |
+      length separator length separator length separator length <' '*>
+        )
+<')'>
 <shape-function> = 'rect'
 
 time = number ('s' | 'ms' | 'S' | 'mS' | 'Ms' | 'MS')
