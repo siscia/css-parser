@@ -335,7 +335,20 @@
     (is (instance? instaparse.gll.Failure
                    (p/parse gp "333 dpi")))))
 
-(deftest shape-test)
+(deftest shape-test
+  (testing "basic shape with rect"
+    (is (= (p/parse gp "rect(2px 3em 2px 3em)")
+           [:type [:shape "rect" [:length [:integer "2"] "px"] [:length [:integer "3"] "em"] [:length [:integer "2"] "px"] [:length [:integer "3"] "em"]]]))
+    (is (= (p/parse gp "rect(2px   ,   3em  ,   2px  ,   3em   )")
+           (p/parse gp "rect(2px, 3em, 2px, 3em)")
+           [:type [:shape "rect" [:length [:integer "2"] "px"] [:length [:integer "3"] "em"] [:length [:integer "2"] "px"] [:length [:integer "3"] "em"]]])))
+  (testing "wrong shape"
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "rect(2px 3em, 2px 3em)")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "rect(2 3 2 3)")))
+    (is (instance? instaparse.gll.Failure
+                   (p/parse gp "rect()")))))
 
 (deftest string-test)
 
