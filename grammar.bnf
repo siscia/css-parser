@@ -1,6 +1,7 @@
 
 
 
+
 (* dump a little hacky of the old file
 float = 'none' | 'right' | 'left'
 
@@ -260,6 +261,10 @@ flex-basis = 'auto' | length
 column-rule-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
 
 *)
+
+rule = selector <'{'>
+			( token ';'?)*
+       		<'}'>
 
 <either> = type / token
 
