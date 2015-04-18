@@ -3,263 +3,45 @@
 
 
 (* dump a little hacky of the old file
-float = 'none' | 'right' | 'left'
 
 (* border-bottom = '[border-style]' | '[border-color]' *)
-
-border-image-repeat = 'stretch' | 'space' | 'round' | 'repeat'
-
 (* flex-flow = '[flex-wrap]' *)
-
-min-width = '0' | 'auto' | percentage | length
-list-style-position = 'outside' | 'inside'
-text-align-last = 'auto' | 'start' | 'right' | 'left' | 'justify' | 'end' | 'center'
-overflow-wrap = 'normal' | 'break-word'
-column-fill = 'balance' | 'auto'
-border-top-color = 'transparent' | color
-line-height = 'normal' | 'none' | percentage | number | length
-text-orientation = 'mixed' | 'use-glyph-orientation' | 'upright' | 'sideways-right' | 'sideways-left' | 'sideways'
-text-emphasis-style = ('none' | 'triangle' | 'sesame' | 'open' | 'filled' | 'double-circle' | 'dot' | 'circle') / string
-width = 'auto' | percentage | length
-background-position = ('0%' s '0%') | ('right' s 'bottom') | ('left' s 'top') | ('center' s 'center') | (percentage s length)
-
 (* border-image-slice = '100%' | '[ Up to four space-separated <number> or <percentage> values' | 'the optional 'fill' keyword can be included after the other values are declared ]' *)
-
-right = 'auto' | percentage | length
-
 (* border-image-source = 'none' | 'url(path/file.png)' *)
-
-border-width = 'medium' | 'thin' | 'thick' | length
-padding-bottom = '0' | percentage | length
-max-width = 'none' | percentage | length
-
 (* border-left = '[border-style]' | '[border-color]'*)
-
-background-attachment = 'scroll' | 'local' | 'fixed'
-top = 'auto' | percentage | length
-transition-duration = '0s' | time
-
 (* transition-property = 'all' | 'none' | '[ A comma-separated list of property names ]'*)
-
-border-color = 'transparent' | color
-counter-increment = 'none' | (identifier s integer)
-background-repeat = 'repeat' | 'space' | 'round' | 'repeat-y' | 'repeat-x' | ('repeat' s 'no-repeat') | 'no-repeat'
-column-width = 'auto' | length
-justify-content = 'flex-start' | 'space-between' | 'space-around' | 'flex-end' | 'center'
-border-left-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
-column-gap = 'normal' | length
-
 (* font-family = family-name *)
 (* columns = '[column-count]'*)
-
-height = 'auto' | percentage | length
-
 (* margin = '[margin-right]' | '[margin-bottom]' | '[margin-left]' *)
-
-page-break-after = 'auto' | 'right' | 'left' | 'avoid' | 'always'
-outline-color = 'invert' | color
-overflow-y = 'visible' | 'scroll' | 'hidden' | 'auto'
-outline-width = 'medium' | 'thin' | 'thick' | length
-
 (* clip = 'auto' | 'rect(<length>' *)
-
-text-emphasis-color =  color
-line-break = 'auto' | 'strict' | 'normal' | 'loose'
-transform-origin = ('50%' s '50%') | 'top' | 'right' | 'left' | 'center' | 'bottom' | percentage | length
-backface-visibility = 'visible' | 'hidden'
-margin-right = '0' | 'auto' | percentage | length
-
 (* counter-reset = 'none' | (identifier s integer) *)
 (* column-rule = '[column-rule-style]' | '[column-rule-color]' *)
 (* border = '[border-style]' | '[border-color]' *)
-
-text-transform = 'none' | 'uppercase' | 'lowercase' | 'full-width' | 'capitalize'
-vertical-align = 'baseline' | 'top' | 'text-top' | 'text-bottom' | 'super' | 'sub' | 'middle' | 'bottom' | percentage | length
-align-items = 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline'
-word-break = 'normal' | 'keep-all' | 'break-all'
-break-inside = 'auto' | 'avoid-page' | 'avoid-column' | 'avoid'
-font-variant-caps = 'normal' | 'unicase' | 'titling-caps' | 'small-caps' | 'petite-caps' | 'all-small-caps' | 'all-petite-caps'
-
 (* padding = '[padding-right]' | '[padding-bottom]' | '[padding-left]' *)
-
-animation-play-state = 'running' | 'paused'
-writing-mode = 'horizontal-tb' | 'vertical-rl' | 'vertical-lr'
-flex-shrink = '1' | number
-outline-offset = '0' | length
-border-collapse = 'separate' | 'collapse'
-flex-direction = 'row' | 'row-reverse' | 'column-reverse' | 'column'
-font-kerning = 'auto' | 'normal' | 'none'
-text-align = 'start end' | 'start' | 'right' | 'match-parent' | 'left' | 'justify' | 'end' | 'center' | string
-text-indent = '0' | percentage | (length s 'hanging' s 'each-line') | (length s 'hanging') | (length s 'each-line') | length
-
 (* transform = 'none' | 'translateZ(<length>)' | 'translateY(<translation-value>)' | 'translateX(<translation-value>)' | 'translate3d(<translation-value>' *)
-
-white-space = 'normal' | 'pre-wrap' | 'pre-line' | 'pre' | 'nowrap'
-
 (* border-right = '[border-style]' | '[border-color]' *)
-
-text-decoration-color = color
-background-origin = 'padding-box' | 'content-box' | 'border-box'
-border-top-width = 'medium' | 'thin' | 'thick' | length
-column-rule-width = 'medium' | 'thin' | 'thick' | length
-border-right-color =  'transparent' | color
-
 (* outline = '[outline-style]' | '[outline-width]' *)
-
-text-justify = 'auto' | 'none' | 'inter-word' | 'distribute'
-word-spacing = 'normal' | percentage | length
-quotes = 'none' | ( string s string)
-column-count = 'auto' | integer
-border-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
-visibility = 'visible' | 'hidden' | 'collapse'
-border-right-width = 'medium' | 'thin' | 'thick' | length
-border-bottom-right-radius = '0' | percentage | length
-align-self = 'auto' | 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline'
-page-break-before = 'auto' | 'right' | 'left' | 'avoid' | 'always'
-position = 'static' | 'sticky' | 'relative' | 'page' | 'fixed' | 'center' | 'absolute'
-column-span = 'none' | 'all'
-
 (* transition-timing-function = 'ease' | 'steps(<integer>' *)
-
-animation-iteration-count = '1' | 'infinite' | number
-
 (* column-rule-color = '[ Initial value depends on the user agent ]' | color *)
-
-animation-direction = 'normal' | 'reverse' | 'alternate-reverse' | 'alternate'
-
 (* animation = '[animation-duration]' | '[animation-timing-function]' | '[animation-delay]' | '[animation-iteration-count]' | '[animation-direction]' | '[animation-fill-mode]' | '[animation-play-state]' *)
-
-margin-top = '0' | 'auto' | percentage | length
-
 (* animation-name = 'none' | '[ custom identifier ]' *)
-
-border-bottom-left-radius = '0' | percentage | length
-
 (* border-top = '[border-style]' | '[border-color]' *)
-
-text-combine-horizontal = 'none' | ('digits' s integer) | 'all'
-border-bottom-color = 'transparent' | color
-hanging-punctuation = 'none' | 'last force-end' | 'last allow-end' | 'last' | 'force-end' | 'first force-end' | 'first allow-end' | 'first' | 'allow-end'
-text-decoration-skip = 'none' | 'spaces' | 'objects' | 'ink' | 'edges' | 'box-decoration' | 'box-decoration'
-object-fit = 'fill' | 'scale-down' | 'none' | 'cover' | 'contain'
-list-style-type = 'disc' | 'upper-roman' | 'upper-latin' | 'upper-alpha' | 'square' | 'none' | 'lower-roman' | 'lower-latin' | 'lower-greek' | 'lower-alpha' | 'georgian' | 'decimal-leading-zero' | 'decimal' | 'circle' | 'armenian'
-z-index = 'auto' | integer
-flex-wrap = 'nowrap' | 'wrap-reverse' | 'wrap'
-direction = 'ltr' | 'rtl'
-text-overflow = ('clip' | 'ellipsis') / string
-border-top-right-radius = '0' | percentage | length
-min-height = '0' | 'auto' | percentage | length
-flex-grow = '0' | number
-unicode-bidi = 'normal' | 'embed' | 'bidi-override'
-word-wrap = 'normal' | 'break-word'
-align-content = 'stretch' | 'space-between' | 'space-around' | 'flex-start' | 'flex-end' | 'center'
-border-bottom-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
-margin-bottom = '0' | 'auto' | percentage | length
-
 (* cursor = 'auto' | 'zoom-out' | 'zoom-in' | 'wait' | 'w-resize' | 'vertical-text' | 'url(path/file.png)' | 'text' | 'sw-resize' | 'se-resize' | 's-resize' | 'row-resize' | 'progress' | 'pointer' | 'nwse-resize' | 'nw-resize' | 'ns-resize' | 'not-allowed' | 'none' | 'no-drop' | 'nesw-resize' | 'ne-resize' | 'n-resize' | 'move' | 'help' | 'ew-resize' | 'e-resize' | 'default' | 'crosshair' | 'copy' | 'context-menu' | 'col-resize' | 'cell' | 'all-scroll' | 'alias' *)
-
-border-left-color = 'transparent' | color
-font-weight = 'normal' | 'lighter' | 'bolder' | 'bold' | '900' | '800' | '700' | '600' | '500' | '400' | '300' | '200' | '100'
-image-resolution = '1dppx' | 'from-image'
-break-before = 'auto' | 'right' | 'page' | 'left' | 'column' | 'avoid-page' | 'avoid-column' | 'avoid' | 'always'
-background-clip = 'border-box' | 'padding-box' | 'content-box'
-border-right-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
-
 (* content = 'normal' | 'open-quote' | 'none' | 'no-open-quote' | 'no-close-quote' | 'icon' | 'close-quote' | 'attr(<identifier>' | url | string | '<counter>' *)
-list-style-image = 'none' | url
-background-size = 'auto' | 'cover' | 'contain' | ('auto' s percentage) | percentage s length | percentage | (length s 'auto') | (length s percentage) | length
-object-position = '50%' s '50%' | 'right' s 'bottom' | 'left' s 'top' | 'center' s 'center' | percentage s length
-
 (* font = '[font-variant]' | '[font-weight]' | '[font-stretch]' | '[font-size]' | '/' | '[line-height]' | '[font-family]' *)
-
-page-break-inside = 'auto' | 'avoid'
-border-bottom-width = 'medium' | 'thin' | 'thick' | length
 (* text-decoration = '[text-decoration-style]' | '[text-decoration-color]' *)
-outline-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'groove' | 'double' | 'dotted' | 'dashed' | 'auto'
-order = '0' | integer
-font-size-adjust = 'none' | number
-animation-fill-mode = 'none' | 'forwards' | 'both' | 'backwards'
-box-shadow = 'none' | (length s length s length s length s color s 'inset')
-overflow = 'visible' | 'scroll' | 'hidden' | 'auto'
-overflow-x = 'visible' | 'scroll' | 'hidden' | 'auto'
-margin-left = '0' | 'auto' | percentage | length
-font-size = 'medium' | 'xx-small' | 'xx-large' | 'x-small' | 'x-large' | 'smaller' | 'small' | 'larger' | 'large' | percentage | length
-empty-cells = 'show' | 'hide'
-text-decoration-line = 'none' | 'underline' | 'overline' | 'line-through' | 'blink'
-background-color = 'transparent' | color
-clear-after = 'none' | 'top' | 'start' | 'right' | 'outside' | 'left' | 'inside' | 'end' | 'descendants' | 'bottom' | 'both'
-padding-right = '0' | percentage | length
-letter-spacing = 'normal' | length
-
 (* border-radius = '0' | percentage | (length s length s length s length>) | '<length> / <percentage>' | length *)
-
-box-sizing = 'content-box' | 'padding-box' | 'border-box'
-widows = '2' | integer
-image-orientation = angle
-perspective = 'none' | length
-border-spacing = '0' | (length s length) | length
-display = 'inline' | 'table-row-group' | 'table-row' | 'table-header-group' | 'table-footer-group' | 'table-column-group' | 'table-column' | 'table-cell' | 'table-caption' | 'table' | 'run-in' | 'run-in' | 'none' | 'list-item' | 'inline-table' | 'inline-flex' | 'inline-block' | 'flex' | 'container' | 'compact' | 'block'
-break-after = 'auto' | 'right' | 'page' | 'left' | 'column' | 'avoid-page' | 'avoid-column' | 'avoid' | 'always'
-font-style = 'normal' | 'oblique' | 'italic'
-bottom = 'auto' | percentage | length
-
 (* animation-timing-function = 'ease' | 'steps(<integer>' *)
-
-all = 'initial' | 'unset' | 'inherit'
-text-decoration-style = 'solid' | 'wavy' | 'double' | 'dotted' | 'dashed'
-perspective-origin = '50%' s '50%' | position | percentage | length
-resize = 'none' | 'vertical' | 'horizontal' | 'both'
-clear = 'none' | 'right' | 'left' | 'both'
-font-synthesis = 'weight style' | 'weight' | 'style' | 'none'
 (* text-emphasis = '[text-emphasis-color]' *)
-pointer-events = 'auto' | 'none'
-box-decoration-break = 'slice' | 'clone'
-text-underline-position = 'auto' | 'under' s 'right' | 'under' s 'left' | 'under' | 'right' | 'left'
-animation-delay = time
-font-variant = 'normal' | 'unicase' | 'titling-caps' | 'small-caps' | 'petite-caps' | 'all-small-caps' | 'all-petite-caps'
-
 (* background-image = 'none' | 'url(path/file.png)' | repeating-gradient | radial-gradient | linear-gradient | image-function *)
-
-tab-size = '8' | length | integer
-
 (* transition = '[transition-duration]' | '[transition-timing-function]' | '[transition-delay]' *)
 (* border-image = '[border-image-slice]' | '/' | '[border-image-width]' | '[border-image-width]' | '/' | '[border-image-outset]' | '[border-image-repeat]' *)
 (* flex = '[flex-shrink]' | '[flex-basis]' | 'none' *)
 (* border-image-width = '1' | '[ Up to four space-separated <length>' *)
-
-orphans = '2' | integer
-text-shadow = 'none' | (length s length s length s color)
-
 (* background = '[background-image]' | '[background-repeat]' | '[background-attachment]' | '[background-position]' | '/' | '[background-size]' | '[background-origin]' | '[background-clip]' *)
-
-max-height = 'none' | percentage | length
-border-top-left-radius = '0' | percentage | length
-
 (* border-image-outset = '0' | '[ Up to four space-separated <length> or <number> values defining outsets for top' *)
-
-color = color
-border-left-width = 'medium' | 'thin' | 'thick' | length
-padding-left = '0' | percentage | length
-
 (* list-style = '[list-style-position]' | '[list-style-image]' *)
-
-padding-top = '0' | percentage | length
-opacity = '1' | number
-text-emphasis-position = ('over' s 'right') | ('over' s 'left') | ('below' s 'right') | ('below' s 'left')
-animation-duration = '0s' | time
-table-layout = 'auto' | 'fixed'
-left = 'auto' | percentage | length
-caption-side = 'top' | 'bottom'
-hyphens = 'manual' | 'none' | 'auto'
-transform-style = 'flat' | 'preserve-3d'
-font-stretch = 'normal' | 'ultra-expanded' | 'ultra-condensed' | 'semi-expanded' | 'semi-condensed' | 'extra-expanded' | 'extra-condensed' | 'expanded' | 'condensed'
-border-top-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
-flex-basis = 'auto' | length
-
 (* icon = 'auto' | '[ One or more comma separated <url> values ]' *)
-
-column-rule-style = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
-
 *)
 
 rule = selector <'{'>
@@ -412,8 +194,6 @@ text-underline-position = s0 'text-underline-position' s0 : s0  'auto' | 'under'
 animation-delay     = s0 'animation-delay'     s0 : s0  time
 font-variant 	    = s0 'font-variant'        s0 : s0  'normal' | 'unicase' | 'titling-caps' | 'small-caps' | 'petite-caps' | 'all-small-caps' | 'all-petite-caps'
 tab-size 	    = s0 'tab-size' 	       s0 : s0  '8' | length | integer
-
-
 orphans 	    = s0 'orphans' 	       s0 : s0  '2' | integer
 text-shadow 	    = s0 'text-shadow' 	       s0 : s0  'none' | (length s length s length s color)
 max-height 	    = s0 'max-height' 	       s0 : s0  'none' | percentage | length
