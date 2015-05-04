@@ -94,13 +94,13 @@ line-height-value = 'normal' | 'none' | percentage | number | length
 text-orientation   = 'text-orientation' s0 : s0 text-orientation-values 
 text-orientation-value = 'mixed' | 'use-glyph-orientation' | 'upright' | 'sideways-right' | 'sideways-left' | 'sideways'
 
-text-emphasis-style   = 'text-emphasis-style' s0 : s0 text-emphasis-style-values 
+text-emphasis-style   = 'text-emphasis-style' s0 : s0 text-emphasis-style-value 
 text-emphasis-style-value = ('none' | 'triangle' | 'sesame' | 'open' | 'filled' | 'double-circle' | 'dot' | 'circle') / string
 
 width   = 'width' s0 : s0 width-values 
 width-value = 'auto' | percentage | length
 
-background-position   = 'background-position' s0 : s0 background-position-values 
+background-position   = 'background-position' s0 : s0 background-position-values
 background-position-value = ('0%' s '0%') | ('right' s 'bottom') | ('left' s 'top') | ('center' s 'center') | (percentage s length)
 
 right   = 'right' s0 : s0 right-values 
@@ -112,22 +112,22 @@ border-width-value = 'medium' | 'thin' | 'thick' | length
 padding-bottom   = 'padding-bottom' s0 : s0 padding-bottom-values 
 padding-bottom-value = '0' | percentage | length
 
-max-width   = 'max-width' s0 : s0 max-width-values 
+max-width   = 'max-width' s0 : s0 max-width-values
 max-width-value = 'none' | percentage | length
 
-background-attachment   = 'background-attachment' s0 : s0 background-attachment-values 
+background-attachment   = 'background-attachment' s0 : s0 background-attachment-values
 background-attachment-value = 'scroll' | 'local' | 'fixed'
 
 top   = 'top' s0 : s0 top-values 
 top-value = 'auto' | percentage | length
 
-transition-duration   = 'transition-duration' s0 : s0 transition-duration-values 
+transition-duration   = 'transition-duration' s0 : s0 transition-duration-values
 transition-duration-value = '0s' | time
 
 border-color   = 'border-color' s0 : s0 border-color-values 
 border-color-value = 'transparent' | color
 
-counter-increment   = 'counter-increment' s0 : s0 counter-increment-values 
+counter-increment   = 'counter-increment' s0 : s0 counter-increment-values
 counter-increment-value = 'none' | (identifier s integer)
 
 background-repeat   = 'background-repeat' s0 : s0 background-repeat-values 
@@ -266,192 +266,279 @@ align-self-value = 'auto' | 'stretch' | 'flex-start' | 'flex-end' | 'center' | '
 
 page-break-before   = 'page-break-before' s0 : s0 page-break-before-values 
 page-break-before-value = 'auto' | 'right' | 'left' | 'avoid' | 'always'
+
 position   = 'position' s0 : s0 position-values 
 position-value = 'static' | 'sticky' | 'relative' | 'page' | 'fixed' | 'center' | 'absolute'
+
 column-span   = 'column-span' s0 : s0 column-span-values 
 column-span-value = 'none' | 'all'
+
 animation-iteration-count   = 'animation-iteration-count' s0 : s0 animation-iteration-count-values 
 animation-iteration-count-value = '1' | 'infinite' | number
-animation-direction   = 'animation-direction' s0 : s0 animation-direction-values 
+
+animation-direction   = 'animation-direction' s0 : s0 animation-direction-values
 animation-direction-value = 'normal' | 'reverse' | 'alternate-reverse' | 'alternate'
+
 margin-top   = 'margin-top' s0 : s0 margin-top-values 
 margin-top-value = '0' | 'auto' | percentage | length
+
 border-bottom-left-radius   = 'border-bottom-left-radius' s0 : s0 border-bottom-left-radius-values 
 border-bottom-left-radius-value = '0' | percentage | length
-text-combine-horizontal   = 'text-combine-horizontal' s0 : s0 text-combine-horizontal-values 
+
+text-combine-horizontal   = 'text-combine-horizontal' s0 : s0 text-combine-horizontal-values
 text-combine-horizontal-value = 'none' | ('digits' s integer) | 'all'
-border-bottom-color   = 'border-bottom-color' s0 : s0 border-bottom-color-values 
+
+border-bottom-color   = 'border-bottom-color' s0 : s0 border-bottom-color-values
 border-bottom-color-value = 'transparent' | color
-hanging-punctuation   = 'hanging-punctuation' s0 : s0 hanging-punctuation-values 
+
+hanging-punctuation   = 'hanging-punctuation' s0 : s0 hanging-punctuation-values
 hanging-punctuation-value = 'none' | 'last force-end' | 'last allow-end' | 'last' | 'force-end' | 'first force-end' | 'first allow-end' | 'first' | 'allow-end'
+
 text-decoration-skip   = 'text-decoration-skip' s0 : s0 text-decoration-skip-values 
 text-decoration-skip-value = 'none' | 'spaces' | 'objects' | 'ink' | 'edges' | 'box-decoration' | 'box-decoration'
+
 object-fit   = 'object-fit' s0 : s0 object-fit-values 
 object-fit-value = 'fill' | 'scale-down' | 'none' | 'cover' | 'contain'
+
 list-style-type   = 'list-style-type' s0 : s0 list-style-type-values 
 list-style-type-value = 'disc' | 'upper-roman' | 'upper-latin' | 'upper-alpha' | 'square' | 'none' | 'lower-roman' | 'lower-latin' | 'lower-greek' | 'lower-alpha' | 'georgian' | 'decimal-leading-zero' | 'decimal' | 'circle' | 'armenian'
+
 z-index   = 'z-index' s0 : s0 z-index-values 
 z-index-value = 'auto' | integer
+
 flex-wrap   = 'flex-wrap' s0 : s0 flex-wrap-values 
 flex-wrap-value = 'nowrap' | 'wrap-reverse' | 'wrap'
+
 direction   = 'direction' s0 : s0 direction-values 
 direction-value = 'ltr' | 'rtl'
+
 text-overflow   = 'text-overflow' s0 : s0 text-overflow-values 
 text-overflow-value = ('clip' | 'ellipsis') / string
+
 border-top-right-radius   = 'border-top-right-radius' s0 : s0 border-top-right-radius-values 
 border-top-right-radius-value = '0' | percentage | length
+
 min-height   = 'min-height' s0 : s0 min-height-values 
 min-height-value = '0' | 'auto' | percentage | length
+
 flex-grow   = 'flex-grow' s0 : s0 flex-grow-values 
 flex-grow-value = '0' | number
+
 unicode-bidi   = 'unicode-bidi' s0 : s0 unicode-bidi-values 
 unicode-bidi-value = 'normal' | 'embed' | 'bidi-override'
+
 word-wrap   = 'word-wrap' s0 : s0 word-wrap-values 
 word-wrap-value = 'normal' | 'break-word'
+
 align-content   = 'align-content' s0 : s0 align-content-values 
 align-content-value = 'stretch' | 'space-between' | 'space-around' | 'flex-start' | 'flex-end' | 'center'
+
 border-bottom-style   = 'border-bottom-style' s0 : s0 border-bottom-style-values 
 border-bottom-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
 margin-bottom   = 'margin-bottom' s0 : s0 margin-bottom-values 
 margin-bottom-value = '0' | 'auto' | percentage | length
+
 border-left-color   = 'border-left-color' s0 : s0 border-left-color-values 
 border-left-color-value = 'transparent' | color
+
 font-weight   = 'font-weight' s0 : s0 font-weight-values 
 font-weight-value = 'normal' | 'lighter' | 'bolder' | 'bold' | '900' | '800' | '700' | '600' | '500' | '400' | '300' | '200' | '100'
+
 image-resolution   = 'image-resolution' s0 : s0 image-resolution-values 
 image-resolution-value = '1dppx' | 'from-image'
+
 break-before   = 'break-before' s0 : s0 break-before-values 
 break-before-value = 'auto' | 'right' | 'page' | 'left' | 'column' | 'avoid-page' | 'avoid-column' | 'avoid' | 'always'
+
 background-clip   = 'background-clip' s0 : s0 background-clip-values 
 background-clip-value = 'border-box' | 'padding-box' | 'content-box'
+
 border-right-style   = 'border-right-style' s0 : s0 border-right-style-values 
 border-right-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
 list-style-image   = 'list-style-image' s0 : s0 list-style-image-values 
 list-style-image-value = 'none' | url
+
 background-size   = 'background-size' s0 : s0 background-size-values 
 background-size-value = 'auto' | 'cover' | 'contain' | ('auto' s percentage) | percentage s length | percentage | (length s 'auto') | (length s percentage) | length
+
 object-position   = 'object-position' s0 : s0 object-position-values 
 object-position-value = '50%' s '50%' | 'right' s 'bottom' | 'left' s 'top' | 'center' s 'center' | percentage s length
+
 page-break-inside   = 'page-break-inside' s0 : s0 page-break-inside-values 
 page-break-inside-value = 'auto' | 'avoid'
+
 border-bottom-width   = 'border-bottom-width' s0 : s0 border-bottom-width-values 
 border-bottom-width-value = 'medium' | 'thin' | 'thick' | length
+
 outline-style   = 'outline-style' s0 : s0 outline-style-values 
 outline-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'groove' | 'double' | 'dotted' | 'dashed' | 'auto'
+
 order   = 'order' s0 : s0 order-values 
 order-value = '0' | integer
+
 font-size-adjust   = 'font-size-adjust' s0 : s0 font-size-adjust-values 
 font-size-adjust-value = 'none' | number
+
 animation-fill-mode   = 'animation-fill-mode' s0 : s0 animation-fill-mode-values 
 animation-fill-mode-value = 'none' | 'forwards' | 'both' | 'backwards'
+
 box-shadow   = 'box-shadow' s0 : s0 box-shadow-values 
 box-shadow-value = 'none' | (length s length s length s length s color s 'inset')
+
 overflow   = 'overflow' s0 : s0 overflow-values 
 overflow-value = 'visible' | 'scroll' | 'hidden' | 'auto'
+
 overflow-x   = 'overflow-x' s0 : s0 overflow-x-values 
 overflow-x-value = 'visible' | 'scroll' | 'hidden' | 'auto'
+
 margin-left   = 'margin-left' s0 : s0 margin-left-values 
 margin-left-value = '0' | 'auto' | percentage | length
+
 font-size   = 'font-size' s0 : s0 font-size-values 
 font-size-value = 'medium' | 'xx-small' | 'xx-large' | 'x-small' | 'x-large' | 'smaller' | 'small' | 'larger' | 'large' | percentage | length
+
 empty-cells   = 'empty-cells' s0 : s0 empty-cells-values 
 empty-cells-value = 'show' | 'hide'
+
 text-decoration-line   = 'text-decoration-line' s0 : s0 text-decoration-line-values 
 text-decoration-line-value = 'none' | 'underline' | 'overline' | 'line-through' | 'blink'
+
 background-color   = 'background-color' s0 : s0 background-color-values 
 background-color-value = 'transparent' | color
+
 clear-after   = 'clear-after' s0 : s0 clear-after-values 
 clear-after-value = 'none' | 'top' | 'start' | 'right' | 'outside' | 'left' | 'inside' | 'end' | 'descendants' | 'bottom' | 'both'
+
 padding-right   = 'padding-right' s0 : s0 padding-right-values 
 padding-right-value = '0' | percentage | length
+
 letter-spacing   = 'letter-spacing' s0 : s0 letter-spacing-values 
 letter-spacing-value = 'normal' | length
+
 box-sizing   = 'box-sizing' s0 : s0 box-sizing-values 
 box-sizing-value = 'content-box' | 'padding-box' | 'border-box'
+
 widows   = 'widows' s0 : s0 widows-values 
 widows-value = '2' | integer
+
 image-orientation   = 'image-orientation' s0 : s0 image-orientation-values 
 image-orientation-value = angle
+
 perspective   = 'perspective' s0 : s0 perspective-values 
 perspective-value = 'none' | length
+
 border-spacing   = 'border-spacing' s0 : s0 border-spacing-values 
 border-spacing-value = '0' | (length s length) | length
 
-display   = 'display' s0 : s0 
-display-values 
-
+display   = 'display' s0 : s0 display-values 
 display-value = 'inline' | 'table-row-group' | 'table-row' | 'table-header-group' | 'table-footer-group' | 'table-column-group' | 'table-column' | 'table-cell' | 'table-caption' | 'table' | 'run-in' | 'run-in' | 'none' | 'list-item' | 'inline-table' | 'inline-flex' | 'inline-block' | 'flex' | 'container' | 'compact' | 'block'
+
 break-after   = 'break-after' s0 : s0 break-after-values 
 break-after-value = 'auto' | 'right' | 'page' | 'left' | 'column' | 'avoid-page' | 'avoid-column' | 'avoid' | 'always'
+
 font-style   = 'font-style' s0 : s0 font-style-values 
 font-style-value = 'normal' | 'oblique' | 'italic'
+
 bottom   = 'bottom' s0 : s0 bottom-values 
 bottom-value = 'auto' | percentage | length
+
 all   = 'all' s0 : s0 all-values 
 all-value = 'initial' | 'unset' | 'inherit'
+
 text-decoration-style   = 'text-decoration-style' s0 : s0 text-decoration-style-values 
 text-decoration-style-value = 'solid' | 'wavy' | 'double' | 'dotted' | 'dashed'
+
 perspective-origin   = 'perspective-origin' s0 : s0 perspective-origin-values 
 perspective-origin-value = '50%' s '50%' | position | percentage | length
+
 resize   = 'resize' s0 : s0 resize-values 
 resize-value = 'none' | 'vertical' | 'horizontal' | 'both'
+
 clear   = 'clear' s0 : s0 clear-values 
 clear-value = 'none' | 'right' | 'left' | 'both'
+
 font-synthesis   = 'font-synthesis' s0 : s0 font-synthesis-values 
 font-synthesis-value = 'weight style' | 'weight' | 'style' | 'none'
+
 pointer-events   = 'pointer-events' s0 : s0 pointer-events-values 
 pointer-events-value = 'auto' | 'none'
+
 box-decoration-break   = 'box-decoration-break' s0 : s0 box-decoration-break-values 
 box-decoration-break-value = 'slice' | 'clone'
+
 text-underline-position   = 'text-underline-position' s0 : s0 text-underline-position-values 
 text-underline-position-value = 'auto' | 'under' s 'right' | 'under' s 'left' | 'under' | 'right' | 'left'
+
 animation-delay   = 'animation-delay' s0 : s0 animation-delay-values 
 animation-delay-value = time
+
 font-variant   = 'font-variant' s0 : s0 font-variant-values 
 font-variant-value = 'normal' | 'unicase' | 'titling-caps' | 'small-caps' | 'petite-caps' | 'all-small-caps' | 'all-petite-caps'
+
 tab-size   = 'tab-size' s0 : s0 tab-size-values 
 tab-size-value = '8' | length | integer
+
 orphans   = 'orphans' s0 : s0 orphans-values 
 orphans-value = '2' | integer
+
 text-shadow   = 'text-shadow' s0 : s0 text-shadow-values 
 text-shadow-value = 'none' | (length s length s length s color)
+
 max-height   = 'max-height' s0 : s0 max-height-values 
 max-height-value = 'none' | percentage | length
+
 border-top-left-radius   = 'border-top-left-radius' s0 : s0 border-top-left-radius-values 
 border-top-left-radius-value = '0' | percentage | length
+
 color   = 'color' s0 : s0 color-values 
 color-value = color
+
 border-left-width   = 'border-left-width' s0 : s0 border-left-width-values 
 border-left-width-value = 'medium' | 'thin' | 'thick' | length
+
 padding-left   = 'padding-left' s0 : s0 padding-left-values 
 padding-left-value = '0' | percentage | length
+
 padding-top   = 'padding-top' s0 : s0 padding-top-values 
 padding-top-value = '0' | percentage | length
+
 opacity   = 'opacity' s0 : s0 opacity-values 
 opacity-value = '1' | number
+
 text-emphasis-position   = 'text-emphasis-position' s0 : s0 text-emphasis-position-values 
 text-emphasis-position-value = ('over' s 'right') | ('over' s 'left') | ('below' s 'right') | ('below' s 'left')
+
 animation-duration   = 'animation-duration' s0 : s0 animation-duration-values 
 animation-duration-value = '0s' | time
+
 table-layout   = 'table-layout' s0 : s0 table-layout-values 
 table-layout-value = 'auto' | 'fixed'
-left		   = 'left' s0 : s0 left		-values 
-left		-value = 'auto' | percentage | length
-caption-side	   = 'caption-side' s0 : s0 caption-side	-values 
-caption-side	-value = 'top' | 'bottom'
+
+left		   = 'left' s0 : s0 left-values 
+left-value = 'auto' | percentage | length
+
+caption-side	   = 'caption-side' s0 : s0 caption-side-values 
+caption-side-value = 'top' | 'bottom'
+
 hyphens   = 'hyphens' s0 : s0 hyphens-values 
 hyphens-value = 'manual' | 'none' | 'auto'
+
 transform-style   = 'transform-style' s0 : s0 transform-style-values 
 transform-style-value = 'flat' | 'preserve-3d'
+
 font-stretch   = 'font-stretch' s0 : s0 font-stretch-values 
 font-stretch-value = 'normal' | 'ultra-expanded' | 'ultra-condensed' | 'semi-expanded' | 'semi-condensed' | 'extra-expanded' | 'extra-condensed' | 'expanded' | 'condensed'
+
 border-top-style   = 'border-top-style' s0 : s0 border-top-style-values 
 border-top-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
 flex-basis   = 'flex-basis' s0 : s0 flex-basis-values 
 flex-basis-value = 'auto' | length
+
 column-rule-style   = 'column-rule-style' s0 : s0 column-rule-style-values 
 column-rule-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
-
 
 (*
 Reference page:
