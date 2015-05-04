@@ -1,0 +1,545 @@
+(* border-bottom = '[border-style]' | '[border-color]' *)
+(* flex-flow = '[flex-wrap]' *)
+(* border-image-slice = '100%' | '[ Up to four space-separated <number> or <percentage> values' | 'the optional 'fill' keyword can be included after the other values are declared ]' *)
+(* border-image-source = 'none' | 'url(path/file.png)' *)
+(* border-left = '[border-style]' | '[border-color]'*)
+(* transition-property = 'all' | 'none' | '[ A comma-separated list of property names ]'*)
+(* font-family = family-name *)
+(* columns = '[column-count]'*)
+(* margin = '[margin-right]' | '[margin-bottom]' | '[margin-left]' *)
+(* clip = 'auto' | 'rect(<length>' *)
+(* counter-reset = 'none' | (identifier s integer) *)
+(* column-rule = '[column-rule-style]' | '[column-rule-color]' *)
+(* border = '[border-style]' | '[border-color]' *)
+(* padding = '[padding-right]' | '[padding-bottom]' | '[padding-left]' *)
+(* transform = 'none' | 'translateZ(<length>)' | 'translateY(<translation-value>)' | 'translateX(<translation-value>)' | 'translate3d(<translation-value>' *)
+(* border-right = '[border-style]' | '[border-color]' *)
+(* outline = '[outline-style]' | '[outline-width]' *)
+(* transition-timing-function = 'ease' | 'steps(<integer>' *)
+(* column-rule-color = '[ Initial value depends on the user agent ]' | color *)
+(* animation = '[animation-duration]' | '[animation-timing-function]' | '[animation-delay]' | '[animation-iteration-count]' | '[animation-direction]' | '[animation-fill-mode]' | '[animation-play-state]' *)
+(* animation-name = 'none' | '[ custom identifier ]' *)
+(* border-top = '[border-style]' | '[border-color]' *)
+(* cursor = 'auto' | 'zoom-out' | 'zoom-in' | 'wait' | 'w-resize' | 'vertical-text' | 'url(path/file.png)' | 'text' | 'sw-resize' | 'se-resize' | 's-resize' | 'row-resize' | 'progress' | 'pointer' | 'nwse-resize' | 'nw-resize' | 'ns-resize' | 'not-allowed' | 'none' | 'no-drop' | 'nesw-resize' | 'ne-resize' | 'n-resize' | 'move' | 'help' | 'ew-resize' | 'e-resize' | 'default' | 'crosshair' | 'copy' | 'context-menu' | 'col-resize' | 'cell' | 'all-scroll' | 'alias' *)
+(* content = 'normal' | 'open-quote' | 'none' | 'no-open-quote' | 'no-close-quote' | 'icon' | 'close-quote' | 'attr(<identifier>' | url | string | '<counter>' *)
+(* font = '[font-variant]' | '[font-weight]' | '[font-stretch]' | '[font-size]' | '/' | '[line-height]' | '[font-family]' *)
+(* text-decoration = '[text-decoration-style]' | '[text-decoration-color]' *)
+(* border-radius = '0' | percentage | (length s length s length s length>) | '<length> / <percentage>' | length *)
+(* animation-timing-function = 'ease' | 'steps(<integer>' *)
+(* text-emphasis = '[text-emphasis-color]' *)
+(* background-image = 'none' | 'url(path/file.png)' | repeating-gradient | radial-gradient | linear-gradient | image-function *)
+(* transition = '[transition-duration]' | '[transition-timing-function]' | '[transition-delay]' *)
+(* border-image = '[border-image-slice]' | '/' | '[border-image-width]' | '[border-image-width]' | '/' | '[border-image-outset]' | '[border-image-repeat]' *)
+(* flex = '[flex-shrink]' | '[flex-basis]' | 'none' *)
+(* border-image-width = '1' | '[ Up to four space-separated <length>' *)
+(* background = '[background-image]' | '[background-repeat]' | '[background-attachment]' | '[background-position]' | '/' | '[background-size]' | '[background-origin]' | '[background-clip]' *)
+(* border-image-outset = '0' | '[ Up to four space-separated <length> or <number> values defining outsets for top' *)
+(* list-style = '[list-style-position]' | '[list-style-image]' *)
+(* icon = 'auto' | '[ One or more comma separated <url> values ]' *)
+
+rule = selector <(s0|'\n'|'\t')*>
+       		<'{'>
+		<(s0|'\n'|'\t')*>
+
+		( token <';'> <(s0|'\n'|'\t')*> )*
+
+		token <';'?>
+
+		<(s0|'\n'|'\t')*>
+		<'}'>
+
+selector = ((primitive-selector | relationship-selector) s0 <','> s0)* (primitive-selector | relationship-selector)
+relationship-selector = nested | descendent | child | sibling
+nested = (primitive-selector)+
+descendent = primitive-selector s+ primitive-selector
+child = primitive-selector s0* <'>'> s0* primitive-selector
+sibling = primitive-selector s0* <'+'> s0* primitive-selector
+primitive-selector = ((<'#'> id) | (<'.'> class) | html-element | any) (<':'> pseudoclass)?
+
+any = '*'
+
+html-element = ('html' | 'head' | 'title' | 'base' | 'isindex' | 'link' | 'meta' | 'style' | 'script' | 'noscript' | 'a' | 'abbr' | 'acronym' | 'address' | 'applet' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'basefont' | 'bdi' | 'bdo' | 'bgsound' | 'big' | 'blink' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'center' | 'cite' | 'code' | 'col' | 'colgroup' | 'command' | 'content' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'dir' | 'div' | 'dl' | 'dt' | 'element' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'font' | 'footer' | 'form' | 'frame' | 'frameset' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'image' | 'img' | 'input' | 'ins' | 'isindex' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'listing' | 'main' | 'map' | 'mark' | 'marquee' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'multicol' | 'nav' | 'nobr' | 'noembed' | 'noframes' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'plaintext' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'rtc' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'shadow' | 'small' | 'source' | 'spacer' | 'span' | 'strike' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'tbody' | 'td' | 'template' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'tt' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'xmp' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' ) / #'[a-zA-Z0-9]+'
+
+pseudoclass = 'link' | 'visited' | 'active' | 'hover' | 'focus' | 'first-child' | 'last-child' | 'nth-child' | 'nth-last-child' | 'nth-of-type' | 'first-of-type' | 'last-of-type' | 'empty' | 'target' | 'checked' | 'enabled' | 'disabled'
+
+class = #'[a-zA-Z\-\_]+'
+id = #'[a-zA-Z\-\_]+'
+
+token = (float | border-image-repeat | min-width | list-style-position | text-align-last | overflow-wrap | column-fill | border-top-color | line-height | text-orientation | text-emphasis-style | width | background-position | right | border-width | padding-bottom | max-width | background-attachment | top | transition-duration | border-color | counter-increment | background-repeat | column-width | justify-content | border-left-style | column-gap | height | page-break-after | outline-color | overflow-y | outline-width | text-emphasis-color | line-break | transform-origin | backface-visibility | margin-right | text-transform | vertical-align | align-items | word-break | break-inside | font-variant-caps | animation-play-state | writing-mode | flex-shrink | outline-offset | border-collapse | flex-direction | font-kerning | text-align | text-indent | white-space | text-decoration-color | background-origin | border-top-width | column-rule-width | border-right-color | text-justify | word-spacing | quotes | column-count | border-style | visibility | border-right-width | border-bottom-right-radius | align-self | page-break-before | position | column-span | animation-iteration-count | animation-direction | margin-top | border-bottom-left-radius | text-combine-horizontal | border-bottom-color | hanging-punctuation | text-decoration-skip | object-fit | list-style-type | z-index | flex-wrap | direction | text-overflow | border-top-right-radius | min-height | flex-grow | unicode-bidi | word-wrap | align-content | border-bottom-style | margin-bottom | border-left-color | font-weight | image-resolution | break-before | background-clip | border-right-style | list-style-image | background-size | object-position | page-break-inside | border-bottom-width | outline-style | order | font-size-adjust | animation-fill-mode | box-shadow | overflow | overflow-x | margin-left | font-size | empty-cells | text-decoration-line | background-color | clear-after | padding-right | letter-spacing | box-sizing | widows | image-orientation | perspective | border-spacing | display | break-after | font-style | bottom | all | text-decoration-style | perspective-origin | resize | clear | font-synthesis | pointer-events | box-decoration-break | text-underline-position | animation-delay | font-variant | tab-size | orphans | text-shadow | max-height | border-top-left-radius | color | border-left-width | padding-left | padding-top | opacity | text-emphasis-position | animation-duration | table-layout | left | caption-side | hyphens | transform-style | font-stretch | border-top-style | flex-basis | column-rule-style)
+
+float       = 'float' s0 <':'> s0 float-value 
+float-value = 'none' | 'right' | 'left'
+
+border-image-repeat   = 'border-image-repeat' s0 <':'> s0 border-image-repeat-value
+border-image-repeat-value = 'stretch' | 'space' | 'round' | 'repeat'
+
+min-width       = 'min-width' s0 <':'> s0 min-width-value 
+min-width-value = '0' | 'auto' | percentage | length
+
+list-style-position   = 'list-style-position' s0 <':'> s0 list-style-position-value 
+list-style-position-value = 'outside' | 'inside'
+
+text-align-last       = 'text-align-last' s0 <':'> s0 text-align-last-value 
+text-align-last-value = 'auto' | 'start' | 'right' | 'left' | 'justify' | 'end' | 'center'
+
+overflow-wrap       = 'overflow-wrap' s0 <':'> s0 overflow-wrap-value 
+overflow-wrap-value = 'normal' | 'break-word'
+
+column-fill   = 'column-fill' s0 <':'> s0 column-fill-value 
+column-fill-value = 'balance' | 'auto'
+
+border-top-color   = 'border-top-color' s0 <':'> s0 border-top-color-value 
+border-top-color-value = 'transparent' | color-type
+
+line-height   = 'line-height' s0 <':'> s0 line-height-value 
+line-height-value = 'normal' | 'none' | percentage | number | length
+
+text-orientation   = 'text-orientation' s0 <':'> s0 text-orientation-value 
+text-orientation-value = 'mixed' | 'use-glyph-orientation' | 'upright' | 'sideways-right' | 'sideways-left' | 'sideways'
+
+text-emphasis-style   = 'text-emphasis-style' s0 <':'> s0 text-emphasis-style-value 
+text-emphasis-style-value = ('none' | 'triangle' | 'sesame' | 'open' | 'filled' | 'double-circle' | 'dot' | 'circle') / string
+
+width   = 'width' s0 <':'> s0 width-value 
+width-value = 'auto' | percentage | length
+
+background-position   = 'background-position' s0 <':'> s0 background-position-value
+background-position-value = ('0%' s '0%') | ('right' s 'bottom') | ('left' s 'top') | ('center' s 'center') | (percentage s length)
+
+right   = 'right' s0 <':'> s0 right-value 
+right-value = 'auto' | percentage | length
+
+border-width   = 'border-width' s0 <':'> s0 border-width-value 
+border-width-value = 'medium' | 'thin' | 'thick' | length
+
+padding-bottom   = 'padding-bottom' s0 <':'> s0 padding-bottom-value 
+padding-bottom-value = '0' | percentage | length
+
+max-width   = 'max-width' s0 <':'> s0 max-width-value
+max-width-value = 'none' | percentage | length
+
+background-attachment   = 'background-attachment' s0 <':'> s0 background-attachment-value
+background-attachment-value = 'scroll' | 'local' | 'fixed'
+
+top   = 'top' s0 <':'> s0 top-value 
+top-value = 'auto' | percentage | length
+
+transition-duration   = 'transition-duration' s0 <':'> s0 transition-duration-value
+transition-duration-value = '0s' | time
+
+border-color   = 'border-color' s0 <':'> s0 border-color-value 
+border-color-value = 'transparent' | color-type
+
+counter-increment   = 'counter-increment' s0 <':'> s0 counter-increment-value
+counter-increment-value = 'none' | (identifier s integer)
+
+background-repeat   = 'background-repeat' s0 <':'> s0 background-repeat-value 
+background-repeat-value = 'repeat' | 'space' | 'round' | 'repeat-y' | 'repeat-x' | ('repeat' s 'no-repeat') | 'no-repeat'
+
+column-width   = 'column-width' s0 <':'> s0 column-width-value 
+column-width-value = 'auto' | length
+
+justify-content   = 'justify-content' s0 <':'> s0 justify-content-value 
+justify-content-value = 'flex-start' | 'space-between' | 'space-around' | 'flex-end' | 'center'
+
+border-left-style   = 'border-left-style' s0 <':'> s0 border-left-style-value 
+border-left-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
+column-gap   = 'column-gap' s0 <':'> s0 column-gap-value 
+column-gap-value = 'normal' | length
+
+height   = 'height' s0 <':'> s0 height-value 
+height-value = 'auto' | percentage | length
+
+page-break-after   = 'page-break-after' s0 <':'> s0 page-break-after-value 
+page-break-after-value = 'auto' | 'right' | 'left' | 'avoid' | 'always'
+
+outline-color   = 'outline-color' s0 <':'> s0 outline-color-value 
+outline-color-value = 'invert' | color-type
+
+overflow-y   = 'overflow-y' s0 <':'> s0 overflow-y-value 
+overflow-y-value = 'visible' | 'scroll' | 'hidden' | 'auto'
+
+outline-width   = 'outline-width' s0 <':'> s0 outline-width-value 
+outline-width-value = 'medium' | 'thin' | 'thick' | length
+
+text-emphasis-color   = 'text-emphasis-color' s0 <':'> s0 text-emphasis-color-value 
+text-emphasis-color-value = color-type
+
+line-break   = 'line-break' s0 <':'> s0 line-break-value 
+line-break-value = 'auto' | 'strict' | 'normal' | 'loose'
+
+transform-origin   = 'transform-origin' s0 <':'> s0 transform-origin-value 
+transform-origin-value = ('50%' s '50%') | 'top' | 'right' | 'left' | 'center' | 'bottom' | percentage | length
+
+backface-visibility   = 'backface-visibility' s0 <':'> s0 backface-visibility-value 
+backface-visibility-value = 'visible' | 'hidden'
+
+margin-right   = 'margin-right' s0 <':'> s0 margin-right-value 
+margin-right-value = '0' | 'auto' | percentage | length
+
+text-transform   = 'text-transform' s0 <':'> s0 text-transform-value 
+text-transform-value = 'none' | 'uppercase' | 'lowercase' | 'full-width' | 'capitalize'
+
+vertical-align   = 'vertical-align' s0 <':'> s0 vertical-align-value 
+vertical-align-value = 'baseline' | 'top' | 'text-top' | 'text-bottom' | 'super' | 'sub' | 'middle' | 'bottom' | percentage | length
+
+align-items   = 'align-items' s0 <':'> s0 align-items-value 
+align-items-value = 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline'
+
+word-break   = 'word-break' s0 <':'> s0 word-break-value 
+word-break-value = 'normal' | 'keep-all' | 'break-all'
+
+break-inside   = 'break-inside' s0 <':'> s0 break-inside-value 
+break-inside-value = 'auto' | 'avoid-page' | 'avoid-column' | 'avoid'
+
+font-variant-caps   = 'font-variant-caps' s0 <':'> s0 font-variant-caps-value 
+font-variant-caps-value = 'normal' | 'unicase' | 'titling-caps' | 'small-caps' | 'petite-caps' | 'all-small-caps' | 'all-petite-caps'
+
+animation-play-state   = 'animation-play-state' s0 <':'> s0 animation-play-state-value 
+animation-play-state-value = 'running' | 'paused'
+
+writing-mode   = 'writing-mode' s0 <':'> s0 writing-mode-value 
+writing-mode-value = 'horizontal-tb' | 'vertical-rl' | 'vertical-lr'
+
+flex-shrink   = 'flex-shrink' s0 <':'> s0 flex-shrink-value 
+flex-shrink-value = '1' | number
+
+outline-offset   = 'outline-offset' s0 <':'> s0 outline-offset-value 
+outline-offset-value = '0' | length
+
+border-collapse   = 'border-collapse' s0 <':'> s0 border-collapse-value 
+border-collapse-value = 'separate' | 'collapse'
+
+flex-direction   = 'flex-direction' s0 <':'> s0 flex-direction-value 
+flex-direction-value = 'row' | 'row-reverse' | 'column-reverse' | 'column'
+
+font-kerning   = 'font-kerning' s0 <':'> s0 font-kerning-value 
+font-kerning-value = 'auto' | 'normal' | 'none'
+
+text-align   = 'text-align' s0 <':'> s0 text-align-value 
+text-align-value = 'start end' | 'start' | 'right' | 'match-parent' | 'left' | 'justify' | 'end' | 'center' | string
+
+text-indent   = 'text-indent' s0 <':'> s0 text-indent-value 
+text-indent-value = '0' | percentage | (length s 'hanging' s 'each-line') | (length s 'hanging') | (length s 'each-line') | length
+
+white-space   = 'white-space' s0 <':'> s0 white-space-value 
+white-space-value = 'normal' | 'pre-wrap' | 'pre-line' | 'pre' | 'nowrap'
+
+text-decoration-color   = 'text-decoration-color' s0 <':'> s0 text-decoration-color-value 
+text-decoration-color-value = color-type
+
+background-origin   = 'background-origin' s0 <':'> s0 background-origin-value 
+background-origin-value = 'padding-box' | 'content-box' | 'border-box'
+
+border-top-width   = 'border-top-width' s0 <':'> s0 border-top-width-value 
+border-top-width-value = 'medium' | 'thin' | 'thick' | length
+
+column-rule-width   = 'column-rule-width' s0 <':'> s0 column-rule-width-value 
+column-rule-width-value = 'medium' | 'thin' | 'thick' | length
+
+border-right-color   = 'border-right-color' s0 <':'> s0 border-right-color-value 
+border-right-color-value = 'transparent' | color-type
+
+text-justify   = 'text-justify' s0 <':'> s0 text-justify-value 
+text-justify-value = 'auto' | 'none' | 'inter-word' | 'distribute'
+
+word-spacing   = 'word-spacing' s0 <':'> s0 word-spacing-value 
+word-spacing-value = 'normal' | percentage | length
+
+quotes   = 'quotes' s0 <':'> s0 quotes-value 
+quotes-value = 'none' | ( string s string)
+
+column-count   = 'column-count' s0 <':'> s0 column-count-value 
+column-count-value = 'auto' | integer
+
+border-style   = 'border-style' s0 <':'> s0 border-style-value 
+border-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
+visibility   = 'visibility' s0 <':'> s0 visibility-value
+visibility-value = 'visible' | 'hidden' | 'collapse'
+
+border-right-width   = 'border-right-width' s0 <':'> s0 border-right-width-value 
+border-right-width-value = 'medium' | 'thin' | 'thick' | length
+
+border-bottom-right-radius   = 'border-bottom-right-radius' s0 <':'> s0 border-bottom-right-radius-value 
+border-bottom-right-radius-value = '0' | percentage | length
+
+align-self   = 'align-self' s0 <':'> s0 align-self-value 
+align-self-value = 'auto' | 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline'
+
+page-break-before   = 'page-break-before' s0 <':'> s0 page-break-before-value 
+page-break-before-value = 'auto' | 'right' | 'left' | 'avoid' | 'always'
+
+position   = 'position' s0 <':'> s0 position-value 
+position-value = 'static' | 'sticky' | 'relative' | 'page' | 'fixed' | 'center' | 'absolute'
+
+column-span   = 'column-span' s0 <':'> s0 column-span-value 
+column-span-value = 'none' | 'all'
+
+animation-iteration-count   = 'animation-iteration-count' s0 <':'> s0 animation-iteration-count-value 
+animation-iteration-count-value = '1' | 'infinite' | number
+
+animation-direction   = 'animation-direction' s0 <':'> s0 animation-direction-value
+animation-direction-value = 'normal' | 'reverse' | 'alternate-reverse' | 'alternate'
+
+margin-top   = 'margin-top' s0 <':'> s0 margin-top-value 
+margin-top-value = '0' | 'auto' | percentage | length
+
+border-bottom-left-radius   = 'border-bottom-left-radius' s0 <':'> s0 border-bottom-left-radius-value 
+border-bottom-left-radius-value = '0' | percentage | length
+
+text-combine-horizontal   = 'text-combine-horizontal' s0 <':'> s0 text-combine-horizontal-value
+text-combine-horizontal-value = 'none' | ('digits' s integer) | 'all'
+
+border-bottom-color   = 'border-bottom-color' s0 <':'> s0 border-bottom-color-value
+border-bottom-color-value = 'transparent' | color-type
+
+hanging-punctuation   = 'hanging-punctuation' s0 <':'> s0 hanging-punctuation-value
+hanging-punctuation-value = 'none' | 'last force-end' | 'last allow-end' | 'last' | 'force-end' | 'first force-end' | 'first allow-end' | 'first' | 'allow-end'
+
+text-decoration-skip   = 'text-decoration-skip' s0 <':'> s0 text-decoration-skip-value 
+text-decoration-skip-value = 'none' | 'spaces' | 'objects' | 'ink' | 'edges' | 'box-decoration' | 'box-decoration'
+
+object-fit   = 'object-fit' s0 <':'> s0 object-fit-value 
+object-fit-value = 'fill' | 'scale-down' | 'none' | 'cover' | 'contain'
+
+list-style-type   = 'list-style-type' s0 <':'> s0 list-style-type-value 
+list-style-type-value = 'disc' | 'upper-roman' | 'upper-latin' | 'upper-alpha' | 'square' | 'none' | 'lower-roman' | 'lower-latin' | 'lower-greek' | 'lower-alpha' | 'georgian' | 'decimal-leading-zero' | 'decimal' | 'circle' | 'armenian'
+
+z-index   = 'z-index' s0 <':'> s0 z-index-value 
+z-index-value = 'auto' | integer
+
+flex-wrap   = 'flex-wrap' s0 <':'> s0 flex-wrap-value 
+flex-wrap-value = 'nowrap' | 'wrap-reverse' | 'wrap'
+
+direction   = 'direction' s0 <':'> s0 direction-value 
+direction-value = 'ltr' | 'rtl'
+
+text-overflow   = 'text-overflow' s0 <':'> s0 text-overflow-value 
+text-overflow-value = ('clip' | 'ellipsis') / string
+
+border-top-right-radius   = 'border-top-right-radius' s0 <':'> s0 border-top-right-radius-value 
+border-top-right-radius-value = '0' | percentage | length
+
+min-height   = 'min-height' s0 <':'> s0 min-height-value 
+min-height-value = '0' | 'auto' | percentage | length
+
+flex-grow   = 'flex-grow' s0 <':'> s0 flex-grow-value 
+flex-grow-value = '0' | number
+
+unicode-bidi   = 'unicode-bidi' s0 <':'> s0 unicode-bidi-value 
+unicode-bidi-value = 'normal' | 'embed' | 'bidi-override'
+
+word-wrap   = 'word-wrap' s0 <':'> s0 word-wrap-value 
+word-wrap-value = 'normal' | 'break-word'
+
+align-content   = 'align-content' s0 <':'> s0 align-content-value 
+align-content-value = 'stretch' | 'space-between' | 'space-around' | 'flex-start' | 'flex-end' | 'center'
+
+border-bottom-style   = 'border-bottom-style' s0 <':'> s0 border-bottom-style-value 
+border-bottom-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
+margin-bottom   = 'margin-bottom' s0 <':'> s0 margin-bottom-value 
+margin-bottom-value = '0' | 'auto' | percentage | length
+
+border-left-color   = 'border-left-color' s0 <':'> s0 border-left-color-value 
+border-left-color-value = 'transparent' | color-type
+
+font-weight   = 'font-weight' s0 <':'> s0 font-weight-value 
+font-weight-value = 'normal' | 'lighter' | 'bolder' | 'bold' | '900' | '800' | '700' | '600' | '500' | '400' | '300' | '200' | '100'
+
+image-resolution   = 'image-resolution' s0 <':'> s0 image-resolution-value 
+image-resolution-value = '1dppx' | 'from-image'
+
+break-before   = 'break-before' s0 <':'> s0 break-before-value 
+break-before-value = 'auto' | 'right' | 'page' | 'left' | 'column' | 'avoid-page' | 'avoid-column' | 'avoid' | 'always'
+
+background-clip   = 'background-clip' s0 <':'> s0 background-clip-value 
+background-clip-value = 'border-box' | 'padding-box' | 'content-box'
+
+border-right-style   = 'border-right-style' s0 <':'> s0 border-right-style-value 
+border-right-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
+list-style-image   = 'list-style-image' s0 <':'> s0 list-style-image-value 
+list-style-image-value = 'none' | url
+
+background-size   = 'background-size' s0 <':'> s0 background-size-value 
+background-size-value = 'auto' | 'cover' | 'contain' | ('auto' s percentage) | percentage s length | percentage | (length s 'auto') | (length s percentage) | length
+
+object-position   = 'object-position' s0 <':'> s0 object-position-value 
+object-position-value = '50%' s '50%' | 'right' s 'bottom' | 'left' s 'top' | 'center' s 'center' | percentage s length
+
+page-break-inside   = 'page-break-inside' s0 <':'> s0 page-break-inside-value 
+page-break-inside-value = 'auto' | 'avoid'
+
+border-bottom-width   = 'border-bottom-width' s0 <':'> s0 border-bottom-width-value 
+border-bottom-width-value = 'medium' | 'thin' | 'thick' | length
+
+outline-style   = 'outline-style' s0 <':'> s0 outline-style-value 
+outline-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'groove' | 'double' | 'dotted' | 'dashed' | 'auto'
+
+order   = 'order' s0 <':'> s0 order-value 
+order-value = '0' | integer
+
+font-size-adjust   = 'font-size-adjust' s0 <':'> s0 font-size-adjust-value 
+font-size-adjust-value = 'none' | number
+
+animation-fill-mode   = 'animation-fill-mode' s0 <':'> s0 animation-fill-mode-value 
+animation-fill-mode-value = 'none' | 'forwards' | 'both' | 'backwards'
+
+box-shadow   = 'box-shadow' s0 <':'> s0 box-shadow-value 
+box-shadow-value = 'none' | (length s length s length s length s color-type s 'inset')
+
+overflow   = 'overflow' s0 <':'> s0 overflow-value 
+overflow-value = 'visible' | 'scroll' | 'hidden' | 'auto'
+
+overflow-x   = 'overflow-x' s0 <':'> s0 overflow-x-value 
+overflow-x-value = 'visible' | 'scroll' | 'hidden' | 'auto'
+
+margin-left   = 'margin-left' s0 <':'> s0 margin-left-value 
+margin-left-value = '0' | 'auto' | percentage | length
+
+font-size   = 'font-size' s0 <':'> s0 font-size-value 
+font-size-value = 'medium' | 'xx-small' | 'xx-large' | 'x-small' | 'x-large' | 'smaller' | 'small' | 'larger' | 'large' | percentage | length
+
+empty-cells   = 'empty-cells' s0 <':'> s0 empty-cells-value 
+empty-cells-value = 'show' | 'hide'
+
+text-decoration-line   = 'text-decoration-line' s0 <':'> s0 text-decoration-line-value 
+text-decoration-line-value = 'none' | 'underline' | 'overline' | 'line-through' | 'blink'
+
+background-color   = 'background-color' s0 <':'> s0 background-color-value 
+background-color-value = 'transparent' | color-type
+
+clear-after   = 'clear-after' s0 <':'> s0 clear-after-value 
+clear-after-value = 'none' | 'top' | 'start' | 'right' | 'outside' | 'left' | 'inside' | 'end' | 'descendants' | 'bottom' | 'both'
+
+padding-right   = 'padding-right' s0 <':'> s0 padding-right-value 
+padding-right-value = '0' | percentage | length
+
+letter-spacing   = 'letter-spacing' s0 <':'> s0 letter-spacing-value 
+letter-spacing-value = 'normal' | length
+
+box-sizing   = 'box-sizing' s0 <':'> s0 box-sizing-value 
+box-sizing-value = 'content-box' | 'padding-box' | 'border-box'
+
+widows   = 'widows' s0 <':'> s0 widows-value 
+widows-value = '2' | integer
+
+image-orientation   = 'image-orientation' s0 <':'> s0 image-orientation-value 
+image-orientation-value = angle
+
+perspective   = 'perspective' s0 <':'> s0 perspective-value 
+perspective-value = 'none' | length
+
+border-spacing   = 'border-spacing' s0 <':'> s0 border-spacing-value 
+border-spacing-value = '0' | (length s length) | length
+
+display   = 'display' s0 <':'> s0 display-value 
+display-value = 'inline' | 'table-row-group' | 'table-row' | 'table-header-group' | 'table-footer-group' | 'table-column-group' | 'table-column' | 'table-cell' | 'table-caption' | 'table' | 'run-in' | 'run-in' | 'none' | 'list-item' | 'inline-table' | 'inline-flex' | 'inline-block' | 'flex' | 'container' | 'compact' | 'block'
+
+break-after   = 'break-after' s0 <':'> s0 break-after-value 
+break-after-value = 'auto' | 'right' | 'page' | 'left' | 'column' | 'avoid-page' | 'avoid-column' | 'avoid' | 'always'
+
+font-style   = 'font-style' s0 <':'> s0 font-style-value 
+font-style-value = 'normal' | 'oblique' | 'italic'
+
+bottom   = 'bottom' s0 <':'> s0 bottom-value 
+bottom-value = 'auto' | percentage | length
+
+all   = 'all' s0 <':'> s0 all-value 
+all-value = 'initial' | 'unset' | 'inherit'
+
+text-decoration-style   = 'text-decoration-style' s0 <':'> s0 text-decoration-style-value 
+text-decoration-style-value = 'solid' | 'wavy' | 'double' | 'dotted' | 'dashed'
+
+perspective-origin   = 'perspective-origin' s0 <':'> s0 perspective-origin-value 
+perspective-origin-value = '50%' s '50%' | position | percentage | length
+
+resize   = 'resize' s0 <':'> s0 resize-value 
+resize-value = 'none' | 'vertical' | 'horizontal' | 'both'
+
+clear   = 'clear' s0 <':'> s0 clear-value 
+clear-value = 'none' | 'right' | 'left' | 'both'
+
+font-synthesis   = 'font-synthesis' s0 <':'> s0 font-synthesis-value 
+font-synthesis-value = 'weight style' | 'weight' | 'style' | 'none'
+
+pointer-events   = 'pointer-events' s0 <':'> s0 pointer-events-value 
+pointer-events-value = 'auto' | 'none'
+
+box-decoration-break   = 'box-decoration-break' s0 <':'> s0 box-decoration-break-value 
+box-decoration-break-value = 'slice' | 'clone'
+
+text-underline-position   = 'text-underline-position' s0 <':'> s0 text-underline-position-value 
+text-underline-position-value = 'auto' | 'under' s 'right' | 'under' s 'left' | 'under' | 'right' | 'left'
+
+animation-delay   = 'animation-delay' s0 <':'> s0 animation-delay-value 
+animation-delay-value = time
+
+font-variant   = 'font-variant' s0 <':'> s0 font-variant-value 
+font-variant-value = 'normal' | 'unicase' | 'titling-caps' | 'small-caps' | 'petite-caps' | 'all-small-caps' | 'all-petite-caps'
+
+tab-size   = 'tab-size' s0 <':'> s0 tab-size-value 
+tab-size-value = '8' | length | integer
+
+orphans   = 'orphans' s0 <':'> s0 orphans-value 
+orphans-value = '2' | integer
+
+text-shadow   = 'text-shadow' s0 <':'> s0 text-shadow-value 
+text-shadow-value = 'none' | (length s length s length s color-type)
+
+max-height   = 'max-height' s0 <':'> s0 max-height-value 
+max-height-value = 'none' | percentage | length
+
+border-top-left-radius   = 'border-top-left-radius' s0 <':'> s0 border-top-left-radius-value 
+border-top-left-radius-value = '0' | percentage | length
+
+color   = 'color' s0 <':'> s0 color-value 
+color-value = color-type
+
+border-left-width   = 'border-left-width' s0 <':'> s0 border-left-width-value 
+border-left-width-value = 'medium' | 'thin' | 'thick' | length
+
+padding-left   = 'padding-left' s0 <':'> s0 padding-left-value 
+padding-left-value = '0' | percentage | length
+
+padding-top   = 'padding-top' s0 <':'> s0 padding-top-value 
+padding-top-value = '0' | percentage | length
+
+opacity   = 'opacity' s0 <':'> s0 opacity-value 
+opacity-value = '1' | number
+
+text-emphasis-position   = 'text-emphasis-position' s0 <':'> s0 text-emphasis-position-value 
+text-emphasis-position-value = ('over' s 'right') | ('over' s 'left') | ('below' s 'right') | ('below' s 'left')
+
+animation-duration   = 'animation-duration' s0 <':'> s0 animation-duration-value 
+animation-duration-value = '0s' | time
+
+table-layout   = 'table-layout' s0 <':'> s0 table-layout-value 
+table-layout-value = 'auto' | 'fixed'
+
+left		   = 'left' s0 <':'> s0 left-value 
+left-value = 'auto' | percentage | length
+
+caption-side	   = 'caption-side' s0 <':'> s0 caption-side-value 
+caption-side-value = 'top' | 'bottom'
+
+hyphens   = 'hyphens' s0 <':'> s0 hyphens-value 
+hyphens-value = 'manual' | 'none' | 'auto'
+
+transform-style   = 'transform-style' s0 <':'> s0 transform-style-value
+transform-style-value = 'flat' | 'preserve-3d'
+
+font-stretch   = 'font-stretch' s0 <':'> s0 font-stretch-value 
+font-stretch-value = 'normal' | 'ultra-expanded' | 'ultra-condensed' | 'semi-expanded' | 'semi-condensed' | 'extra-expanded' | 'extra-condensed' | 'expanded' | 'condensed'
+
+border-top-style   = 'border-top-style' s0 <':'> s0 border-top-style-value 
+border-top-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
+
+flex-basis   = 'flex-basis' s0 <':'> s0 flex-basis-value 
+flex-basis-value = 'auto' | length
+
+column-rule-style = 'column-rule-style' s0 <':'> s0 column-rule-style-value 
+column-rule-style-value = 'none' | 'solid' | 'ridge' | 'outset' | 'inset' | 'hidden' | 'groove' | 'double' | 'dotted' | 'dashed'
