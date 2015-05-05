@@ -9,6 +9,38 @@
   (testing "The grammar parser is been initialized."
       (is (not (nil? gp)))))
 
+(deftest borders-test
+  (testing "several shorthand for the borders"
+    (is (= (p/parse gp "border-bottom: red dotted")
+           [:debug [:token [:border-bottom "border-bottom" [:border-bottom-color-value [:color-type [:color-keyword "red"]]] [:border-bottom-style-value "dotted"]]]]))
+    (is (= (p/parse gp "border-right: red")
+           [:debug [:token [:border-right "border-right" [:border-right-color-value [:color-type [:color-keyword "red"]]]]]]))
+    (is (= (p/parse gp "border-left: dotted red")
+           [:debug [:token [:border-left "border-left" [:border-left-style-value "dotted"] [:border-left-color-value [:color-type [:color-keyword "red"]]]]]]))
+    (is (= (p/parse gp "border-top: dotted red thin")
+           [:debug [:token [:border-top "border-top" [:border-top-style-value "dotted"] [:border-top-color-value [:color-type [:color-keyword "red"]]] [:border-top-width-value "thin"]]]]))
+    (is (= (p/parse gp "border: transparent #fff medium")
+           [:debug [:token [:border "border" [:border-color-value [:color-type "transparent"]] [:border-color-value [:color-type [:rgb [:hexadecimal "#" "fff"]]]] [:border-width-value "medium"]]]]))))
+
+(deftest flex-test
+  (testing "the flox property"
+    (is (= (p/parse gp "flex-flow: column-reverse wrap")
+           [:debug [:token [:flex-flow "flex-flow" [:flex-direction-value "column-reverse"] [:flex-wrap-value "wrap"]]]]))
+    (is (= (p/parse gp "flex-flow: wrap column-reverse")
+           [:debug [:token [:flex-flow "flex-flow" [:flex-wrap-value "wrap"] [:flex-direction-value "column-reverse"]]]]))))
+
+(deftest border-images-test
+  (testing "border-image-slice"
+    (is (= (p/parse gp "border-image-slice: 10% fill 7 12")
+           [:debug [:token [:border-image-slice "border-image-slice" [:percentage [:integer "10"] "%"] "fill" [:integer "7"] [:integer "12"]]]]))
+    (is (= (p/parse gp "border-image-slice: 10% ")
+           [:debug [:token [:border-image-slice "border-image-slice" [:percentage [:integer "10"] "%"]]]])))
+  (testing "border-image-source"
+    (is (= (p/parse gp "border-image-source: url('image.jpg')")
+           [:debug [:token [:border-image-source "border-image-source" [:image [:url "'image.jpg'"]]]]]))
+    (is (= (p/parse gp "border-image-source: none")
+           [:debug [:token [:border-image-source "border-image-source" "none"]]]))))
+
 ;; (deftest angle-test
 ;;   (testing "the deg postfix"
 ;;     (is (= (p/parse gp "90deg")
