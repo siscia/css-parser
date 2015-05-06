@@ -1,7 +1,7 @@
 
 (* flex-flow = '[flex-wrap]' *)
-(* border-image-slice = '100%' | '[ Up to four space-separated <number> or <percentage> values' | 'the optional 'fill' keyword can be included after the other values are declared ]' *)
-(* border-image-source = 'none' | 'url(path/file.png)' *)
+
+
 (* transition-property = 'all' | 'none' | '[ A comma-separated list of property names ]'*)
 (* font-family = family-name *)
 (* columns = '[column-count]'*)
@@ -27,9 +27,9 @@
 (* transition = '[transition-duration]' | '[transition-timing-function]' | '[transition-delay]' *)
 (* border-image = '[border-image-slice]' | '/' | '[border-image-width]' | '[border-image-width]' | '/' | '[border-image-outset]' | '[border-image-repeat]' *)
 (* flex = '[flex-shrink]' | '[flex-basis]' | 'none' *)
-(* border-image-width = '1' | '[ Up to four space-separated <length>' *)
+
 (* background = '[background-image]' | '[background-repeat]' | '[background-attachment]' | '[background-position]' | '/' | '[background-size]' | '[background-origin]' | '[background-clip]' *)
-(* border-image-outset = '0' | '[ Up to four space-separated <length> or <number> values defining outsets for top' *)
+
 (* list-style = '[list-style-position]' | '[list-style-image]' *)
 (* icon = 'auto' | '[ One or more comma separated <url> values ]' *)
 
@@ -63,29 +63,30 @@ pseudoclass = 'link' | 'visited' | 'active' | 'hover' | 'focus' | 'first-child' 
 class = #'[a-zA-Z\-\_]+'
 id = #'[a-zA-Z\-\_]+'
 
-token = (float | border-image-repeat | min-width | list-style-position | text-align-last | overflow-wrap | column-fill | border-top-color | line-height | text-orientation | text-emphasis-style | width | background-position | right | border-width | padding-bottom | max-width | background-attachment | top | transition-duration | border-color | counter-increment | background-repeat | column-width | justify-content | border-left-style | column-gap | height | page-break-after | outline-color | overflow-y | outline-width | text-emphasis-color | line-break | transform-origin | backface-visibility | margin-right | text-transform | vertical-align | align-items | word-break | break-inside | font-variant-caps | animation-play-state | writing-mode | flex-shrink | outline-offset | border-collapse | flex-direction | font-kerning | text-align | text-indent | white-space | text-decoration-color | background-origin | border-top-width | column-rule-width | border-right-color | text-justify | word-spacing | quotes | column-count | border-style | visibility | border-right-width | border-bottom-right-radius | align-self | page-break-before | position | column-span | animation-iteration-count | animation-direction | margin-top | border-bottom-left-radius | text-combine-horizontal | border-bottom-color | hanging-punctuation | text-decoration-skip | object-fit | list-style-type | z-index | flex-wrap | direction | text-overflow | border-top-right-radius | min-height | flex-grow | unicode-bidi | word-wrap | align-content | border-bottom-style | margin-bottom | border-left-color | font-weight | image-resolution | break-before | background-clip | border-right-style | list-style-image | background-size | object-position | page-break-inside | border-bottom-width | outline-style | order | font-size-adjust | animation-fill-mode | box-shadow | overflow | overflow-x | margin-left | font-size | empty-cells | text-decoration-line | background-color | clear-after | padding-right | letter-spacing | box-sizing | widows | image-orientation | perspective | border-spacing | display | break-after | font-style | bottom | all | text-decoration-style | perspective-origin | resize | clear | font-synthesis | pointer-events | box-decoration-break | text-underline-position | animation-delay | font-variant | tab-size | orphans | text-shadow | max-height | border-top-left-radius | color | border-left-width | padding-left | padding-top | opacity | text-emphasis-position | animation-duration | table-layout | left | caption-side | hyphens | transform-style | font-stretch | border-top-style | flex-basis | column-rule-style | border-bottom | border-top | border-left | border-right | border | flex-flow | border-image-slice | border-image-source)
+token = (float | border-image-repeat | min-width | list-style-position | text-align-last | overflow-wrap | column-fill | border-top-color | line-height | text-orientation | text-emphasis-style | width | background-position | right | border-width | padding-bottom | max-width | background-attachment | top | transition-duration | border-color | counter-increment | background-repeat | column-width | justify-content | border-left-style | column-gap | height | page-break-after | outline-color | overflow-y | outline-width | text-emphasis-color | line-break | transform-origin | backface-visibility | margin-right | text-transform | vertical-align | align-items | word-break | break-inside | font-variant-caps | animation-play-state | writing-mode | flex-shrink | outline-offset | border-collapse | flex-direction | font-kerning | text-align | text-indent | white-space | text-decoration-color | background-origin | border-top-width | column-rule-width | border-right-color | text-justify | word-spacing | quotes | column-count | border-style | visibility | border-right-width | border-bottom-right-radius | align-self | page-break-before | position | column-span | animation-iteration-count | animation-direction | margin-top | border-bottom-left-radius | text-combine-horizontal | border-bottom-color | hanging-punctuation | text-decoration-skip | object-fit | list-style-type | z-index | flex-wrap | direction | text-overflow | border-top-right-radius | min-height | flex-grow | unicode-bidi | word-wrap | align-content | border-bottom-style | margin-bottom | border-left-color | font-weight | image-resolution | break-before | background-clip | border-right-style | list-style-image | background-size | object-position | page-break-inside | border-bottom-width | outline-style | order | font-size-adjust | animation-fill-mode | box-shadow | overflow | overflow-x | margin-left | font-size | empty-cells | text-decoration-line | background-color | clear-after | padding-right | letter-spacing | box-sizing | widows | image-orientation | perspective | border-spacing | display | break-after | font-style | bottom | all | text-decoration-style | perspective-origin | resize | clear | font-synthesis | pointer-events | box-decoration-break | text-underline-position | animation-delay | font-variant | tab-size | orphans | text-shadow | max-height | border-top-left-radius | color | border-left-width | padding-left | padding-top | opacity | text-emphasis-position | animation-duration | table-layout | left | caption-side | hyphens | transform-style | font-stretch | border-top-style | flex-basis | column-rule-style | border-bottom | border-top | border-left | border-right | border | flex-flow | border-image-slice | border-image-source| border-image-outset | border-image-repeat | border-image-width)
 
 (* shorthand *)
 
 
-border-bottom = 'border-bottom' s0 <':'> s0 ((border-bottom-color-value | border-bottom-style-value | border-bottom-width-value) s0)* (border-bottom-color-value | border-bottom-style-value | border-bottom-width-value)
+border-bottom = 'border-bottom' s0 <':'> s0 (border-bottom-color-value | border-bottom-style-value | border-bottom-width-value | s0)+ 
 
-border-top = 'border-top' s0 <':'> s0 ((border-top-color-value | border-top-style-value | border-top-width-value) s0)* (border-top-color-value | border-top-style-value | border-top-width-value)
+border-top = 'border-top' s0 <':'> s0 (border-top-color-value | border-top-style-value | border-top-width-value | s0)+ 
 
-border-left = 'border-left' s0 <':'> s0 ((border-left-color-value | border-left-style-value | border-left-width-value) s0)* (border-left-color-value | border-left-style-value | border-left-width-value)
+border-left = 'border-left' s0 <':'> s0 (border-left-color-value | border-left-style-value | border-left-width-value | s0)+
 
-border-right = 'border-right' s0 <':'> s0 ((border-right-color-value | border-right-style-value | border-right-width-value) s0)* (border-right-color-value | border-right-style-value | border-right-width-value)
+border-right = 'border-right' s0 <':'> s0 (border-right-color-value | border-right-style-value | border-right-width-value | s0)+ 
 
-border = 'border' s0 <':'> s0 ((border-color-value | border-style-value | border-width-value) s0)* (border-color-value | border-style-value | border-width-value)
+border = 'border' s0 <':'> s0 (border-color-value | border-style-value | border-width-value | s0)+
 
 border-image-slice = 'border-image-slice' s0 <':'> s0 (number | percentage | 'fill' | 'inherit' | s0)+
 
 border-image-source = 'border-image-source' s0 <':'> s0 ('none' | image | 'inherit')
 
-(*
-//TODO
-finish with border-image-{outset, repeat, width}
-*)
+border-image-outset = 'border-image-outset' s0 <':'> s0 ((length | number| s0)+ | 'inherit')
+
+border-image-repeat = 'border-image-repeat' s0 <':'> s0 (('stretch' | 'repeat' | 'round' | 'space' | s0 )+ |  'inherit')
+
+border-image-width = 'border-image-width' s0 <':'> s0 ((length | percentage | number | 'auto' | s0)+ | 'inherit')
 
 flex-flow = 'flex-flow' s0 <':'> s0 ((flex-direction-value | flex-wrap-value) s0)* (flex-direction-value | flex-wrap-value)
 
@@ -97,9 +98,6 @@ flex-flow = 'flex-flow' s0 <':'> s0 ((flex-direction-value | flex-wrap-value) s0
 
 float       = 'float' s0 <':'> s0 float-value 
 float-value = 'none' | 'right' | 'left'
-
-border-image-repeat   = 'border-image-repeat' s0 <':'> s0 border-image-repeat-value
-border-image-repeat-value = 'stretch' | 'space' | 'round' | 'repeat'
 
 min-width       = 'min-width' s0 <':'> s0 min-width-value 
 min-width-value = '0' | 'auto' | percentage | length

@@ -39,7 +39,24 @@
     (is (= (p/parse gp "border-image-source: url('image.jpg')")
            [:debug [:token [:border-image-source "border-image-source" [:image [:url "'image.jpg'"]]]]]))
     (is (= (p/parse gp "border-image-source: none")
-           [:debug [:token [:border-image-source "border-image-source" "none"]]]))))
+           [:debug [:token [:border-image-source "border-image-source" "none"]]])))
+  (testing "border-image-outset"
+    (is (= (p/parse gp "border-image-outset: 1.5")
+           [:debug [:token [:border-image-outset "border-image-outset" [:float "1" "." "5"]]]]))
+    (is (= (p/parse gp "border-image-outset: 7px 12px 14 5px")
+           [:debug [:token [:border-image-outset "border-image-outset" [:length [:integer "7"] "px"] [:length [:integer "12"] "px"] [:integer "14"] [:length [:integer "5"] "px"]]]])))
+  (testing "border-image-repeat"
+    (is (= (p/parse gp "border-image-repeat: space round")
+           [:debug [:token [:border-image-repeat "border-image-repeat" "space" "round"]]]))
+    (is (= (p/parse gp "border-image-repeat: space")
+           [:debug [:token [:border-image-repeat "border-image-repeat" "space"]]])))
+  (testing "border-image-width"
+    (is (= (p/parse gp "border-image-width: 5")
+           [:debug [:token [:border-image-width "border-image-width" [:integer "5"]]]]))
+    (is (= (p/parse gp "border-image-width: 5% 2 auto")
+           [:debug [:token [:border-image-width "border-image-width" [:percentage [:integer "5"] "%"] [:integer "2"] "auto"]]]))
+    (is (= (p/parse gp "border-image-width: 5% 2em 10% auto")
+           [:debug [:token [:border-image-width "border-image-width" [:percentage [:integer "5"] "%"] [:length [:integer "2"] "em"] [:percentage [:integer "10"] "%"] "auto"]]]))))
 
 ;; (deftest angle-test
 ;;   (testing "the deg postfix"
