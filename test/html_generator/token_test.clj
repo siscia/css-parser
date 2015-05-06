@@ -56,7 +56,12 @@
     (is (= (p/parse gp "border-image-width: 5% 2 auto")
            [:debug [:token [:border-image-width "border-image-width" [:percentage [:integer "5"] "%"] [:integer "2"] "auto"]]]))
     (is (= (p/parse gp "border-image-width: 5% 2em 10% auto")
-           [:debug [:token [:border-image-width "border-image-width" [:percentage [:integer "5"] "%"] [:length [:integer "2"] "em"] [:percentage [:integer "10"] "%"] "auto"]]]))))
+           [:debug [:token [:border-image-width "border-image-width" [:percentage [:integer "5"] "%"] [:length [:integer "2"] "em"] [:percentage [:integer "10"] "%"] "auto"]]])))
+  (testing "border-image"
+    (is (= (p/parse gp "border-image-width: 5")
+           [:debug [:token [:border-image-width "border-image-width" [:integer "5"]]]]))
+    (is (= (p/parse gp "-moz-border-image:url('/files/4127/border.png') 30 30 repeat")
+           [:debug [:token [:border-image "-moz-" "border-image" [:image [:url "'/files/4127/border.png'"]] [:integer "30"] [:integer "30"] "repeat"]]]))))
 
 ;; (deftest angle-test
 ;;   (testing "the deg postfix"
