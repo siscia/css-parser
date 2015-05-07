@@ -90,3 +90,13 @@
            [:debug [:token [:transition [:vk] "transition" [:transition-property-value [:identifier [:custom-ident "m" "argin" "-left"]]] [:transition-duration-value [:time [:integer "4"] "s"]]]]]))
     (is (= (p/parse gp "transition: margin-left 4s, color 1s")
            [:debug [:token [:transition [:vk] "transition" [:transition-property-value [:identifier [:custom-ident "m" "argin" "-left"]]] [:transition-duration-value [:time [:integer "4"] "s"]] [:transition-property-value [:identifier [:custom-ident "c" "olor" ""]]] [:transition-duration-value [:time [:integer "1"] "s"]]]]]))))
+
+
+(deftest family-name
+  (testing "family-name"
+    (is (= (p/parse gp "font-family: Times New, \"Times New Roman\", Georgia, serif")
+           [:debug [:token [:font-family "font-family" [:family-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""]] [:family-name [:string "Times New Roman"]] [:family-name [:custom-ident "G" "eorgia" ""]] [:generic-family "serif"]]]]))
+    (is (= (p/parse gp "font-family: serif")
+           [:debug [:token [:font-family "font-family" [:generic-family "serif"]]]]))
+    (is (= (p/parse gp "font-family: Times New Roman")
+           [:debug [:token [:font-family "font-family" [:family-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""] [:custom-ident "R" "oman" ""]]]]]))))
