@@ -100,3 +100,40 @@
            [:debug [:token [:font-family "font-family" [:generic-family "serif"]]]]))
     (is (= (p/parse gp "font-family: Times New Roman")
            [:debug [:token [:font-family "font-family" [:family-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""] [:custom-ident "R" "oman" ""]]]]]))))
+
+(deftest column-test
+  (testing "column"
+    (is (= (p/parse gp "columns: 1 3em")
+           [:debug [:token [:columns "columns" [:column-count-value [:integer "1"]] [:column-width-value [:length [:integer "3"] "em"]]]]]))
+    (is (= (p/parse gp "columns: 3")
+           [:debug [:token [:columns "columns" [:column-count-value [:integer "3"]]]]]))
+    (is (= (p/parse gp "columns: 3em")
+           [:debug [:token [:columns "columns" [:column-width-value [:length [:integer "3"] "em"]]]]]))))
+
+(deftest margin-value
+  (testing "margins"
+    (is (= (p/parse gp "margin: 1em")
+           [:debug [:token [:margin "margin" [:margin-all [:length [:integer "1"] "em"]]]]]))
+    (is (= (p/parse gp "margin: 1em 2em")
+           [:debug [:token [:margin "margin" [:margin-top-value [:length [:integer "1"] "em"]] [:margin-hor-value [:margin-all [:length [:integer "2"] "em"]]]]]]))
+    (is (= (p/parse gp "margin: 1em 2em auto")
+           [:debug [:token [:margin "margin" [:margin-top-value [:length [:integer "1"] "em"]] [:margin-hor-value [:margin-all [:length [:integer "2"] "em"]]] [:margin-bottom-value "auto"]]]]))
+    (is (= (p/parse gp "margin: 1em 2em auto 3%")
+           [:debug [:token [:margin "margin" [:margin-top-value [:length [:integer "1"] "em"]] [:margin-right-value [:length [:integer "2"] "em"]] [:margin-bottom-value "auto"] [:margin-left-value [:percentage [:integer "3"] "%"]]]]]))))
+
+
+(deftest counter
+  (testing "counter-reset"
+    (is (= (p/parse gp "counter-reset: counter1 1")
+           [:debug [:token [:counter-reset "counter-reset" [:identifier [:custom-ident "c" "ounter" "1"]] [:integer "1"]]]]))
+    (is (= (p/parse gp "counter-reset: counter1 1 counter2 4")
+           [:debug [:token [:counter-reset "counter-reset" [:identifier [:custom-ident "c" "ounter" "1"]] [:integer "1"] [:identifier [:custom-ident "c" "ounter" "2"]] [:integer "4"]]]]))))
+
+(deftest column-rule-test
+  (testing "column-rule"
+    (is (= (p/parse gp "column-rule: blue")
+           [:debug [:token [:column-rule "column-rule" [:column-rule-color-value [:color-type [:color-keyword "blue"]]]]]]))
+    (is (= (p/parse gp "column-rule: inset blue")
+           [:debug [:token [:column-rule "column-rule" [:column-rule-style-value "inset"] [:column-rule-color-value [:color-type [:color-keyword "blue"]]]]]]))
+    (is (= (p/parse gp "column-rule: 23px inset blue")
+           [:debug [:token [:column-rule "column-rule" [:column-rule-width-value [:length [:integer "23"] "px"]] [:column-rule-style-value "inset"] [:column-rule-color-value [:color-type [:color-keyword "blue"]]]]]]))))
