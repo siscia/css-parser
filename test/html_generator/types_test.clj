@@ -443,3 +443,15 @@
            [:type [:url "http://aaa.com"]]))
     (is (= (p/parse gp "url('http://aaa.com')")
            [:type [:url "'http://aaa.com'"]]))))
+
+(deftest count-test
+  (testing "counter"
+    (is (= (p/parse gp "counter(section)")
+           [:type [:count [:counter "counter" [:identifier [:custom-ident "s" "ection" ""]]]]]))
+    (is (= (p/parse gp "counter(section, decimal)")
+           [:type [:count [:counter "counter" [:identifier [:custom-ident "s" "ection" ""]] [:style "decimal"]]]])))
+  (testing "counters"
+    (is (= (p/parse gp "counters(section, \",\")")
+           [:type [:count [:counters "counters" [:identifier [:custom-ident "s" "ection" ""]] [:string ","]]]]))
+    (is (= (p/parse gp "counters(section, \",\", decimal)")
+           [:type [:count [:counters "counters" [:identifier [:custom-ident "s" "ection" ""]] [:string ","] [:style "decimal"]]]]))))

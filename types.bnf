@@ -27,7 +27,13 @@ timing-function	// fine
 uri		// fine
 *)
 
-type = s0 (color-type | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode | position | string) / image / custom-ident 
+type = s0 (color-type | angle | gradient | url | ratio | resolution | shape | time | length | integer | number | percentage | timing-function | mq-boolean | blend-mode | position | string | count) / image / custom-ident 
+
+count = counter | counters
+counter = <'counter'> <'('> s0 identifier s0 (<','> s0 style)? <')'>
+counters = <'counters'> <'('> s0 identifier s0 <','> s0 string s0 (<','> s0 style)? <')'>
+
+style = 'disc' | 'circle' | 'square' | 'decimal' | 'decimal-leading-zero' | 'lower-roman' | 'upper-roman' | 'lower-greek' | 'lower-latin' | 'upper-latin' | 'armenian' | 'georgian' | 'lower-alpha' | 'upper-alpha' | 'none' | 'inherit'
 
 string = (<'"'> #'[^"\r\n]*' <'"'>) | (<'\''> #'[^\'\r\n]*' <'\''>)
 
