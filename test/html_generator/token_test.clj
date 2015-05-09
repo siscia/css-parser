@@ -137,3 +137,34 @@
            [:debug [:token [:column-rule "column-rule" [:column-rule-style-value "inset"] [:column-rule-color-value [:color-type [:color-keyword "blue"]]]]]]))
     (is (= (p/parse gp "column-rule: 23px inset blue")
            [:debug [:token [:column-rule "column-rule" [:column-rule-width-value [:length [:integer "23"] "px"]] [:column-rule-style-value "inset"] [:column-rule-color-value [:color-type [:color-keyword "blue"]]]]]]))))
+
+(deftest padding
+  (testing "padding"
+    (is (= (p/parse gp "padding: 1em")
+           [:debug [:token [:padding "padding" [:padding-value [:length [:integer "1"] "em"]]]]]))
+    (is (= (p/parse gp "padding: 1em 3px")
+           [:debug [:token [:padding "padding" [:padding-horizontal [:padding-value [:length [:integer "1"] "em"]]] [:padding-vertical [:padding-value [:length [:integer "3"] "px"]]]]]]))
+    (is (= (p/parse gp "padding: 1em 3px 30px")
+           [:debug [:token [:padding "padding" [:padding-top-value [:length [:integer "1"] "em"]] [:padding-horizontal [:padding-value [:length [:integer "3"] "px"]]] [:padding-bottom-value [:length [:integer "30"] "px"]]]]]))
+    (is (= (p/parse gp "padding: 1em 3px 30px 5px")
+           [:debug [:token [:padding "padding" [:padding-top-value [:length [:integer "1"] "em"]] [:padding-right-value [:length [:integer "3"] "px"]] [:padding-left-value [:length [:integer "30"] "px"]] [:padding-bottom-value [:length [:integer "5"] "px"]]]]]))))
+
+(deftest outline-test
+  (testing "outline"
+    (is (= (p/parse gp "outline: solid")
+           [:debug [:token [:outline "outline" [:outline-style-value "solid"]]]]))
+    (is (= (p/parse gp "outline: solid 1px")
+           [:debug [:token [:outline "outline" [:outline-style-value "solid"] [:outline-width-value [:length [:integer "1"] "px"]]]]]))
+    (is (= (p/parse gp "outline: solid black 1px")
+           [:debug [:token [:outline "outline" [:outline-style-value "solid"] [:outline-color-value [:color-type [:color-keyword "black"]]] [:outline-width-value [:length [:integer "1"] "px"]]]]]))
+    (is (= (p/parse gp "outline: 1px #000")
+           [:debug [:token [:outline "outline" [:outline-width-value [:length [:integer "1"] "px"]] [:outline-color-value [:color-type [:rgb [:hexadecimal "#" "000"]]]]]]]))))
+
+(deftest animation
+  (testing "animation"
+    (is (= (p/parse gp "animation: slidein 3s")
+           [:debug [:token [:animation [:vk] "animation" [:animation-name-value [:identifier [:custom-ident "s" "lidein" ""]]] [:animation-duration-value [:time [:integer "3"] "s"]]]]]))
+    (is (= (p/parse gp "animation: slidein 3s ease-in 1s")
+           [:debug [:token [:animation [:vk] "animation" [:animation-name-value [:identifier [:custom-ident "s" "lidein" ""]]] [:animation-duration-value [:time [:integer "3"] "s"]] [:animation-timing-function-value [:transition-timing-function-value [:timing-function "ease-in"]]] [:animation-delay-value [:time [:integer "1"] "s"]]]]]))
+    (is (= (p/parse gp "animation: slidein 3s ease-in 1s 2 reverse both paused")
+           [:debug [:token [:animation [:vk] "animation" [:animation-name-value [:identifier [:custom-ident "s" "lidein" ""]]] [:animation-duration-value [:time [:integer "3"] "s"]] [:animation-timing-function-value [:transition-timing-function-value [:timing-function "ease-in"]]] [:animation-delay-value [:time [:integer "1"] "s"]] [:animation-iteration-count-value [:integer "2"]] [:animation-direction-value "reverse"] [:animation-fill-mode-value "both"] [:animation-play-state-value "paused"]]]]))))
