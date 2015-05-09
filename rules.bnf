@@ -1,12 +1,8 @@
 (* transform = 'none' | 'translateZ(<length>)' | 'translateY(<translation-value>)' | 'translateX(<translation-value>)' | 'translate3d(<translation-value>' *)
-(* animation = '[animation-duration]' | '[animation-timing-function]' | '[animation-delay]' | '[animation-iteration-count]' | '[animation-direct
-ion]' | '[animation-fill-mode]' | '[animation-play-state]' *)
-(* animation-name = 'none' | '[ custom identifier ]' *)
 (* content = 'normal' | 'open-quote' | 'none' | 'no-open-quote' | 'no-close-quote' | 'icon' | 'close-quote' | 'attr(<identifier>' | url | string | '<counter>' *)
 (* font = '[font-variant]' | '[font-weight]' | '[font-stretch]' | '[font-size]' | '/' | '[line-height]' | '[font-family]' *)
 (* text-decoration = '[text-decoration-style]' | '[text-decoration-color]' *)
 (* border-radius = '0' | percentage | (length s length s length s length>) | '<length> / <percentage>' | length *)
-(* animation-timing-function = 'ease' | 'steps(<integer>' *)
 (* text-emphasis = '[text-emphasis-color]' *)
 (* background-image = 'none' | 'url(path/file.png)' | repeating-gradient | radial-gradient | linear-gradient | image-function *)
 (* flex = '[flex-shrink]' | '[flex-basis]' | 'none' *)

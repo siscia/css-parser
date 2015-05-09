@@ -160,6 +160,11 @@
     (is (= (p/parse gp "outline: 1px #000")
            [:debug [:token [:outline "outline" [:outline-width-value [:length [:integer "1"] "px"]] [:outline-color-value [:color-type [:rgb [:hexadecimal "#" "000"]]]]]]]))))
 
+(deftest cursor
+  (testing "cursor"
+    (is (= (p/parse gp "cursor:  url(cursor1.png) 4 12, auto")
+           [:debug [:token [:cursor [:vk] "cursor" [:url "cursor1.png"] [:integer "4"] [:integer "12"] "auto"]]]))))
+
 (deftest animation
   (testing "animation"
     (is (= (p/parse gp "animation: slidein 3s")
