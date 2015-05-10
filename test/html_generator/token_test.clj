@@ -21,7 +21,18 @@
     (is (= (p/parse gp "border-top: dotted red thin")
            [:debug [:token [:border-top "border-top" [:border-top-style-value "dotted"] [:border-top-color-value [:color-type [:color-keyword "red"]]] [:border-top-width-value "thin"]]]]))
     (is (= (p/parse gp "border: transparent #fff medium")
-           [:debug [:token [:border "border" [:border-color-value [:color-type "transparent"]] [:border-color-value [:color-type [:rgb [:hexadecimal "#" "fff"]]]] [:border-width-value "medium"]]]]))))
+           [:debug [:token [:border "border" [:border-color-value [:color-type "transparent"]] [:border-color-value [:color-type [:rgb [:hexadecimal "#" "fff"]]]] [:border-width-value "medium"]]]])))
+  (testing "border-radius"
+    (is (= (p/parse gp "border-radius: 10px 5%")
+           [:debug [:token [:border-radius "border-radius" [:top-left-bottom-right-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:percentage [:integer "5"] "%"]]]]]))
+    (is (= (p/parse gp "border-radius: 1px 0 3px 4px")
+           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "1"] "px"]] [:top-right-radius [:length "0"]] [:bottom-right-radius [:length [:integer "3"] "px"]] [:bottom-left-radius [:length [:integer "4"] "px"]]]]]))
+    (is (= (p/parse gp "border-radius: 10px 5px 2em / 20px 25px 30%")
+           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-bottom-left-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]]]]]))
+    (is (= (p/parse gp "border-radius: 10px 5px 2em / 20px 25px 30%")
+           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] "/" [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-bottom-left-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]]]]]))
+    (is (= (p/parse gp "border-radius: 10px 5px 2em / 20px 25px 30% 23px")
+           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] "/" [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]] [:bottom-left-radius [:length [:integer "23"] "px"]]]]]))))
 
 (deftest flex-test
   (testing "the flox property"

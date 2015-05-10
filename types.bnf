@@ -59,12 +59,12 @@ insect = <'insect'> <'('> (shape-arg |
        	 	    	   shape-arg shape-arg |
 			   shape-arg shape-arg  shape-arg |
 			   shape-arg shape-arg  shape-arg shape-arg)
-			   ('round' border-radius)? <')'>
+			   ('round' br)? <')'>
 polygon = <'polygon'> <'('> (fill-rule separator)?  (shape-arg shape-arg)* <')'>
 circle  = <'circle'> <'('> shape-radius? ('at' s position)? <')'>
 ellipse = <'ellipse'> <'('> (shape-radius | shape-radius shape-radius)? ('at' position)? <')'>
 fill-rule = 'nonzero' | 'evenodd' | 'inherit'
-border-radius = (lp | lp lp | lp lp lp | lp lp lp lp)
+br = (lp | lp lp | lp lp lp | lp lp lp lp)
 	        ('/' ' '+ (lp | lp lp | lp lp lp | lp lp lp lp))?
 <lp> = (length | percentage)
 
