@@ -92,7 +92,14 @@
            [:debug [:token [:transition [:vk] "transition" [:transition-property-value [:identifier [:custom-ident "m" "argin" "-left"]]] [:transition-duration-value [:time [:integer "4"] "s"]] [:transition-property-value [:identifier [:custom-ident "c" "olor" ""]]] [:transition-duration-value [:time [:integer "1"] "s"]]]]]))))
 
 
-(deftest family-name
+(deftest font-test
+  (testing "font"
+    (is (= (p/parse gp "font: bold italic large serif")
+           [:debug [:token [:font "font" [:font-weight-value "bold"] [:font-style-value "italic"] [:font-size-value "large"] [:generic-font-family "serif"]]]]))
+    (is (= (p/parse gp "font: 80% sans-serif")
+           [:debug [:token [:font "font" [:font-size-value [:percentage [:integer "80"] "%"]] [:generic-font-family "sans-serif"]]]]))
+    (is (= (p/parse gp "font: status-bar")
+           [:debug [:token [:font "font" "status-bar"]]])))
   (testing "family-name"
     (is (= (p/parse gp "font-family: Times New, \"Times New Roman\", Georgia, serif")
            [:debug [:token [:font-family "font-family" [:family-font-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""]] [:family-font-name [:string "Times New Roman"]] [:family-font-name [:custom-ident "G" "eorgia" ""]] [:generic-font-family "serif"]]]]))
