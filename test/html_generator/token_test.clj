@@ -3,7 +3,7 @@
             [instaparse.core :as p]))
 
 (def gp
-  (p/parser (str "debug = rule | selector | token\n"
+  (p/parser (str "debug = rule | selector | token | type\n"
                  (slurp "rules.bnf") "\n" (slurp "types.bnf"))))
 
 (deftest gp-ok
@@ -95,11 +95,11 @@
 (deftest family-name
   (testing "family-name"
     (is (= (p/parse gp "font-family: Times New, \"Times New Roman\", Georgia, serif")
-           [:debug [:token [:font-family "font-family" [:family-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""]] [:family-name [:string "Times New Roman"]] [:family-name [:custom-ident "G" "eorgia" ""]] [:generic-family "serif"]]]]))
+           [:debug [:token [:font-family "font-family" [:family-font-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""]] [:family-font-name [:string "Times New Roman"]] [:family-font-name [:custom-ident "G" "eorgia" ""]] [:generic-font-family "serif"]]]]))
     (is (= (p/parse gp "font-family: serif")
-           [:debug [:token [:font-family "font-family" [:generic-family "serif"]]]]))
+           [:debug [:token [:font-family "font-family" [:generic-font-family "serif"]]]]))
     (is (= (p/parse gp "font-family: Times New Roman")
-           [:debug [:token [:font-family "font-family" [:family-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""] [:custom-ident "R" "oman" ""]]]]]))))
+           [:debug [:token [:font-family "font-family" [:family-font-name [:custom-ident "T" "imes" ""] [:custom-ident "N" "ew" ""] [:custom-ident "R" "oman" ""]]]]]))))
 
 (deftest column-test
   (testing "column"
@@ -173,3 +173,12 @@
            [:debug [:token [:animation [:vk] "animation" [:animation-name-value [:identifier [:custom-ident "s" "lidein" ""]]] [:animation-duration-value [:time [:integer "3"] "s"]] [:animation-timing-function-value [:transition-timing-function-value [:timing-function "ease-in"]]] [:animation-delay-value [:time [:integer "1"] "s"]]]]]))
     (is (= (p/parse gp "animation: slidein 3s ease-in 1s 2 reverse both paused")
            [:debug [:token [:animation [:vk] "animation" [:animation-name-value [:identifier [:custom-ident "s" "lidein" ""]]] [:animation-duration-value [:time [:integer "3"] "s"]] [:animation-timing-function-value [:transition-timing-function-value [:timing-function "ease-in"]]] [:animation-delay-value [:time [:integer "1"] "s"]] [:animation-iteration-count-value [:integer "2"]] [:animation-direction-value "reverse"] [:animation-fill-mode-value "both"] [:animation-play-state-value "paused"]]]]))))
+
+(deftest content-test
+  (testing "content"
+    (is (= (p/parse gp "content: open-quote")
+           [:debug [:token [:content "content" "open-quote"]]]))
+    (is (= (p/parse gp "content: \"Chapter \"")
+           [:debug [:token [:content "content" [:string "Chapter "]]]]))
+    (is (= (p/parse gp "content : url(https://www.mozilla.org/favicon.ico) \" MOZILLA: \"")
+           [:debug [:token [:content "content" [:url "https://www.mozilla.org/favicon.ico"] [:string " MOZILLA: "]]]]))))
