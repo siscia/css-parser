@@ -24,22 +24,35 @@
            [:debug [:token [:border "border" [:border-color-value [:color-type "transparent"]] [:border-color-value [:color-type [:rgb [:hexadecimal "#" "fff"]]]] [:border-width-value "medium"]]]])))
   (testing "border-radius"
     (is (= (p/parse gp "border-radius: 10px 5%")
-           [:debug [:token [:border-radius "border-radius" [:top-left-bottom-right-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:percentage [:integer "5"] "%"]]]]]))
+           [:debug [:token [:border-radius [:vk] "border-radius" [:top-left-bottom-right-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:percentage [:integer "5"] "%"]]]]]))
     (is (= (p/parse gp "border-radius: 1px 0 3px 4px")
-           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "1"] "px"]] [:top-right-radius [:length "0"]] [:bottom-right-radius [:length [:integer "3"] "px"]] [:bottom-left-radius [:length [:integer "4"] "px"]]]]]))
+           [:debug [:token [:border-radius [:vk] "border-radius" [:top-left-radius [:length [:integer "1"] "px"]] [:top-right-radius [:length "0"]] [:bottom-right-radius [:length [:integer "3"] "px"]] [:bottom-left-radius [:length [:integer "4"] "px"]]]]]))
     (is (= (p/parse gp "border-radius: 10px 5px 2em / 20px 25px 30%")
-           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-bottom-left-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]]]]]))
+           [:debug [:token [:border-radius [:vk] "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] "/" [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-bottom-left-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]]]]]))
     (is (= (p/parse gp "border-radius: 10px 5px 2em / 20px 25px 30%")
-           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] "/" [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-bottom-left-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]]]]]))
+           [:debug [:token [:border-radius [:vk] "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] "/" [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-bottom-left-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]]]]]))
     (is (= (p/parse gp "border-radius: 10px 5px 2em / 20px 25px 30% 23px")
-           [:debug [:token [:border-radius "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] "/" [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]] [:bottom-left-radius [:length [:integer "23"] "px"]]]]]))))
+           [:debug [:token [:border-radius [:vk] "border-radius" [:top-left-radius [:length [:integer "10"] "px"]] [:top-right-bottom-left-radius [:length [:integer "5"] "px"]] [:bottom-right-radius [:length [:integer "2"] "em"]] "/" [:top-left-radius [:length [:integer "20"] "px"]] [:top-right-radius [:length [:integer "25"] "px"]] [:bottom-right-radius [:percentage [:integer "30"] "%"]] [:bottom-left-radius [:length [:integer "23"] "px"]]]]]))))
 
 (deftest flex-test
   (testing "the flox property"
     (is (= (p/parse gp "flex-flow: column-reverse wrap")
            [:debug [:token [:flex-flow "flex-flow" [:flex-direction-value "column-reverse"] [:flex-wrap-value "wrap"]]]]))
     (is (= (p/parse gp "flex-flow: wrap column-reverse")
-           [:debug [:token [:flex-flow "flex-flow" [:flex-wrap-value "wrap"] [:flex-direction-value "column-reverse"]]]]))))
+           [:debug [:token [:flex-flow "flex-flow" [:flex-wrap-value "wrap"] [:flex-direction-value "column-reverse"]]]])))
+  (testing "flex"
+    (is (= (p/parse gp "flex: none")
+           [:debug [:token [:flex [:vk] "flex" "none"]]]))
+    (is (= (p/parse gp "flex: 30%")
+           [:debug [:token [:flex [:vk] "flex" [:flex-basis-value [:percentage [:integer "30"] "%"]]]]]))
+    (is (= (p/parse gp "flex: 2")
+           [:debug [:token [:flex [:vk] "flex" [:flex-grow-value [:integer "2"]]]]]))
+    (is (= (p/parse gp "flex: 1 30px")
+           [:debug [:token [:flex [:vk] "flex" [:flex-grow-value [:integer "1"]] [:flex-basis-value [:length [:integer "30"] "px"]]]]]))
+    (is (= (p/parse gp "flex: 2 2")
+           [:debug [:token [:flex [:vk] "flex" [:flex-grow-value [:integer "2"]] [:flex-shrink-value [:integer "2"]]]]]))
+    (is (= (p/parse gp "flex: 2 2 10%")
+           [:debug [:token [:flex [:vk] "flex" [:flex-grow-value [:integer "2"]] [:flex-shrink-value [:integer "2"]] [:flex-basis-value [:percentage [:integer "10"] "%"]]]]]))))
 
 (deftest border-images-test
   (testing "border-image-slice"
@@ -211,3 +224,23 @@
            [:debug [:token [:text-decoration "text-decoration" [:text-decoration-line-value "underline"] [:text-decoration-style-value "wavy"] [:text-decoration-color-value [:color-type [:color-keyword "red"]]]]]]))
     (is (= (p/parse gp "text-decoration: inherit")
            [:debug [:token [:text-decoration "text-decoration" "inherit"]]]))))
+
+(deftest background-image
+  (testing "background-image"
+    (is (= (p/parse gp "background-image: url(\"images/starsolid.gif\")")
+           [:debug [:token [:background-image "background-image" [:image [:url "\"images/starsolid.gif\""]]]]]))))
+
+(deftest list-style-test
+  (testing "list-style"
+    (is (= (p/parse gp "list-style: none")
+           [:debug [:token [:list-style "list-style" [:list-style-image-value "none"]]]]))
+    (is (= (p/parse gp "list-style: url('../img/dino.png')")
+           [:debug [:token [:list-style "list-style" [:list-style-image-value [:url "'../img/dino.png'"]]]]]))
+    (is (= (p/parse gp "list-style: inside")
+           [:debug [:token [:list-style "list-style" [:list-style-position-value "inside"]]]]))
+    (is (= (p/parse gp "list-style: georgian inside")
+           [:debug [:token [:list-style "list-style" [:list-style-type-value "georgian"] [:list-style-position-value "inside"]]]]))
+    (is (= (p/parse gp "list-style: lower-roman url('../img/dino.png') outside")
+           [:debug [:token [:list-style "list-style" [:list-style-type-value "lower-roman"] [:list-style-image-value [:url "'../img/dino.png'"]] [:list-style-position-value "outside"]]]]))
+    (is (= (p/parse gp "list-style: square")
+           [:debug [:token [:list-style "list-style" [:list-style-type-value "square"]]]]))))
