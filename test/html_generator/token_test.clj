@@ -189,3 +189,14 @@
            [:debug [:token [:content "content" [:string "Chapter "]]]]))
     (is (= (p/parse gp "content : url(https://www.mozilla.org/favicon.ico) \" MOZILLA: \"")
            [:debug [:token [:content "content" [:url "https://www.mozilla.org/favicon.ico"] [:string " MOZILLA: "]]]]))))
+
+(deftest text-decoration-test
+  (testing "text-decoration"
+    (is (= (p/parse gp "text-decoration: wavy")
+           [:debug [:token [:text-decoration "text-decoration" [:text-decoration-style-value "wavy"]]]]))
+    (is (= (p/parse gp "text-decoration: underline overline blink")
+           [:debug [:token [:text-decoration "text-decoration" [:text-decoration-line-value "underline"] [:text-decoration-line-value "overline"] [:text-decoration-line-value "blink"]]]]))
+    (is (= (p/parse gp "text-decoration: underline wavy red")
+           [:debug [:token [:text-decoration "text-decoration" [:text-decoration-line-value "underline"] [:text-decoration-style-value "wavy"] [:text-decoration-color-value [:color-type [:color-keyword "red"]]]]]]))
+    (is (= (p/parse gp "text-decoration: inherit")
+           [:debug [:token [:text-decoration "text-decoration" "inherit"]]]))))
