@@ -1,4 +1,3 @@
-(* transform = 'none' | 'translateZ(<length>)' | 'translateY(<translation-value>)' | 'translateX(<translation-value>)' | 'translate3d(<translation-value>' *)
 (* text-emphasis = '[text-emphasis-color]' *)
 (* icon = 'auto' | '[ One or more comma separated <url> values ]' *)
 
