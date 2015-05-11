@@ -13,7 +13,7 @@ custom-ident	// fine
 gradient	// fine 
 image	 	// fine 
 integer		// fine
-lenght		// fine
+length		// fine
 mq-boolean	// fine
 number		// fine
 percentage	// fine 
