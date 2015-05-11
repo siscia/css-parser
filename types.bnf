@@ -41,7 +41,7 @@ css-keyword = 'initial' | 'inherit' | 'unset' | 'default'
 
 image = url | gradient | element
 
-element = <'element('> <'#'> #'[0-9a-zA-Z]+' <')'>
+element = 'element(' '#' #'[0-9a-zA-Z]+' ')'
 
 mq-boolean = '-0' | '+0' | '1' | '0'
 
@@ -55,14 +55,14 @@ resolution = number unit
 basic-shape = insect | polygon | circle | ellipse
 shape-arg = length | percentage
 shape-radius = length | percentage | 'closest-side' | 'farthest-side'
-insect = <'insect'> <'('> (shape-arg |
-       	 	    	   shape-arg shape-arg |
-			   shape-arg shape-arg  shape-arg |
-			   shape-arg shape-arg  shape-arg shape-arg)
-			   ('round' br)? <')'>
-polygon = <'polygon'> <'('> (fill-rule separator)?  (shape-arg shape-arg)* <')'>
-circle  = <'circle'> <'('> shape-radius? ('at' s position)? <')'>
-ellipse = <'ellipse'> <'('> (shape-radius | shape-radius shape-radius)? ('at' position)? <')'>
+insect = 'insect(' (shape-arg |
+       	 	    shape-arg shape-arg |
+		    shape-arg shape-arg  shape-arg |
+		    shape-arg shape-arg  shape-arg shape-arg)
+		   ('round' br)? ')'
+polygon = 'polygon(' (fill-rule separator)?  (shape-arg shape-arg)* ')'
+circle  = 'circle(' shape-radius? ('at' s position)? ')'
+ellipse = 'ellipse(' (shape-radius | shape-radius shape-radius)? ('at' position)? ')'
 fill-rule = 'nonzero' | 'evenodd' | 'inherit'
 br = (lp | lp lp | lp lp lp | lp lp lp lp)
 	        ('/' ' '+ (lp | lp lp | lp lp lp | lp lp lp lp))?
