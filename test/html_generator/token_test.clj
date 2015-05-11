@@ -225,7 +225,12 @@
     (is (= (p/parse gp "text-decoration: inherit")
            [:debug [:token [:text-decoration "text-decoration" "inherit"]]]))))
 
-(deftest background-image
+(deftest background-test
+  (testing "background"
+    (is (= (p/parse gp "background: url(\"topbanner.png\") #00D repeat-y fixed")
+           [:debug [:token [:background "background" [:background-image-value [:image [:url "\"topbanner.png\""]]] [:background-color-value [:color-type [:rgb [:hexadecimal "#" "00D"]]]] [:background-repeat-value "repeat-y"] [:background-attachment-value "fixed"]]]]))
+    (is (= (p/parse gp "background: red")
+           [:debug [:token [:background "background" [:background-color-value [:color-type [:color-keyword "red"]]]]]])))
   (testing "background-image"
     (is (= (p/parse gp "background-image: url(\"images/starsolid.gif\")")
            [:debug [:token [:background-image "background-image" [:image [:url "\"images/starsolid.gif\""]]]]]))))
