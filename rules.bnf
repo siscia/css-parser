@@ -16,13 +16,15 @@ rule = selector <(s0|'\n'|'\t')*>
 
 <sep> = <s0 ':' s0>
 
-selector = ((primitive-selector | relationship-selector) sh <','> sh)* (primitive-selector | relationship-selector)
+selector = ((primitive-selector | relationship-selector | matched-selector) sh <','> sh)* (primitive-selector | relationship-selector | matched-selector)
 relationship-selector = nested | descendent | child | sibling
 nested = (primitive-selector)+
 descendent = primitive-selector s+ primitive-selector
 child = primitive-selector s0* <'>'> s0* primitive-selector
 sibling = primitive-selector s0* <'+'> s0* primitive-selector
 primitive-selector = ((<'#'> id) | (<'.'> class) | html-element | any) (<':'> pseudoclass)?
+matched-selector = primitive-selector? '[' #'[a-zA-Z\-\"\']+' (('=' | '~=' | '|=') s0 #'[a-zA-Z\-\"\']+')? ']'
+
 
 any = '*'
 
