@@ -142,7 +142,11 @@ percentage-rgb = percentage separator percentage separator percentage
 hexadecimal = '#' (#'[0-9a-fA-F]{3}' | #'[0-9a-fA-F]{6}')
 
 (* primitive *)
-url = <'url('> #'[0-9a-zA-Z\-\.\"\:\'\/]*' <')'>
+url = <'url('> (#'[0-9a-zA-Z\-\.\"\:\'\/]*' | direct-data) <')'>
+direct-data = 'data' sh ':' sh mine-type? sh (';charset=' sh encoding)? sh ';' sh 'base64'? sh ',' sh data
+mine-type = #'[a-zA-Z\-\/]*'
+encoding = #'[a-zA-Z\-]*'
+data = #'[a-zA-Z]*'
 length = (number ('em' | 'ex' | 'ch' | 'rem' | 'vh' | 'vw' | 'vmin' | 'vmax' | 'px' | 'mm' | 'cm' | 'in' | 'pt' | 'pc')) | '0'
 angle   = number ('deg' | 'grad' | 'rad' | 'turn')
 percentage = number '%'
@@ -154,3 +158,4 @@ integer = ('+'|'-')? #'[0-9]+'
 <separator> = <' '* ',' ' '*>
 <s> = <' '+>
 <s0> = <' '*>
+<sh> = <( <' '> | <'\n'> | <'\t'> | s0 )*>
