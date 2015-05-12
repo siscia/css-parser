@@ -142,8 +142,9 @@ percentage-rgb = percentage separator percentage separator percentage
 hexadecimal = '#' (#'[0-9a-fA-F]{3}' | #'[0-9a-fA-F]{6}')
 
 (* primitive *)
-url = <'url('> (#'[0-9a-zA-Z\-\.\"\:\'\/]*' | direct-data) <')'>
-direct-data = 'data' sh ':' sh mine-type? sh (';charset=' sh encoding)? sh ';' sh 'base64'? sh ',' sh data
+(* url = <'url('> ( #'[0-9a-zA-Z\-\.\"\:\'\/\;\,\n\t]*' ) <')'> *)
+url = <'url('> ( #'[^\)]*' ) <')'>
+direct-data = 'data' sh ':' sh mine-type? sh ';'? sh ('charset=' sh encoding)? sh ';' sh 'base64'? sh ',' sh data
 mine-type = #'[a-zA-Z\-\/]*'
 encoding = #'[a-zA-Z\-]*'
 data = #'[a-zA-Z]*'
@@ -158,4 +159,4 @@ integer = ('+'|'-')? #'[0-9]+'
 <separator> = <' '* ',' ' '*>
 <s> = <' '+>
 <s0> = <' '*>
-<sh> = <( <' '> | <'\n'> | <'\t'> | s0 )*>
+<sh> = <( <' '> | <'\n'> | <'\t'> )*>
