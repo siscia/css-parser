@@ -3,6 +3,21 @@
 
 file = (rule | <' '> | <'\n'> | <'\t'> | s0)+
 
+at-rules = charset | import | namespace | media | page | font-face | keyframe | supports | document
+
+charset = '@charset ' sh string
+import = '@import ' sh #'[^;]'*
+namespace = '@namespace ' #'[a-zA-Z0-9\-]+'? s0 url
+media = '@media ' sh ('all' | 'print' | 'screen' | 'speech') sh '{' rule* '}'
+page = '@page ' sh (':left' | ':right' | ':first') sh '{' rule* '}'
+font-face = '@font-face ' sh '{' rule* '}'
+keyframe = '@keyframe ' sh identifier sh '{'
+	 (('from' | 'to' | percentage) sh '{' sh rule* sh '}' sh)*
+	 '}'
+supports = '@supports ' sh support-condition '{' (rule | at-rules| sh)* '}'
+support-condition = (('and' | 'not' | 'or')? sh '(' sh rule sh ')')+
+document = '@document ' #'[^\{]+' '{' rule* '}'
+
 rule = selector <(s0|'\n'|'\t')*>
        		<'{'>
 		<(s0|'\n'|'\t')*>
