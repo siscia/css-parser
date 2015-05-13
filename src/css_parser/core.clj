@@ -18,9 +18,9 @@
   (loop [s sequence
          counter 0
          buffer (transient [])]
-    (if (= -1 counter) ;; 
+    (if (= -1 counter) ;; :
       (cons (apply str (persistent! buffer))
-            (lazy-seq (split-block-lazy s)))
+            (lazy-seq (split-file-in-rules s)))
       (if (not (seq s)) ;; if the sequence is terminate we return the buffer and nil to indicate the end
         (cons (apply str (persistent! buffer)) nil)
         (let [actual (first s)]
