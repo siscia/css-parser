@@ -1,53 +1,54 @@
 (* text-emphasis = '[text-emphasis-color]' *)
 (* icon = 'auto' | '[ One or more comma separated <url> values ]' *)
 
-file = (rule | <' '> | <'\n'> | <'\t'> | s0)+
+at-rules = sh* (charset | import | namespace | media | page | font-face | keyframes | supports | document)
 
-at-rules = charset | import | namespace | media | page | font-face | keyframes | supports | document
-
-charset = '@charset' s sh string
-import = '@import' s sh (url / #'[^;]*')*
-namespace = '@namespace' s sh #'[a-zA-Z0-9\-]+'? s0 url
-media = '@media' s sh ('all' | 'print' | 'screen' | 'speech' | <','> | <' '>)+ sh <'{'> sh (rule | sh)* sh <'}'>
-page = '@page' sh (':left' | ':right' | ':first') sh
+charset = '@' vk 'charset' s sh string
+import = '@' vk 'import' s sh (url / #'[^;]*')*
+namespace = '@' vk 'namespace' s sh #'[a-zA-Z0-9\-]+'? s0 url
+media = '@' vk 'media' s sh ('all' | 'print' | 'screen' | 'speech' | <','> | <' '>)+ sh <'{'> sh (rule | sh)* sh <'}'>
+page = '@' vk 'page' sh (':left' | ':right' | ':first') sh
        	      <'{'> sh
 		  declarations
 	      sh <'}'>
-font-face = '@font-face' s sh '{' sh
+font-face = '@' vk 'font-face' s sh '{' sh
 		  	declarations
 	                     sh '}'
-keyframes = '@keyframes' s sh identifier sh '{' sh
+keyframes = '@' vk 'keyframes' s sh identifier sh '{' sh
 	 (('from' | 'to' | percentage | <','> | sh)+ sh '{' sh
 	 declarations
 	 sh '}' sh)* '}'
-supports = '@supports' s sh support-condition sh '{' sh (declarations | sh)+ sh '}'
+supports = '@' vk 'supports' s sh support-condition sh '{' sh (declarations | sh)+ sh '}'
 support-condition = ( sh ('and' | 'not' | 'or')? sh '(' sh
 		  #'[^\:]+' ':' #'[^\)]+' sh ')' )+
 
-document = '@document' s sh #'[^\{]+' sh '{' sh rule* sh '}'
+document = '@' vk 'document' s sh #'[^\{]+' sh '{' sh rule* sh '}'
 
-rule = selector <(s0|'\n'|'\t')*> <'{'> sh declarations sh <'}'>
+rule = sh selector sh <'{'> sh declarations sh <'}'>
 
 declarations = ( token s0 '!important'? s0 <';'> sh )*
 	         token s0 '!important'? s0 <';'>?
 	       
 <sep> = <s0 ':' s0>
 
-selector = ((primitive-selector | relationship-selector | matched-selector) sh <','> sh)* (primitive-selector | relationship-selector | matched-selector)
+selector = (((primitive-selector | relationship-selector | matched-selector) sh <','>? sh)* (primitive-selector | relationship-selector | matched-selector)) / unknow-selector
 relationship-selector = nested | descendent | child | sibling
 nested = primitive-selector+ s primitive-selector
 descendent = primitive-selector s+ primitive-selector
 child = primitive-selector s0* <'>'> s0* primitive-selector
 sibling = primitive-selector s0* <'+'> s0* primitive-selector
-primitive-selector = ((<'#'> id) | (<'.'> class) | html-element | any) (<':'> pseudoclass)?
+primitive-selector = ((<'#'> id) | (<'.'> class) | html-element | any | ':' pseudoelement) (<':'> pseudoclass)?
 matched-selector = primitive-selector? '[' #'[a-zA-Z\-\"\']+' (('=' | '~=' | '|=') s0 #'[a-zA-Z\-\"\']+')? ']'
 
+unknow-selector = #'[^\{]+'
 
 any = '*'
 
 html-element = ('html' | 'head' | 'title' | 'base' | 'isindex' | 'link' | 'meta' | 'style' | 'script' | 'noscript' | 'a' | 'abbr' | 'acronym' | 'address' | 'applet' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'basefont' | 'bdi' | 'bdo' | 'bgsound' | 'big' | 'blink' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'center' | 'cite' | 'code' | 'col' | 'colgroup' | 'command' | 'content' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'dir' | 'div' | 'dl' | 'dt' | 'element' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'font' | 'footer' | 'form' | 'frame' | 'frameset' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'image' | 'img' | 'input' | 'ins' | 'isindex' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'listing' | 'main' | 'map' | 'mark' | 'marquee' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'multicol' | 'nav' | 'nobr' | 'noembed' | 'noframes' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'plaintext' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'rtc' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'shadow' | 'small' | 'source' | 'spacer' | 'span' | 'strike' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'tbody' | 'td' | 'template' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'tt' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'xmp' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' ) / #'[a-zA-Z0-9]+'
 
-pseudoclass = ':after' | ':before' | ':first-letter' | ':first-line' | ':selection' | ':backdrop' | 'active' | 'checked' | 'default' | 'disabled' | 'empty' | 'enabled' | 'first' | 'first-child' | 'first-of-type' | 'fullscreen' | 'focus' | 'hover' | 'indeterminate' | 'in-range' | 'invalid' | 'last-child' | 'last-of-type' | 'left' | 'link' | 'only-child' | 'only-of-type' | 'optional' | 'out-of-range' | 'read-only' | 'read-write' | 'required' | 'right' | 'root' | 'scope' | 'target' | 'valid' | 'visited' | 'lang(' #'[a-zA-Z\-]+' ')' | 'dir(' ('rtl' | 'ltr') ')' | 'not(' selector ')' | 'nth-child(' nth-syntax ')' | 'nth-last-child(' nth-syntax ')' | 'nth-last-of-type(' nth-syntax ')' | 'nth-of-type(' nth-syntax ')'
+pseudoclass = 'active' | 'checked' | 'default' | 'disabled' | 'empty' | 'enabled' | 'first' | 'first-child' | 'first-of-type' | 'fullscreen' | 'focus' | 'hover' | 'indeterminate' | 'in-range' | 'invalid' | 'last-child' | 'last-of-type' | 'left' | 'link' | 'only-child' | 'only-of-type' | 'optional' | 'out-of-range' | 'read-only' | 'read-write' | 'required' | 'right' | 'root' | 'scope' | 'target' | 'valid' | 'visited' | 'lang(' #'[a-zA-Z\-]+' ')' | 'dir(' ('rtl' | 'ltr') ')' | 'not(' selector ')' | 'nth-child(' nth-syntax ')' | 'nth-last-child(' nth-syntax ')' | 'nth-last-of-type(' nth-syntax ')' | 'nth-of-type(' nth-syntax ')'
+
+pseudoelement = ':after' | ':before' | ':first-letter' | ':first-line' | ':selection' | ':backdrop' | ':' vk 'placeholder'
 
 nth-syntax = ( (#'[0-9]*' 'n+' #'[0-9]*') | 'even' | 'odd' #'[0-9]*')
 
