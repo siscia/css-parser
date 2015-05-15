@@ -68,3 +68,5 @@
     (is (= (p/parse gp "@keyframes important1 { from { margin-top: 50px; } 50%  { margin-top: 150px !important; } to   { margin-top: 100px; }}")
            [:debug [:at-rules [:keyframes "@keyframes " [:identifier [:custom-ident "i" "mportant" "1"]] "{" "from" "{" [:declarations [:token [:margin-top "margin-top" [:margin-top-value [:length [:integer "50"] "px"]]]]] "}" [:percentage [:integer "50"] "%"] "{" [:declarations [:token [:margin-top "margin-top" [:margin-top-value [:length [:integer "150"] "px"]]]] "!important"] "}" "to" "{" [:declarations [:token [:margin-top "margin-top" [:margin-top-value [:length [:integer "100"] "px"]]]]] "}" "}"]]]))))
 
+
+
