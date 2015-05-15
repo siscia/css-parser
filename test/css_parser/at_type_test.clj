@@ -54,3 +54,17 @@
     (is (= (p/parse gp "@page :first { margin:2in;
                                        background: red;}")
            [:debug [:at-rules [:page "@page " ":first" [:token [:margin "margin" [:margin-all [:length [:integer "2"] "in"]]]] [:token [:background "background" [:background-color-value [:color-type [:color-keyword "red"]]]]]]]]))))
+
+(deftest font-face-test
+  (testing "font-face"
+    (is (= (p/parse gp "@font-face {
+      font-family: \"Bitstream Vera Serif Bold\";
+      src: url(\"https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf\");}")
+           [:debug [:at-rules [:font-face "@font-face " "{" [:token [:font-family "font-family" [:family-font-name [:string "Bitstream Vera Serif Bold"]]]] [:token [:src "src" [:src-value [:url "\"https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf\""]]]] "}"]]]))
+    (is (= (p/parse gp "@font-face {
+        font-family: MyHelvetica;
+        src: local(\"Helvetica Neue Bold\"),
+             local(\"HelveticaNeue-Bold\"),
+             url(MgOpenModernaBold.ttf);
+        font-weight: bold;}")
+           [:debug [:at-rules [:font-face "@font-face " "{" [:token [:font-family "font-family" [:family-font-name [:custom-ident "M" "yHelvetica" ""]]]] [:token [:src "src" [:src-value "local(" [:string "Helvetica Neue Bold"] ")" "local(" [:string "HelveticaNeue-Bold"] ")" [:url "MgOpenModernaBold.ttf"]]]] [:token [:font-weight "font-weight" [:font-weight-value "bold"]]] "}"]]]))))

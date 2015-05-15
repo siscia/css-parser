@@ -14,7 +14,10 @@ page = '@page ' sh (':left' | ':right' | ':first') sh
 		  ( token <';'> sh )*
 		    token <';'?>
 	      sh <'}'>
-font-face = '@font-face ' sh '{' rule* '}'
+font-face = '@font-face ' sh '{' sh
+		  ( token <';'> sh )*
+		    token <';'?>
+	                     sh '}'
 keyframe = '@keyframe ' sh identifier sh '{'
 	 (('from' | 'to' | percentage) sh '{' sh rule* sh '}' sh)* '}'
 supports = '@supports ' sh support-condition '{' (rule | at-rules| sh)* '}'
@@ -55,7 +58,7 @@ nth-syntax = ( (#'[0-9]*' 'n+' #'[0-9]*') | 'even' | 'odd' #'[0-9]*')
 class = #'[a-zA-Z\-\_]+'
 id = #'[a-zA-Z\-\_]+'
 
-token = (float | border-image-repeat | min-width | list-style-position | text-align-last | overflow-wrap | column-fill | border-top-color | line-height | text-orientation | text-emphasis-style | width | background-position | right | border-width | padding-bottom | max-width | background-attachment | top | transition-duration | border-color | counter-increment | background-repeat | column-width | justify-content | border-left-style | column-gap | height | page-break-after | outline-color | overflow-y | outline-width | text-emphasis-color | line-break | transform-origin | backface-visibility | margin-right | text-transform | vertical-align | align-items | word-break | break-inside | font-variant-caps | animation-play-state | writing-mode | flex-shrink | outline-offset | border-collapse | flex-direction | font-kerning | text-align | text-indent | white-space | text-decoration-color | background-origin | border-top-width | column-rule-width | border-right-color | text-justify | word-spacing | quotes | column-count | border-style | visibility | border-right-width | border-bottom-right-radius | align-self | page-break-before | position | column-span | animation-iteration-count | animation-direction | margin-top | border-bottom-left-radius | text-combine-horizontal | border-bottom-color | hanging-punctuation | text-decoration-skip | object-fit | list-style-type | z-index | flex-wrap | direction | text-overflow | border-top-right-radius | min-height | flex-grow | unicode-bidi | word-wrap | align-content | border-bottom-style | margin-bottom | border-left-color | font-weight | image-resolution | break-before | background-clip | border-right-style | list-style-image | background-size | object-position | page-break-inside | border-bottom-width | outline-style | order | font-size-adjust | animation-fill-mode | box-shadow | overflow | overflow-x | margin-left | font-size | empty-cells | text-decoration-line | background-color | clear-after | padding-right | letter-spacing | box-sizing | widows | image-orientation | perspective | border-spacing | display | break-after | font-style | bottom | all | text-decoration-style | perspective-origin | resize | clear | font-synthesis | pointer-events | box-decoration-break | text-underline-position | animation-delay | font-variant | tab-size | orphans | text-shadow | max-height | border-top-left-radius | color | border-left-width | padding-left | padding-top | opacity | text-emphasis-position | animation-duration | table-layout | left | caption-side | hyphens | transform-style | font-stretch | border-top-style | flex-basis | column-rule-style | border-bottom | border-top | border-left | border-right | border | flex-flow | border-image-slice | border-image-source| border-image-outset | border-image-repeat | border-image-width | border-image | transition-property | transition-timing-function | transition-duration | transition-delay | transition | font-family | columns | margin | clip-path | counter-reset | column-rule | column-rule-color | padding | outline | cursor | animation | animation-name | animation-play-state | content | font | text-decoration |  border-radius | background-image | flex | list-style | background | transform ) / unknow
+token = (float | border-image-repeat | min-width | list-style-position | text-align-last | overflow-wrap | column-fill | border-top-color | line-height | text-orientation | text-emphasis-style | width | background-position | right | border-width | padding-bottom | max-width | background-attachment | top | transition-duration | border-color | counter-increment | background-repeat | column-width | justify-content | border-left-style | column-gap | height | page-break-after | outline-color | overflow-y | outline-width | text-emphasis-color | line-break | transform-origin | backface-visibility | margin-right | text-transform | vertical-align | align-items | word-break | break-inside | font-variant-caps | animation-play-state | writing-mode | flex-shrink | outline-offset | border-collapse | flex-direction | font-kerning | text-align | text-indent | white-space | text-decoration-color | background-origin | border-top-width | column-rule-width | border-right-color | text-justify | word-spacing | quotes | column-count | border-style | visibility | border-right-width | border-bottom-right-radius | align-self | page-break-before | position | column-span | animation-iteration-count | animation-direction | margin-top | border-bottom-left-radius | text-combine-horizontal | border-bottom-color | hanging-punctuation | text-decoration-skip | object-fit | list-style-type | z-index | flex-wrap | direction | text-overflow | border-top-right-radius | min-height | flex-grow | unicode-bidi | word-wrap | align-content | border-bottom-style | margin-bottom | border-left-color | font-weight | image-resolution | break-before | background-clip | border-right-style | list-style-image | background-size | object-position | page-break-inside | border-bottom-width | outline-style | order | font-size-adjust | animation-fill-mode | box-shadow | overflow | overflow-x | margin-left | font-size | empty-cells | text-decoration-line | background-color | clear-after | padding-right | letter-spacing | box-sizing | widows | image-orientation | perspective | border-spacing | display | break-after | font-style | bottom | all | text-decoration-style | perspective-origin | resize | clear | font-synthesis | pointer-events | box-decoration-break | text-underline-position | animation-delay | font-variant | tab-size | orphans | text-shadow | max-height | border-top-left-radius | color | border-left-width | padding-left | padding-top | opacity | text-emphasis-position | animation-duration | table-layout | left | caption-side | hyphens | transform-style | font-stretch | border-top-style | flex-basis | column-rule-style | border-bottom | border-top | border-left | border-right | border | flex-flow | border-image-slice | border-image-source| border-image-outset | border-image-repeat | border-image-width | border-image | transition-property | transition-timing-function | transition-duration | transition-delay | transition | font-family | columns | margin | clip-path | counter-reset | column-rule | column-rule-color | padding | outline | cursor | animation | animation-name | animation-play-state | content | font | text-decoration |  border-radius | background-image | flex | list-style | background | transform | src | font-feature-setting | unicode-range) / unknow
 
 (* shorthand *)
 
@@ -244,6 +247,18 @@ transition = vk 'transition' sep ( s0
 vk = ('-o-' | '-webkit-' | '-moz-')?
 
 (* end shorthand *)
+
+unicode-range = 'unicode-range' sep unicode-range-value
+unicode-range-value = (single-codepoint | codepoint-range | wildcard-range | ',' | sh)*
+single-codepoint = 'U+' #'[0-9a-fA-F]+'
+codepoint-range = 'U+' #'[0-9a-fA-F]+' '-' #'[0-9a-fA-F]+'
+wildcard-range = 'U+' #'[0-9a-fA-F]+' '?'+
+
+font-feature-setting = 'font-feature-setting' sep font-feature-setting-value
+font-feature-setting-value = 'normal' | identifier
+
+src = 'src' sep src-value
+src-value = (url | 'local(' string ')' | <','> | sh)*
 
 (*
 font-smoothing = vk 'font-smoothing' sep font-smoothing-value
