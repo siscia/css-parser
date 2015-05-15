@@ -5,29 +5,31 @@ file = (rule | <' '> | <'\n'> | <'\t'> | s0)+
 
 at-rules = charset | import | namespace | media | page | font-face | keyframes | supports | document
 
-charset = '@charset ' sh string
-import = '@import ' sh (url / #'[^;]*')*
-namespace = '@namespace ' #'[a-zA-Z0-9\-]+'? s0 url
-media = '@media ' sh ('all' | 'print' | 'screen' | 'speech' | <','> | <' '>)+ sh <'{'> sh (rule | sh)* sh <'}'>
-page = '@page ' sh (':left' | ':right' | ':first') sh
+charset = '@charset' s sh string
+import = '@import' s sh (url / #'[^;]*')*
+namespace = '@namespace' s sh #'[a-zA-Z0-9\-]+'? s0 url
+media = '@media' s sh ('all' | 'print' | 'screen' | 'speech' | <','> | <' '>)+ sh <'{'> sh (rule | sh)* sh <'}'>
+page = '@page' sh (':left' | ':right' | ':first') sh
        	      <'{'> sh
 		  declarations
 	      sh <'}'>
-font-face = '@font-face ' sh '{' sh
+font-face = '@font-face' s sh '{' sh
 		  	declarations
 	                     sh '}'
-keyframes = '@keyframes ' sh identifier sh '{' sh
+keyframes = '@keyframes' s sh identifier sh '{' sh
 	 (('from' | 'to' | percentage | <','> | sh)+ sh '{' sh
 	 declarations
 	 sh '}' sh)* '}'
-supports = '@supports ' sh support-condition '{' (rule | at-rules| sh)* '}'
-support-condition = (('and' | 'not' | 'or')? sh '(' sh rule sh ')')+
-document = '@document ' #'[^\{]+' '{' rule* '}'
+supports = '@supports' s sh support-condition sh '{' sh (declarations | sh)+ sh '}'
+support-condition = ( sh ('and' | 'not' | 'or')? sh '(' sh
+		  #'[^\:]+' ':' #'[^\)]+' sh ')' )+
+
+document = '@document' s sh #'[^\{]+' sh '{' sh rule* sh '}'
 
 rule = selector <(s0|'\n'|'\t')*> <'{'> sh declarations sh <'}'>
 
 declarations = ( token s0 '!important'? s0 <';'> sh )*
-	       ( token s0 '!important'? s0 <';'>? sh )*
+	         token s0 '!important'? s0 <';'>?
 	       
 <sep> = <s0 ':' s0>
 
