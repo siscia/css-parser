@@ -3,7 +3,7 @@
 
 file = (rule | <' '> | <'\n'> | <'\t'> | s0)+
 
-at-rules = charset | import | namespace | media | page | font-face | keyframe | supports | document
+at-rules = charset | import | namespace | media | page | font-face | keyframes | supports | document
 
 charset = '@charset ' sh string
 import = '@import ' sh (url / #'[^;]*')*
@@ -11,35 +11,29 @@ namespace = '@namespace ' #'[a-zA-Z0-9\-]+'? s0 url
 media = '@media ' sh ('all' | 'print' | 'screen' | 'speech' | <','> | <' '>)+ sh <'{'> sh (rule | sh)* sh <'}'>
 page = '@page ' sh (':left' | ':right' | ':first') sh
        	      <'{'> sh
-		  ( token <';'> sh )*
-		    token <';'?>
+		  declarations
 	      sh <'}'>
 font-face = '@font-face ' sh '{' sh
-		  ( token <';'> sh )*
-		    token <';'?>
+		  	declarations
 	                     sh '}'
-keyframe = '@keyframe ' sh identifier sh '{'
-	 (('from' | 'to' | percentage) sh '{' sh rule* sh '}' sh)* '}'
+keyframes = '@keyframes ' sh identifier sh '{' sh
+	 (('from' | 'to' | percentage | <','> | sh)+ sh '{' sh
+	 declarations
+	 sh '}' sh)* '}'
 supports = '@supports ' sh support-condition '{' (rule | at-rules| sh)* '}'
 support-condition = (('and' | 'not' | 'or')? sh '(' sh rule sh ')')+
 document = '@document ' #'[^\{]+' '{' rule* '}'
 
-rule = selector <(s0|'\n'|'\t')*>
-       		<'{'>
-		<(s0|'\n'|'\t')*>
+rule = selector <(s0|'\n'|'\t')*> <'{'> sh declarations sh <'}'>
 
-		( token <';'> <(s0|'\n'|'\t')*> )*
-
-		token <';'?>
-
-		<(s0|'\n'|'\t')*>
-		<'}'>
-
+declarations = ( token s0 '!important'? s0 <';'> sh )*
+	       ( token s0 '!important'? s0 <';'>? sh )*
+	       
 <sep> = <s0 ':' s0>
 
 selector = ((primitive-selector | relationship-selector | matched-selector) sh <','> sh)* (primitive-selector | relationship-selector | matched-selector)
 relationship-selector = nested | descendent | child | sibling
-nested = (primitive-selector)+
+nested = primitive-selector+ s primitive-selector
 descendent = primitive-selector s+ primitive-selector
 child = primitive-selector s0* <'>'> s0* primitive-selector
 sibling = primitive-selector s0* <'+'> s0* primitive-selector
@@ -319,7 +313,7 @@ max-width-value = 'none' | percentage | length
 background-attachment   = 'background-attachment' s0 <':'> s0 background-attachment-value
 background-attachment-value = 'scroll' | 'local' | 'fixed'
 
-top   = 'top' s0 <':'> s0 top-value 
+top   = 'top' sep top-value 
 top-value = 'auto' | percentage | length
 
 border-color   = 'border-color' s0 <':'> s0 border-color-value 

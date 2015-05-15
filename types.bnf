@@ -117,7 +117,7 @@ color-stop = color-type (s0 (percentage | length))?
 
 (* position *)
 position = ( pos-one-value | pos-two-value ) / pos-two-with-offset
-pos-one-value = ( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length | <' '+> ) s0
+pos-one-value = (( 'left' | 'center' | 'right' | 'top' | 'bottom' | percentage | length ) <' '+> ) s0
 pos-two-value = ( 'left' | 'center' | 'right' | percentage | length ) <' '+> ( 'top' | 'center' | 'bottom' | percentage | length ) s0
 pos-two-with-offset = pos-with-offset <' '+> pos-with-offset	    
 pos-with-offset = ( ('center' | ( ('left' | 'top') | ('right' | 'bottom') ) ) s0 ( percentage | length )? )
