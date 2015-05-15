@@ -8,12 +8,15 @@ at-rules = charset | import | namespace | media | page | font-face | keyframe | 
 charset = '@charset ' sh string
 import = '@import ' sh (url / #'[^;]*')*
 namespace = '@namespace ' #'[a-zA-Z0-9\-]+'? s0 url
-media = '@media ' sh ('all' | 'print' | 'screen' | 'speech') sh '{' rule* '}'
-page = '@page ' sh (':left' | ':right' | ':first') sh '{' rule* '}'
+media = '@media ' sh ('all' | 'print' | 'screen' | 'speech' | <','> | <' '>)+ sh <'{'> sh (rule | sh)* sh <'}'>
+page = '@page ' sh (':left' | ':right' | ':first') sh
+       	      <'{'> sh
+		  ( token <';'> sh )*
+		    token <';'?>
+	      sh <'}'>
 font-face = '@font-face ' sh '{' rule* '}'
 keyframe = '@keyframe ' sh identifier sh '{'
-	 (('from' | 'to' | percentage) sh '{' sh rule* sh '}' sh)*
-	 '}'
+	 (('from' | 'to' | percentage) sh '{' sh rule* sh '}' sh)* '}'
 supports = '@supports ' sh support-condition '{' (rule | at-rules| sh)* '}'
 support-condition = (('and' | 'not' | 'or')? sh '(' sh rule sh ')')+
 document = '@document ' #'[^\{]+' '{' rule* '}'

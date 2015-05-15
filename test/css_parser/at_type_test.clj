@@ -27,3 +27,30 @@
            [:debug [:at-rules [:import "@import " [:url "\"chrome://communicator/skin/\""]]]]))
     (is (= (p/parse gp "@import url('landscape.css') screen and (orientation:landscape)")
            [:debug [:at-rules [:import "@import " [:url "'landscape.css'"] " screen and (orientation:landscape)"]]]))))
+
+(deftest namespace-test
+  (testing "namespace"
+    (is (= (p/parse gp "@namespace prefix url(XML-namespace-URL)")
+           [:debug [:at-rules [:namespace "@namespace " "prefix" [:url "XML-namespace-URL"]]]]))
+    (is (= (p/parse gp "@namespace svg url(XML-namespace-URL)")
+           [:debug [:at-rules [:namespace "@namespace " "svg" [:url "XML-namespace-URL"]]]]))
+    (is (= (p/parse gp "@namespace svg url(\"aaaa\")")
+           [:debug [:at-rules [:namespace "@namespace " "svg" [:url "\"aaaa\""]]]]))))
+
+(deftest media-test
+  (testing "media key"
+    (is (= (p/parse gp "@media screen { body { font-size: 13px }}")
+[:debug [:at-rules [:media "@media " "screen" [:rule [:selector [:relationship-selector [:nested [:primitive-selector [:html-element "body"]]]]] [:token [:font-size "font-size" [:font-size-value [:length [:integer "13"] "px"]]]]]]]]))
+    (is (= (p/parse gp "@media screen,print {
+                               body { font-size: 13px;
+                                      color: red }
+                               body { line-height: 1.2 }}")
+           [:debug [:at-rules [:media "@media " "screen" "print" [:rule [:selector [:relationship-selector [:nested [:primitive-selector [:html-element "body"]]]]] [:token [:font-size "font-size" [:font-size-value [:length [:integer "13"] "px"]]]] [:token [:color "color" [:color-value [:color-type [:color-keyword "red"]]]]]] [:rule [:selector [:relationship-selector [:nested [:primitive-selector [:html-element "body"]]]]] [:token [:line-height "line-height" [:line-height-value [:float "1" "." "2"]]]]]]]]))))
+
+(deftest page-test
+  (testing "at page"
+    (is (= (p/parse gp "@page :first { margin:2in; }")
+           [:debug [:at-rules [:page "@page " ":first" [:token [:margin "margin" [:margin-all [:length [:integer "2"] "in"]]]]]]]))
+    (is (= (p/parse gp "@page :first { margin:2in;
+                                       background: red;}")
+           [:debug [:at-rules [:page "@page " ":first" [:token [:margin "margin" [:margin-all [:length [:integer "2"] "in"]]]] [:token [:background "background" [:background-color-value [:color-type [:color-keyword "red"]]]]]]]]))))
