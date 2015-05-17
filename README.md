@@ -31,12 +31,14 @@ In order to make everything as clean as possible, I believe that the best way is
 ## Usage
 
 The API of the library expose two major use:
+
 1. Parse a whole css file all at one
+
 2. Parse one css rule at the time
 
 Depending on the dimension of the file the parsing of the whole css will be slow, the bigger the file the slower the parsing.
 
-I don't know the time complexity of instaparse, but an educate guess could eliminate a linear time complexity.
+I don't know the time complexity of instaparse, but an educate guess would probably eliminate a linear time complexity.
 
 On the other side, parse one css rule at the time will produce a `lazy-seq` and will parse way smaller chuck of text at the time.
 
@@ -95,6 +97,14 @@ The output is something similar to this one:
 ```
 
 I invite you to check the test to see more messy and complex rules.
+
+#### Comment and whitespace
+
+In `css-parse.core` there are also two function that eliminate comments (`eliminate-comment`) and blank characters (`eliminate-blank`) from a string.
+
+The parser does not recognize comments, so you need to eliminate it.
+
+The reason to eliminate the blank character is to speed up the parsing process, the speed up is substantial if a lot of spaces instead of tabs are used in the css.
 
 ## Maturity
 
