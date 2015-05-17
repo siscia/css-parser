@@ -77,7 +77,7 @@ If your file is bigger, even if your file is pretty small probably this is the b
 ```
 It is very important to consider the scope of `with-open`.
 
-If you return a lazy-seq from the expresion above (using `map` instead of `mapv` for example) is quite likely that the whole sequence is not yet be evaluated, but the file is already been closed, this will result in an exception.
+If you return a lazy-seq from the expression above (using `map` instead of `mapv` for example) is quite likely that the whole sequence is not yet be evaluated, but the file is already been closed, this will result in an exception.
 
 If you still want to use a lazy-seq you need to use it inside the scope of `with-open`, or to manually open and close the file.
 
@@ -99,7 +99,7 @@ The output is something similar to this one:
 
 I invite you to check the test to see more messy and complex rules.
 
-#### Comment and whitespace
+#### Comment and white spaces
 
 In `css-parse.core` there are also two function that eliminate comments (`eliminate-comment`) and blank characters (`eliminate-blank`) from a string.
 
@@ -111,7 +111,7 @@ The reason to eliminate the blank character is to speed up the parsing process, 
 
 The library does parse css files, however the resulting tree is very ugly and not always coherent.
 
-The output tree does reflect the grammar internal mechanism, so it is all but pretty, however I find it quite manageble.
+The output tree does reflect the grammar internal mechanism, so it is all but pretty, however I find it quite manageable.
 
 I tried to include as many rules as possible, however I may have miss something, if you find anything that is not parsed please open a issue or submit a pull request.
 
@@ -121,7 +121,7 @@ The obvious next step is to make the resulting tree more human.
 
 However the necessity to make a human usable tree should be balanced with the future plans to generate css files from the tree itself, a compiler to css.
 
-Actually it could be possible to generate two different trees, one for the computer, one for the humans, not really sure if it is a better idea than to keep a balaced tree.
+Actually it could be possible to generate two different trees, one for the computer, one for the humans, not really sure if it is a better idea than to keep a balanced tree.
 
 ## License
 
