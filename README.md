@@ -8,6 +8,7 @@ The grammar is been developed using instaparse.
 
 ## Install
 
+[![Clojars Project](http://clojars.org/css-parser/latest-version.svg)](http://clojars.org/css-parser)
 
 ### A little caution about dependencies
 
