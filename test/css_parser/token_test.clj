@@ -3,7 +3,7 @@
             [instaparse.core :as p]))
 
 (def gp
-  (p/parser (str "debug = rule | selector | token | type\n"
+  (p/parser (str "debug = token \n"
                  (slurp "rules.bnf") "\n" (slurp "types.bnf"))))
 
 (deftest gp-ok
