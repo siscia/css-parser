@@ -100,7 +100,7 @@ The output is something similar to this:
 
 I invite you to check out the tests to see messier and more complex rules.
 
-#### Comment and white spaces
+#### Comments and white space
 
 In `css-parse.core` there are also two functions that eliminate comments (`eliminate-comment`) and blank characters (`eliminate-blank`) from a string.
 
