@@ -1,4 +1,4 @@
-(defproject css-parser "0.0.3"
+(defproject css-parser "0.0.4"
   :description "A parser for CSS"
   :url "https://github.com/siscia/css-parser"
   :license {:name "Eclipse Public License"
