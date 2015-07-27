@@ -3,9 +3,9 @@
 
 (defn css-parser-full-file []
   (p/parser (str "file = (rule | sh+ | at-rules)+ \n"
-                 (slurp "resources/rules.bnf")
+                 (slurp (clojure.java.io/resource "rules.bnf"))
                  "\n"
-                 (slurp "resources/types.bnf"))))
+                 (slurp (clojure.java.io/resource "types.bnf")))))
 
 (defn css-parser-single-rule []
   (p/parser (str "single-rule = sh? (rule | at-rules) \n"

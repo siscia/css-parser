@@ -4,7 +4,9 @@
 
 (def gp
   (p/parser (str "debug = at-rules\n"
-                 (slurp "resources/rules.bnf") "\n" (slurp "resources/types.bnf"))))
+                 (slurp (clojure.java.io/resource "rules.bnf"))
+                 "\n"
+                 (slurp (clojure.java.io/resource "types.bnf")))))
 
 (deftest gp-ok
   (testing "The grammar parser is been initialized."
