@@ -3,15 +3,15 @@
 
 (defn css-parser-full-file []
   (p/parser (str "file = (rule | sh+ | at-rules)+ \n"
-                 (slurp "rules.bnf")
+                 (slurp "resources/rules.bnf")
                  "\n"
-                 (slurp "types.bnf"))))
+                 (slurp "resources/types.bnf"))))
 
 (defn css-parser-single-rule []
   (p/parser (str "single-rule = sh? (rule | at-rules) \n"
-                 (slurp "rules.bnf")
+                 (slurp "resources/rules.bnf")
                  "\n"
-                 (slurp "types.bnf"))))
+                 (slurp "resources/types.bnf"))))
 
 (defn eliminate-comment [string]
   (let [re (re-pattern #"\*\/(?s)(.*)\*/")]

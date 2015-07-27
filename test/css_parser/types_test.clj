@@ -2,7 +2,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [instaparse.core :as p]))
 
-(def gp (p/parser (slurp "types.bnf")))
+(def gp (p/parser (slurp "resources/types.bnf")))
 
 (deftest gp-ok
   (testing "The grammar parser is been initialized."

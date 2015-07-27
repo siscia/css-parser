@@ -4,7 +4,7 @@
 
 (def gp
   (p/parser (str "debug = token \n"
-                 (slurp "rules.bnf") "\n" (slurp "types.bnf"))))
+                 (slurp "resources/rules.bnf") "\n" (slurp "resources/types.bnf"))))
 
 (deftest gp-ok
   (testing "The grammar parser is been initialized."
