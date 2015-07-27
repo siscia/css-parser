@@ -1,4 +1,4 @@
-(defproject css-parser "0.0.2"
+(defproject css-parser "0.0.3"
   :description "A parser for CSS"
   :url "https://github.com/siscia/css-parser"
   :license {:name "Eclipse Public License"
@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [instaparse "1.3.6"]]
 
-  :resource-paths ["/resources"])
+  :resource-paths ["resources/"])
+   
